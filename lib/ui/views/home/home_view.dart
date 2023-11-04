@@ -14,8 +14,6 @@ class HomeView extends StackedView<HomeViewModel> {
 
   @override
   Future<void> onViewModelReady(HomeViewModel viewModel) async {
-    print("onViewModelReady");
-
     await viewModel.init();
     super.onViewModelReady(viewModel);
   }
@@ -25,12 +23,6 @@ class HomeView extends StackedView<HomeViewModel> {
 
   @override
   bool get fireOnViewModelReadyOnce => true;
-
-  @override
-  void onDispose(HomeViewModel viewModel) {
-    print("DISPOSED");
-    super.onDispose(viewModel);
-  }
 
   @override
   Widget builder(

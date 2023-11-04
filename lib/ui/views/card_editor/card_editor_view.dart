@@ -67,7 +67,6 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                               Expanded(
                                 child: ReactiveDigitalCardFormConsumer(
                                     builder: (context, f, c) {
-                                  print("XXXX");
                                   return CardViewerSplitView(
                                     key: UniqueKey(),
                                     card: f.model,
