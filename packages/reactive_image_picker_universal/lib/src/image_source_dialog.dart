@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'sliver_grid_delegate.dart';
+
+class ImageSourceDialog extends StatefulWidget {
+  const ImageSourceDialog({super.key});
+
+  @override
+  State<ImageSourceDialog> createState() => _ImageSourceDialogState();
+}
+
+class _ImageSourceDialogState extends State<ImageSourceDialog> {
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> buttons = [
+      ElevatedButton(
+          style: ButtonStyle(
+              foregroundColor: const MaterialStatePropertyAll(Colors.white),
+              backgroundColor:
+                  MaterialStatePropertyAll(Theme.of(context).primaryColor)),
+          onPressed: () async {
+            Navigator.of(context).pop(ImageSource.gallery);
+          },
+          child: const Text("Upload Image")),
+      ElevatedButton(
+          style: ButtonStyle(
+              foregroundColor: const MaterialStatePropertyAll(Colors.white),
+              backgroundColor:
+                  MaterialStatePropertyAll(Theme.of(context).primaryColor)),
+          onPressed: () async {
+            Navigator.of(context).pop(ImageSource.camera);
+          },
+          child: const Text("Take an Image")),
+      OutlinedButton(
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
+          child: const Text("Remove Image"))
+    ];
+
+    return CustomScrollView(
+      shrinkWrap: true,
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(12.0),
+          sliver: SliverGrid.builder(
+              itemCount: buttons.length,
+              gridDelegate:
+                  const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                height: 50,
+                crossAxisCount: 1,
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+              ),
+              itemBuilder: (context, index) => buttons[index]),
+        ),
+      ],
+    );
+  }
+}

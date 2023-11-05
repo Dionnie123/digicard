@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:collection/collection.dart';
-import 'package:digicard/app/extensions/core/string_extension.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/custom_link.dart';
 import 'package:digicard/app/models/digital_card.dart';
@@ -62,7 +61,7 @@ class NativeContactsService with ListenableServiceMixin {
 
       return Contact(
           photo: bytes,
-          displayName: "${card.firstName} ${card.lastName}".clean(),
+          displayName: "${card.firstName} ${card.lastName}",
           name: Name(
             first: card.firstName,
             last: card.lastName,

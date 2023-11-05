@@ -41,7 +41,7 @@ Future<void> main() async {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
-    const ScreenBreakpoints(desktop: 1024, tablet: 550, watch: 200),
+    const ScreenBreakpoints(desktop: 1280, tablet: 768, watch: 200),
   );
   runApp(Intro(
 
