@@ -31,6 +31,8 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
 
   @override
   Widget build(BuildContext context) {
+    const imageSize = 80.0;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -42,15 +44,18 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
                   context: context,
                   isScrollControlled: true,
                   builder: (BuildContext context) {
-                    return const ImageSourceDialog();
+                    return ImageSourceDialog(
+                      showRemoveImage: img != null,
+                    );
                   });
-              if (type != false) {
-                pickedImage =
-                    await picker.pickImage(source: ImageSource.gallery);
-                img = await pickedImage?.readAsBytes();
-                widget.onChanged(img);
-                setState(() {});
-              } else {
+              if (type == ImageSource.gallery || type == ImageSource.camera) {
+                pickedImage = await picker.pickImage(source: type);
+                if (pickedImage != null) {
+                  img = await pickedImage?.readAsBytes();
+                  widget.onChanged(img);
+                  setState(() {});
+                }
+              } else if (type == false) {
                 pickedImage = null;
                 img = null;
                 widget.onChanged(img);
@@ -64,8 +69,8 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
                 children: [
                   Container(
                     color: Colors.grey,
-                    width: 100,
-                    height: 100,
+                    width: imageSize,
+                    height: imageSize,
                     child: const Center(
                       child: Icon(Icons.upload_rounded),
                     ),
@@ -75,8 +80,8 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
                       color: Colors.grey,
                       child: Image.memory(
                         img ?? Uint8List(0),
-                        width: 100,
-                        height: 100,
+                        width: imageSize,
+                        height: imageSize,
                         fit: BoxFit.cover,
                       ),
                     ),

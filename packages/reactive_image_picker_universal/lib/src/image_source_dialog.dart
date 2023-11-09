@@ -3,7 +3,14 @@ import 'package:image_picker/image_picker.dart';
 import 'sliver_grid_delegate.dart';
 
 class ImageSourceDialog extends StatefulWidget {
-  const ImageSourceDialog({super.key});
+  final bool showUploadImage;
+  final bool showTakeImage;
+  final bool showRemoveImage;
+  const ImageSourceDialog(
+      {super.key,
+      this.showUploadImage = true,
+      this.showTakeImage = true,
+      this.showRemoveImage = true});
 
   @override
   State<ImageSourceDialog> createState() => _ImageSourceDialogState();
@@ -31,11 +38,12 @@ class _ImageSourceDialogState extends State<ImageSourceDialog> {
             Navigator.of(context).pop(ImageSource.camera);
           },
           child: const Text("Take an Image")),
-      OutlinedButton(
-          onPressed: () {
-            Navigator.of(context).pop(false);
-          },
-          child: const Text("Remove Image"))
+      if (widget.showRemoveImage)
+        OutlinedButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Text("Remove Image"))
     ];
 
     return CustomScrollView(
