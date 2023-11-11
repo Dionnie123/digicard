@@ -90,6 +90,7 @@ class HomeViewModel extends ReactiveViewModel {
     await runBusyFuture(
       Future.wait([
         _digitalCardService.getAll(),
+        Future.delayed(const Duration(seconds: 1))
         // _contactsService.getAll(),
       ]),
       throwException: true,

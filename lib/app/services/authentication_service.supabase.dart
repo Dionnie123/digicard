@@ -130,6 +130,7 @@ class SupabaseAuthService with Initialisable implements AuthService {
   Future signOut() async {
     try {
       await _supabase.auth.signOut();
+      _navService.clearStackAndShow(const AuthViewRoute());
     } catch (e) {
       return await Future.error(e.toString());
     }

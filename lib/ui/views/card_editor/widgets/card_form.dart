@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/flutter_ez_core.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:reactive_image_picker_universal/reactive_image_picker_universal.dart';
+import 'package:reactive_links_picker/reactive_links_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'form_components/card.custom_links.fields.dart';
 import 'form_components/card.custom_links.options.dart';
@@ -394,10 +395,13 @@ class _CardTabFormState extends State<CardTabForm>
                 vPadding: 15,
               ),
               builder: (context, size) {
-                return const Column(
+                return Column(
                   children: [
-                    CustomLinkFields(),
-                    CustomLinkOptions(),
+                    ReactiveLinksPicker(
+                      formControlName: 'customLinks',
+                    ),
+                    /*  CustomLinkFields(),
+                    CustomLinkOptions(), */
                   ],
                 );
               },

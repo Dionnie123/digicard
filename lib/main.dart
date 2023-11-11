@@ -73,7 +73,7 @@ class MainApp extends StatelessWidget {
         child: ThemeBuilder(
             defaultThemeMode: ThemeMode.dark,
             darkTheme: ThemeData(
-              fontFamily: GoogleFonts.lato().fontFamily,
+              fontFamily: GoogleFonts.varelaRound().fontFamily,
               useMaterial3: true,
               brightness: Brightness.dark,
               drawerTheme: const DrawerThemeData(
@@ -92,7 +92,7 @@ class MainApp extends StatelessWidget {
               ),
             ),
             lightTheme: ThemeData(
-              useMaterial3: true,
+              //   useMaterial3: true,
               brightness: Brightness.light,
               colorScheme: ColorScheme.fromSeed(
                 seedColor: kcPrimaryColor,
