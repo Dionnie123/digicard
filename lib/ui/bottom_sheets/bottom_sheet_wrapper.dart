@@ -1,7 +1,7 @@
-import 'package:digicard/app/extensions/core/color_extension.dart';
 import 'package:digicard/ui/common/app_colors.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/extensions/color_extension.dart';
+import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 
 class BottomSheetWrapper extends StatelessWidget {
   /// Widgets will be put inside Column []

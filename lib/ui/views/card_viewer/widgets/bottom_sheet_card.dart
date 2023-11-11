@@ -1,9 +1,11 @@
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
+
 import 'package:digicard/ui/views/card_viewer/card_viewer_viewmodel.dart';
-import 'package:digicard/ui/widgets/ez_button.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/helpers/ui_helpers.dart';
+import 'package:flutter_ez_core/widgets/ez_button.dart';
 import 'package:stacked/stacked.dart';
 import 'ad_panel.dart';
 import 'own_button.dart';

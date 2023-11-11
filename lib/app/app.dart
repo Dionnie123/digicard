@@ -13,7 +13,6 @@ import 'package:digicard/ui/views/card_viewer/card_viewer_view.dart';
 import 'package:digicard/ui/bottom_sheets/card_manager/card_manager_sheet.dart';
 import 'package:digicard/ui/bottom_sheets/card_share/card_share_sheet.dart';
 import 'package:digicard/ui/bottom_sheets/delete/delete_sheet.dart';
-import 'package:digicard/ui/bottom_sheets/image_picker/image_picker_sheet.dart';
 import 'package:digicard/ui/dialogs/confirm/confirm_dialog.dart';
 import 'package:digicard/ui/dialogs/error/error_dialog.dart';
 import 'package:digicard/ui/dialogs/info/info_dialog.dart';
@@ -86,7 +85,6 @@ import 'package:digicard/ui/views/dashboard/dashboard_view.dart';
     StackedBottomsheet(classType: CardManagerSheet),
     StackedBottomsheet(classType: CardShareSheet),
     StackedBottomsheet(classType: DeleteSheet),
-    StackedBottomsheet(classType: ImagePickerSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [

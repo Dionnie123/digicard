@@ -13,6 +13,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   image_cropper: ^5.0.0
   reactive_image_picker: ^5.0.0
+  cached_network_image: ^3.2.0
   http: ^1.1.0
 
 

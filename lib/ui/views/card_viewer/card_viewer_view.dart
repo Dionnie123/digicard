@@ -1,13 +1,12 @@
-import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/models/digital_card.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
-import 'package:digicard/ui/widgets/ez_empty_display.dart';
-import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
-import 'package:digicard/ui/widgets/scaffold_body_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/helpers/ui_helpers.dart';
+import 'package:flutter_ez_core/widgets/ez_empty_display.dart';
+import 'package:flutter_ez_core/widgets/scaffold_body_wrapper.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
-
+import 'package:digicard/app/constants/stacked_keys.dart';
+import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'card_viewer_viewmodel.dart';
 import 'layouts/body0.dart';
 import 'layouts/body1.dart';

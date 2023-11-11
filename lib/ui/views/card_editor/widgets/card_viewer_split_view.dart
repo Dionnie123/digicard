@@ -1,6 +1,6 @@
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/models/digital_card.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
+
 import 'package:digicard/ui/views/card_viewer/card_viewer_viewmodel.dart';
 import 'package:digicard/ui/views/card_viewer/layouts/body0.dart';
 import 'package:digicard/ui/views/card_viewer/layouts/body1.dart';
@@ -9,9 +9,10 @@ import 'package:digicard/ui/views/card_viewer/layouts/heading1.dart';
 import 'package:digicard/ui/views/card_viewer/widgets/app_bar_display.dart';
 import 'package:digicard/ui/views/card_viewer/widgets/bottom_sheet_card.dart';
 import 'package:digicard/ui/views/card_viewer/widgets/card_holder.dart';
-import 'package:digicard/ui/widgets/ez_empty_display.dart';
-import 'package:digicard/ui/widgets/scaffold_body_wrapper.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/helpers/ui_helpers.dart';
+import 'package:flutter_ez_core/widgets/scaffold_body_wrapper.dart';
 import 'package:stacked/stacked.dart';
 
 class CardViewerSplitView extends StackedView<CardViewerViewModel> {

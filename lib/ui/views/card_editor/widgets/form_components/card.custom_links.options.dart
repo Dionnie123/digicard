@@ -1,12 +1,10 @@
-import 'package:digicard/app/extensions/core/color_extension.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/flutter_ez_core.dart';
+import 'package:stacked/stacked.dart';
 import 'package:digicard/app/models/custom_link.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/ui/common/app_colors.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
 import 'package:digicard/ui/views/card_editor/card_editor_viewmodel.dart';
-import 'package:digicard/ui/widgets/sliver_grid_delegate.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 
 class CustomLinkOptions extends StatelessWidget {
   const CustomLinkOptions({super.key});
@@ -35,7 +33,7 @@ class CustomLinkOptions extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         addAutomaticKeepAlives: false,
         addRepaintBoundaries: false,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+        gridDelegate: ListItemHeightDelegate(
             crossAxisCount: isMobile(context) ? 3 : 3,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
@@ -78,7 +76,7 @@ class CustomLinkButton extends StatelessWidget {
               vSpaceSmall,
               Center(
                 child: Text(
-                  "${customLink.label}",
+                  customLink.label,
                   style: const TextStyle(color: Colors.white),
                 ),
               )

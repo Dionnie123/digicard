@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:digicard/app/env/env.dart';
-import 'package:digicard/app/helpers/core/lifecycle_manager.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +9,7 @@ import 'package:digicard/app/app.dialogs.dart';
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/app.router.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ez_core/flutter_ez_core.dart';
 import 'package:flutter_intro/flutter_intro.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';

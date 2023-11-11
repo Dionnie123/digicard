@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:digicard/app/extensions/core/color_extension.dart';
-import 'package:digicard/app/extensions/core/string_extension.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/ui/views/card_viewer/card_viewer_viewmodel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/extensions/color_extension.dart';
+import 'package:flutter_ez_core/extensions/string_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -71,7 +71,7 @@ class Heading0 extends StatelessWidget {
           ? Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: AutoSizeText(
-                viewModel.card.fullName().clean().toTitleCase(),
+                viewModel.card.fullName().sanitize().toTitleCase(),
                 style: GoogleFonts.varelaRound(
                   color: Colors.white,
                   fontSize: 30,
@@ -91,7 +91,7 @@ class Heading0 extends StatelessWidget {
     Widget positionField() {
       return viewModel.card.position.isNotEmpty
           ? AutoSizeText(
-              viewModel.card.position.clean().toTitleCase(),
+              viewModel.card.position.sanitize().toTitleCase(),
               style: const TextStyle(
                 color: Colors.white,
                 fontStyle: FontStyle.italic,
@@ -107,7 +107,7 @@ class Heading0 extends StatelessWidget {
     Widget companyField() {
       return viewModel.card.company.isNotEmpty
           ? AutoSizeText(
-              viewModel.card.company.clean().toTitleCase(),
+              viewModel.card.company.sanitize().toTitleCase(),
               style: const TextStyle(
                 color: Colors.white,
                 fontStyle: FontStyle.italic,

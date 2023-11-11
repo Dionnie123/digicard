@@ -1,7 +1,7 @@
-import 'package:another_transformer_page_view/another_transformer_page_view.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:another_transformer_page_view/another_transformer_page_view.dart';
 import 'buildin_transformers.dart';
 
 class OnboaringItem {

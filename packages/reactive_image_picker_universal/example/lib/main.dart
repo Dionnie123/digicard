@@ -42,10 +42,10 @@ class _MyAppState extends State<MyApp> {
           child: Scaffold(
             body: Column(
               children: [
-                ReactiveAvatarPickerUniversal(
+                ReactiveImagePickerUniversal(
                   formControlName: 'avatar',
                 ),
-                ReactiveAvatarPickerUniversal(
+                ReactiveImagePickerUniversal(
                   formControlName: 'logo',
                 )
               ],

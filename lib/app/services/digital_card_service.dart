@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:digicard/app/app.logger.dart';
-import 'package:digicard/app/extensions/core/string_extension.dart';
 import 'package:digicard/app/services/user_service.dart';
+import 'package:flutter_ez_core/extensions/string_extension.dart';
 import 'package:mime/mime.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card.dart';
@@ -67,7 +67,7 @@ class DigitalCardService with ListenableServiceMixin {
   Future<String?> imageCopy(
       {required String sourceFileName, required String folderPath}) async {
     log.w("$sourceFileName $folderPath");
-    String extension = StringExtension.getFileExtension(sourceFileName);
+    String extension = StringExtension.fileExtension(sourceFileName);
     final fileName = '${uuid.v4()}.$extension';
     try {
       await _supabase.storage.from("images").copy(

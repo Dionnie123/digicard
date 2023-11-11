@@ -2,7 +2,7 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/ui/bottom_sheets/bottom_sheet_wrapper.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
+import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';

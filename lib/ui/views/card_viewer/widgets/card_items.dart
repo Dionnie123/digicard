@@ -1,9 +1,9 @@
-import 'package:digicard/app/extensions/core/string_extension.dart';
 import 'package:digicard/app/extensions/custom_link_extension.dart';
 import 'package:digicard/app/models/custom_link.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/views/card_editor/widgets/icon_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/flutter_ez_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked_themes/stacked_themes.dart';
@@ -19,7 +19,7 @@ class CardItems {
         ? Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              value.clean().toTitleCase(),
+              value.sanitize().toTitleCase(),
               style: const TextStyle(),
             ),
           )
@@ -31,7 +31,7 @@ class CardItems {
         ? Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              value.clean().toTitleCase(),
+              value.sanitize().toTitleCase(),
               overflow: TextOverflow.visible,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
@@ -44,7 +44,7 @@ class CardItems {
         ? Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              value.clean().toTitleCase(),
+              value.sanitize().toTitleCase(),
             ),
           )
         : const SizedBox.shrink();
@@ -55,7 +55,7 @@ class CardItems {
         ? Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              value.clean().toTitleCase(),
+              value.sanitize().toTitleCase(),
             ),
           )
         : const SizedBox.shrink();
@@ -68,7 +68,7 @@ class CardItems {
             iconColor: getThemeManager(context).isDarkMode
                 ? Colors.white
                 : Colors.black,
-            text: value.clean().toTitleCase(),
+            text: value.sanitize().toTitleCase(),
             textStyle: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: color),
           )
@@ -83,7 +83,8 @@ class CardItems {
                 : Colors.black,
             backgroundColor: Colors.transparent,
             icon: FontAwesomeIcons.circleInfo,
-            text: "Created ${DateFormat('MMM dd, yyyy').format(value)}".clean(),
+            text: "Created ${DateFormat('MMM dd, yyyy').format(value)}"
+                .sanitize(),
           )
         : const SizedBox.shrink();
   }
@@ -98,7 +99,7 @@ class CardItems {
             icon: FontAwesomeIcons.handshake,
             text:
                 "Added ${DateFormat('MMM dd, yyyy hh:mm a').format(DateTime.now())}"
-                    .clean(),
+                    .sanitize(),
           )
         : const SizedBox.shrink();
   }
@@ -122,7 +123,7 @@ class CardItems {
                     icon: e.extras().icon,
                     iconColor: Colors.white,
                     backgroundColor: color,
-                    text: e.value.clean(),
+                    text: e.value.sanitize(),
                   ));
             }).toList(),
           )

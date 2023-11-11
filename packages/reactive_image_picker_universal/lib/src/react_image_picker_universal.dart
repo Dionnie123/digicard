@@ -5,14 +5,12 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import 'image_source_picker.dart';
 
-class ReactiveAvatarPickerUniversal
+class ReactiveImagePickerUniversal
     extends ReactiveFormField<Uint8List, Uint8List> {
-  ReactiveAvatarPickerUniversal({
+  ReactiveImagePickerUniversal({
     Key? key,
     bool? readOnly,
-    Function()? onTap,
     String? formControlName,
-    Color? backgroundColor,
     FormControl<Uint8List>? formControl,
   }) : super(
           key: key,
@@ -31,7 +29,7 @@ class ReactiveAvatarPickerUniversal
         ) {
     if (this.formControlName == null && this.formControl == null) {
       assert(this.formControlName == null && this.formControl == null,
-          'ReactiveAvatarPickerUniversal requires atleast a formControlName or formControl');
+          'ReactiveImagePickerUniversal requires atleast a formControlName or formControl');
     }
   }
 

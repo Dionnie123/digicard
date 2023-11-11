@@ -1,20 +1,16 @@
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/extensions/core/string_extension.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/ui/common/app_colors.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
 import 'package:digicard/ui/views/card_editor/card_editor_viewmodel.dart';
-import 'package:digicard/ui/widgets/scaffold_body_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/flutter_ez_core.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
+import 'package:reactive_image_picker_universal/reactive_image_picker_universal.dart';
 import 'package:stacked/stacked.dart';
-
 import 'form_components/card.custom_links.fields.dart';
 import 'form_components/card.custom_links.options.dart';
-import 'form_components/card.reactive_avatar_picker.dart';
 import 'form_components/card.reactive_color_picker.dart';
 import 'form_components/card.reactive_layout_picker.dart';
-import 'form_components/card.reactive_logo_picker.dart';
 import 'form_components/collapsible_field.dart';
 
 class CardTabForm extends StatefulWidget {
@@ -66,30 +62,16 @@ class _CardTabFormState extends State<CardTabForm>
         floatingLabelBehavior: FloatingLabelBehavior.never);
 
     Widget avatarField() {
-      return ReactiveAvatarPicker(
+      return ReactiveImagePickerUniversal(
         formControl: formModel.avatarFileControl,
         readOnly: !viewModel.editMode,
-        backgroundColor: colorTheme,
-        onTap: !viewModel.editMode
-            ? null
-            : () async {
-                formModel.form.unfocus();
-                await viewModel.showAvatarPicker(context);
-              },
       );
     }
 
     Widget logoField() {
-      return ReactiveLogoPicker(
+      return ReactiveImagePickerUniversal(
         formControl: formModel.logoFileControl,
         readOnly: !viewModel.editMode,
-        backgroundColor: colorTheme,
-        onTap: !viewModel.editMode
-            ? null
-            : () async {
-                formModel.form.unfocus();
-                await viewModel.showLogoPicker(context);
-              },
       );
     }
 
@@ -326,7 +308,7 @@ class _CardTabFormState extends State<CardTabForm>
                                   },
                                   value:
                                       "${formModel.prefixControl.value ?? ""} ${formModel.firstNameControl.value ?? ""} ${formModel.middleNameControl.value ?? ""} ${formModel.lastNameControl.value ?? ""} ${formModel.suffixControl.value ?? ""}"
-                                          .clean(),
+                                          .sanitize(),
                                   body: Padding(
                                     padding: const EdgeInsets.only(left: 30),
                                     child: Column(

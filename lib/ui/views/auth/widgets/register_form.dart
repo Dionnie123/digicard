@@ -1,12 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/widgets/ez_button.dart';
+import 'package:reactive_forms/reactive_forms.dart';
+import 'package:stacked/stacked.dart';
 import 'package:digicard/app/models/register_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/common/my_text.dart';
 import 'package:digicard/ui/views/auth/auth_viewmodel.dart';
-import 'package:digicard/ui/widgets/ez_button.dart';
-
-import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
-import 'package:stacked/stacked.dart';
 
 class RegisterForm extends StatelessWidget {
   const RegisterForm({super.key});

@@ -1,7 +1,7 @@
 import 'package:digicard/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
-import 'package:digicard/ui/widgets/ez_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/widgets/ez_button.dart';
 import 'package:stacked/stacked.dart';
 
 import 'scan_viewmodel.dart';

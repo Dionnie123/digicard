@@ -1,6 +1,6 @@
-import 'package:digicard/app/extensions/core/color_extension.dart';
 import 'package:digicard/ui/views/card_viewer/card_viewer_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/extensions/color_extension.dart';
 import 'package:stacked/stacked.dart';
 import 'package:url_launcher/url_launcher.dart';
 

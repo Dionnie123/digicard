@@ -1,7 +1,7 @@
 import 'package:digicard/app/models/login_dto.dart';
 import 'package:digicard/app/models/register_dto.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'auth_viewmodel.dart';
 import 'widgets/login_form.dart';

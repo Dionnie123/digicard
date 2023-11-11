@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:digicard/app/extensions/core/color_extension.dart';
-import 'package:digicard/app/models/digital_card.dart';
 import 'package:flutter/material.dart';
+import 'package:digicard/app/models/digital_card.dart';
+import 'package:flutter_ez_core/extensions/color_extension.dart';
 
 class DigitalCardListItem extends StatelessWidget {
   final DigitalCard card;

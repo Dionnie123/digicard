@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/models/custom_link.dart';
-import 'package:digicard/ui/common/ui_helpers.dart';
-import 'package:digicard/ui/widgets/ez_button.dart';
-import 'package:digicard/ui/widgets/scaffold_body_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/helpers/ui_helpers.dart';
+import 'package:flutter_ez_core/widgets/ez_button.dart';
+import 'package:flutter_ez_core/widgets/scaffold_body_wrapper.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';

@@ -1,10 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:digicard/app/models/custom_link.dart';
-import 'package:digicard/app/models/validators.dart';
+import 'package:flutter_ez_core/helpers/uint8ListConverter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
-
 part 'digital_card.freezed.dart';
 part 'digital_card.g.dart';
 part 'digital_card.gform.dart';

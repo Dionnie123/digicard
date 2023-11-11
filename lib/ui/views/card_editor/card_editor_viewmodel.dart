@@ -1,20 +1,16 @@
-import 'package:digicard/app/app.bottomsheets.dart';
+import 'package:flutter_ez_core/helpers/image_cache_downloader.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:digicard/app/app.dialogs.dart';
+import 'package:digicard/app/app.locator.dart';
+import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/app.router.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/env/env.dart';
-import 'package:digicard/app/helpers/core/image_cache_downloader.dart';
-import 'package:digicard/app/helpers/core/image_picker_universal.dart';
 import 'package:digicard/app/models/custom_link.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:stacked/stacked.dart';
-import 'package:digicard/app/app.locator.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CardEditorViewModel extends ReactiveViewModel {
   final log = getLogger('CardEditorViewModel');
@@ -22,7 +18,7 @@ class CardEditorViewModel extends ReactiveViewModel {
   User? get user => _supabase.auth.currentUser;
 
   final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+
   final _digitalCardsService = locator<DigitalCardService>();
   final _navigationService = locator<RouterService>();
 
@@ -174,59 +170,5 @@ class CardEditorViewModel extends ReactiveViewModel {
       _navigationService.back();
     }
     notifyListeners();
-  }
-
-  showAvatarPicker(BuildContext context) async {
-    // ignore: unused_local_variable
-
-    await _bottomSheetService.showCustomSheet(
-        data: {
-          'assetType': 'avatar',
-          'removeOption': formModel.model.avatarFile != null
-        },
-        isScrollControlled: false,
-        barrierDismissible: true,
-        variant: BottomSheetType.imagePicker).then((res) async {
-      var result = res?.data;
-      if (result is ImageSource) {
-        formModel.avatarFileValueUpdate(
-            await ImagePickerUniversal(context, type: result, crop: true)
-                .pick());
-        if (formModel.model.avatarFile != null) {
-          formModel.avatarUrlValueUpdate("&!&");
-          _formModel.form.markAsDirty();
-        }
-      } else if (result == false) {
-        formModel.avatarUrlValueUpdate("");
-        formModel.avatarFileValueUpdate(null);
-        _formModel.form.markAsDirty();
-      }
-    });
-  }
-
-  showLogoPicker(BuildContext context) async {
-    await _bottomSheetService.showCustomSheet(
-        data: {
-          'assetType': 'logo',
-          'removeOption': formModel.model.logoFile != null
-        },
-        isScrollControlled: false,
-        barrierDismissible: true,
-        variant: BottomSheetType.imagePicker).then((res) async {
-      var result = res?.data;
-      if (result is ImageSource) {
-        formModel.logoFileValueUpdate(
-            await ImagePickerUniversal(context, type: result, crop: true)
-                .pick());
-        if (formModel.model.logoFile != null) {
-          formModel.logoUrlValueUpdate("&!&");
-          _formModel.form.markAsDirty();
-        }
-      } else if (result == false) {
-        formModel.logoUrlValueUpdate("");
-        formModel.logoFileValueUpdate(null);
-        _formModel.form.markAsDirty();
-      }
-    });
   }
 }

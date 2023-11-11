@@ -1,8 +1,8 @@
 import 'package:digicard/app/models/login_dto.dart';
 import 'package:digicard/app/models/register_dto.dart';
 import 'package:digicard/ui/widgets/onboarding/onboarding.dart';
-import 'package:digicard/ui/widgets/scaffold_body_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ez_core/widgets/scaffold_body_wrapper.dart';
 import 'package:stacked/stacked.dart';
 import 'auth_viewmodel.dart';
 import 'widgets/login_form.dart';
