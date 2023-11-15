@@ -28,7 +28,6 @@ import 'services/native_contacts_service.dart';
 import 'services/permission_handler_service.dart';
 
 import 'services/user_service.dart';
-import 'package:digicard/ui/views/foo/foo_view.dart';
 import 'package:digicard/ui/views/scan/scan_view.dart';
 import 'package:digicard/ui/views/dashboard/dashboard_view.dart';
 // @stacked-import
@@ -54,7 +53,6 @@ import 'package:digicard/ui/views/dashboard/dashboard_view.dart';
     MaterialRoute(path: "/p/:uuid", page: CardViewerView),
     MaterialRoute(page: ForgotPasswordView),
     MaterialRoute(page: CustomLinkView),
-    CustomRoute(page: FooView),
     CustomRoute(
         page: ScanView, transitionsBuilder: TransitionsBuilders.noTransition),
     MaterialRoute(page: DashboardView),

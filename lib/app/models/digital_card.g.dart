@@ -25,14 +25,16 @@ _$DigitalCardImpl _$$DigitalCardImplFromJson(Map<String, dynamic> json) =>
           .fromJson(json['avatar_file'] as List<int>?),
       logoFile:
           const Uint8ListConverter().fromJson(json['logo_file'] as List<int>?),
-      color: json['color'] as int? ?? 0xFF9600FF,
+      color: json['color'] == null
+          ? kcPrimaryColor
+          : const ColorConverter().fromJson(json['color'] as int),
       layout: json['layout'] as int? ?? 0,
       position: json['position'] as String? ?? "",
       department: json['department'] as String? ?? "",
       company: json['company'] as String? ?? "",
       headline: json['headline'] as String? ?? "",
       customLinks: (json['custom_links'] as List<dynamic>?)
-              ?.map((e) => CustomLink.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => e as Map<String, dynamic>)
               .toList() ??
           const [],
       createdAt: json['created_at'] == null
@@ -63,7 +65,7 @@ Map<String, dynamic> _$$DigitalCardImplToJson(_$DigitalCardImpl instance) =>
       'maiden_name': instance.maidenName,
       'avatar_file': const Uint8ListConverter().toJson(instance.avatarFile),
       'logo_file': const Uint8ListConverter().toJson(instance.logoFile),
-      'color': instance.color,
+      'color': const ColorConverter().toJson(instance.color),
       'layout': instance.layout,
       'position': instance.position,
       'department': instance.department,

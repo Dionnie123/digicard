@@ -40,7 +40,7 @@ class CardViewerViewModel extends ReactiveViewModel {
 
   late DigitalCard card;
   DisplayType displayType = DisplayType.public;
-  Color get color => Color(card.color);
+  Color get color => card.color;
   bool isDarkMode = false;
 
   Future start({

@@ -7,6 +7,7 @@ import 'package:digicard/app/services/native_contacts_service.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:image_downloader_web/image_downloader_web.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -72,27 +73,23 @@ class CardShareSheetModel extends ReactiveViewModel {
   Future downloadWithLogo(BuildContext context) async {
     dynamic result;
     try {
-      await screenshotControllerShare
-          .capture(
-        pixelRatio: 10,
-      )
-          .then((image) async {
-        if (image != null) {
-          if (!kIsWeb) {
-            result = await ImageGallerySaver.saveImage(
-              image,
-              quality: 60,
-              name: card.uuid,
-            );
-          } else {
-            await js.context.callMethod("saveAs", <Object>[
-              html.Blob(<Object>[image]),
-              '${card.uuid}.png'
-            ]);
-            result = {"isSuccess": true};
-          }
+      final Uint8List? image = await screenshotControllerShare.capture(
+          pixelRatio: 10, delay: const Duration(milliseconds: 200));
+
+      if (image != null) {
+        if (!kIsWeb) {
+          result = await ImageGallerySaver.saveImage(
+            image,
+            quality: 60,
+            name: card.uuid,
+          );
+        } else {
+          await WebImageDownloader.downloadImageFromUInt8List(
+              name: '${card.uuid}.png', uInt8List: image);
+
+          result = {"isSuccess": true};
         }
-      });
+      }
     } catch (e) {
       log.e(e.toString());
     }

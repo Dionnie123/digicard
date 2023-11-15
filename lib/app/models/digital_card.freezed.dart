@@ -47,8 +47,9 @@ mixin _$DigitalCard {
   @Uint8ListConverter()
   @RfControl()
   Uint8List? get logoFile => throw _privateConstructorUsedError;
+  @ColorConverter()
   @RfControl()
-  int get color => throw _privateConstructorUsedError;
+  Color get color => throw _privateConstructorUsedError;
   @RfControl()
   int get layout => throw _privateConstructorUsedError;
   @RfControl()
@@ -59,8 +60,8 @@ mixin _$DigitalCard {
   String get company => throw _privateConstructorUsedError;
   @RfControl()
   String get headline => throw _privateConstructorUsedError;
-  @FormArrayAnnotation()
-  List<CustomLink> get customLinks => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>> get customLinks =>
+      throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   DateTime? get addedAt => throw _privateConstructorUsedError;
@@ -93,13 +94,13 @@ abstract class $DigitalCardCopyWith<$Res> {
       @RfControl() String maidenName,
       @Uint8ListConverter() @RfControl() Uint8List? avatarFile,
       @Uint8ListConverter() @RfControl() Uint8List? logoFile,
-      @RfControl() int color,
+      @ColorConverter() @RfControl() Color color,
       @RfControl() int layout,
       @RfControl() String position,
       @RfControl() String department,
       @RfControl() String company,
       @RfControl() String headline,
-      @FormArrayAnnotation() List<CustomLink> customLinks,
+      List<Map<String, dynamic>> customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? addedAt});
@@ -208,7 +209,7 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Color,
       layout: null == layout
           ? _value.layout
           : layout // ignore: cast_nullable_to_non_nullable
@@ -232,7 +233,7 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
       customLinks: null == customLinks
           ? _value.customLinks
           : customLinks // ignore: cast_nullable_to_non_nullable
-              as List<CustomLink>,
+              as List<Map<String, dynamic>>,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -273,13 +274,13 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       @RfControl() String maidenName,
       @Uint8ListConverter() @RfControl() Uint8List? avatarFile,
       @Uint8ListConverter() @RfControl() Uint8List? logoFile,
-      @RfControl() int color,
+      @ColorConverter() @RfControl() Color color,
       @RfControl() int layout,
       @RfControl() String position,
       @RfControl() String department,
       @RfControl() String company,
       @RfControl() String headline,
-      @FormArrayAnnotation() List<CustomLink> customLinks,
+      List<Map<String, dynamic>> customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? addedAt});
@@ -386,7 +387,7 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Color,
       layout: null == layout
           ? _value.layout
           : layout // ignore: cast_nullable_to_non_nullable
@@ -410,7 +411,7 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
       customLinks: null == customLinks
           ? _value._customLinks
           : customLinks // ignore: cast_nullable_to_non_nullable
-              as List<CustomLink>,
+              as List<Map<String, dynamic>>,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -447,13 +448,13 @@ class _$DigitalCardImpl implements _DigitalCard {
       @RfControl() this.maidenName = "",
       @Uint8ListConverter() @RfControl() this.avatarFile,
       @Uint8ListConverter() @RfControl() this.logoFile,
-      @RfControl() this.color = 0xFF9600FF,
+      @ColorConverter() @RfControl() this.color = kcPrimaryColor,
       @RfControl() this.layout = 0,
       @RfControl() this.position = "",
       @RfControl() this.department = "",
       @RfControl() this.company = "",
       @RfControl() this.headline = "",
-      @FormArrayAnnotation() final List<CustomLink> customLinks = const [],
+      final List<Map<String, dynamic>> customLinks = const [],
       this.createdAt,
       this.updatedAt,
       this.addedAt})
@@ -516,8 +517,9 @@ class _$DigitalCardImpl implements _DigitalCard {
   final Uint8List? logoFile;
   @override
   @JsonKey()
+  @ColorConverter()
   @RfControl()
-  final int color;
+  final Color color;
   @override
   @JsonKey()
   @RfControl()
@@ -538,11 +540,10 @@ class _$DigitalCardImpl implements _DigitalCard {
   @JsonKey()
   @RfControl()
   final String headline;
-  final List<CustomLink> _customLinks;
+  final List<Map<String, dynamic>> _customLinks;
   @override
   @JsonKey()
-  @FormArrayAnnotation()
-  List<CustomLink> get customLinks {
+  List<Map<String, dynamic>> get customLinks {
     if (_customLinks is EqualUnmodifiableListView) return _customLinks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_customLinks);
@@ -667,13 +668,13 @@ abstract class _DigitalCard implements DigitalCard {
       @RfControl() final String maidenName,
       @Uint8ListConverter() @RfControl() final Uint8List? avatarFile,
       @Uint8ListConverter() @RfControl() final Uint8List? logoFile,
-      @RfControl() final int color,
+      @ColorConverter() @RfControl() final Color color,
       @RfControl() final int layout,
       @RfControl() final String position,
       @RfControl() final String department,
       @RfControl() final String company,
       @RfControl() final String headline,
-      @FormArrayAnnotation() final List<CustomLink> customLinks,
+      final List<Map<String, dynamic>> customLinks,
       final DateTime? createdAt,
       final DateTime? updatedAt,
       final DateTime? addedAt}) = _$DigitalCardImpl;
@@ -724,8 +725,9 @@ abstract class _DigitalCard implements DigitalCard {
   @RfControl()
   Uint8List? get logoFile;
   @override
+  @ColorConverter()
   @RfControl()
-  int get color;
+  Color get color;
   @override
   @RfControl()
   int get layout;
@@ -742,8 +744,7 @@ abstract class _DigitalCard implements DigitalCard {
   @RfControl()
   String get headline;
   @override
-  @FormArrayAnnotation()
-  List<CustomLink> get customLinks;
+  List<Map<String, dynamic>> get customLinks;
   @override
   DateTime? get createdAt;
   @override

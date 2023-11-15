@@ -32,7 +32,7 @@ class RegisterForm extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const MyText.headline('SIGN UP'),
+          const MyText.headingTwo('SIGN UP'),
           const SizedBox(height: 24.0),
           ReactiveTextField<String>(
             formControl: formModel.fullNameControl,
@@ -100,13 +100,14 @@ class RegisterForm extends StatelessWidget {
               Transform.scale(
                 scale: 1,
                 child: ReactiveCheckbox(
-                    onChanged: (control) {},
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
-                    formControl: formModel.acceptLicenseControl,
-                    fillColor: const MaterialStatePropertyAll(
+                  onChanged: (control) {},
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  formControl: formModel.acceptLicenseControl,
+                  /*   fillColor: const MaterialStatePropertyAll(
                       kcPrimaryColor,
-                    )),
+                    ) */
+                ),
               ),
               const SizedBox(width: 8),
               const Expanded(

@@ -40,7 +40,7 @@ class CardManagerSheetModel extends ReactiveViewModel {
 
   late DigitalCard card;
 
-  send() {
+  share() {
     _bottomSheetService.completeSheet(SheetResponse());
     _bottomSheetService.showCustomSheet(
       ignoreSafeArea: false,

@@ -20,9 +20,6 @@ class SettingsView extends StackedView<SettingsViewModel> {
         selectedIndex: 3,
         content: PageScaffold(
             title: "SETTINGS",
-            actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.add))
-            ],
             body: SingleChildScrollView(
               child: Column(
                 children: [

@@ -33,15 +33,17 @@ class ScanViewModel extends ReactiveViewModel {
     super.onFutureError(error, key);
   }
 
+  PermissionStatus? status;
   Barcode? result;
+
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   Future openScanner() async {
     if (!kIsWeb) {
-      var status = await Permission.camera.status;
+      status = await Permission.camera.status;
 
-      if (status.isGranted == false) {
+      if (status?.isGranted == false) {
         await _dialogService
             .showCustomDialog(
                 variant: DialogType.confirm,

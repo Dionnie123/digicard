@@ -27,7 +27,6 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
     viewModel.model = DigitalCard.blank();
     viewModel.formModel.reset();
     viewModel.formModel.form.dispose();
-    viewModel.formModel.customLinksCustomLinkForm.map((e) => e.form.dispose());
     super.onDispose(viewModel);
   }
 
@@ -46,7 +45,7 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
         child: ReactiveValueListenableBuilder<dynamic>(
             formControl: viewModel.formModel.colorControl,
             builder: (context, color, child) {
-              final colorTheme = Color(color.value ?? kcPrimaryColorInt);
+              final colorTheme = color.value;
               return LoaderOverlayWrapper(
                   color: colorTheme,
                   type: viewModel.busy(saveBusyKey)
@@ -68,7 +67,6 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                 child: ReactiveDigitalCardFormConsumer(
                                     builder: (context, f, c) {
                                   return CardViewerSplitView(
-                                    key: UniqueKey(),
                                     card: f.model,
                                   );
                                 }),

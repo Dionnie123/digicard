@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:digicard/app/models/custom_link.dart';
+import 'package:digicard/ui/common/app_colors.dart';
+
 import 'package:flutter_ez_core/helpers/uint8ListConverter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
@@ -30,13 +31,13 @@ class DigitalCard with _$DigitalCard {
     @Default("") @RfControl() String maidenName,
     @Uint8ListConverter() @RfControl() Uint8List? avatarFile,
     @Uint8ListConverter() @RfControl() Uint8List? logoFile,
-    @Default(0xFF9600FF) @RfControl() int color,
+    @Default(kcPrimaryColor) @ColorConverter() @RfControl() Color color,
     @Default(0) @RfControl() int layout,
     @Default("") @RfControl() String position,
     @Default("") @RfControl() String department,
     @Default("") @RfControl() String company,
     @Default("") @RfControl() String headline,
-    @Default([]) @FormArrayAnnotation() List<CustomLink> customLinks,
+    @Default([]) List<Map<String, dynamic>> customLinks,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? addedAt,

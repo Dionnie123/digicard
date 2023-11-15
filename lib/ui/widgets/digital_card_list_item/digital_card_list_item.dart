@@ -18,7 +18,7 @@ class DigitalCardListItem extends StatelessWidget {
     Widget image() {
       const imageSize = 140.0;
       return Container(
-        color: Color(card.color),
+        color: card.color,
         child: Material(
           child: (card.avatarUrl.isNotEmpty)
               ? CachedNetworkImage(
@@ -28,20 +28,20 @@ class DigitalCardListItem extends StatelessWidget {
                   height: imageSize,
                   fit: BoxFit.cover,
                   placeholder: (context, url) {
-                    return Container(color: Color(card.color).darken(0.2));
+                    return Container(color: card.color.darken(0.2));
                   },
                   errorWidget: (context, url, error) {
                     return Container(
                       width: double.infinity,
                       height: imageSize,
-                      color: Color(card.color).darken(0.2),
+                      color: card.color.darken(0.2),
                     );
                   },
                 )
               : Container(
                   width: double.infinity,
                   height: imageSize,
-                  color: Color(card.color).darken(0.2),
+                  color: card.color.darken(0.2),
                 ),
         ),
       );
@@ -74,7 +74,7 @@ class DigitalCardListItem extends StatelessWidget {
               children: [
                 image(),
                 Container(
-                  color: Color(card.color),
+                  color: card.color,
                   height: 5,
                 ),
                 Expanded(

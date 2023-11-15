@@ -16,7 +16,7 @@ class SplitView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    if (screenWidth >= 600) {
+    if (screenWidth > 500 + 280) {
       // wide screen: menu on the left, content on the right
       return Row(
         children: [

@@ -14,12 +14,11 @@ class ContactsView extends StackedView<ContactsViewModel> {
     ContactsViewModel viewModel,
     Widget? child,
   ) {
-    return SplitView(
+    return const SplitView(
         selectedIndex: 2,
         content: PageScaffold(
           title: "CONTACTS",
-          actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
-          body: const CustomScrollView(slivers: [
+          body: CustomScrollView(slivers: [
             SliverToBoxAdapter(
               child:
                   Padding(padding: EdgeInsets.all(8.0), child: Text("QR CODE")),

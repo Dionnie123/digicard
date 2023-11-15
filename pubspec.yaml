@@ -54,6 +54,7 @@ dependencies:
   image_cropper: ^5.0.0
   loader_overlay: ^2.3.2
   cached_network_image: ^3.2.0
+  image_downloader_web: ^2.0.4
   freezed_annotation: ^2.0.3
   json_annotation: ^4.8.1
   reactive_forms: ^16.0.2
@@ -71,15 +72,18 @@ dependencies:
   fluttertoast: ^8.2.2
   another_transformer_page_view: ^2.0.1
   smooth_page_indicator: ^1.1.0
-  flutter_reorderable_grid_view: ^4.0.0
+  reactive_color_picker: ^2.0.0
   dotted_border: ^2.1.0
   flutter_intro: ^3.0.3
   reactive_links_picker:
-    git: https://github.com/Dionnie123/reactive_links_picker.git
+    path: packages/reactive_links_picker
+  reactive_layout_picker:
+    path: packages/reactive_layout_picker
   reactive_image_picker_universal:
     path: packages/reactive_image_picker_universal
   flutter_ez_core:
     path: packages/flutter_ez_core
+  flutter_smart_dialog: ^4.9.5+1
 dev_dependencies:
   build_runner: ^2.4.5
   flutter_lints: ^2.0.0

@@ -1,3 +1,4 @@
+import 'package:digicard/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -26,6 +27,26 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
+  Widget appTitle() {
+    return Container(
+      padding: const EdgeInsets.all(30.0),
+      child: const Card(
+        margin: EdgeInsets.zero,
+        color: kcPrimaryColorDark,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+          child: Text(
+            "DIGICARD",
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   final list = [
     OnboaringItem(
         testimonial:
@@ -44,7 +65,7 @@ class _OnboardingState extends State<Onboarding> {
     ),
     OnboaringItem(
       testimonial:
-          "This app has completely elevated my networking game. It's like carrying my digital identity in my pocket. My contacts are always impressed when I share my sleek digital business card.",
+          "This app has completely elevated my networking game. \nIt's like carrying my digital identity in my pocket.",
       color: Colors.green,
       image: 'assets/images/bg3.jpg',
       personName: "Mark Dionnie",
@@ -117,7 +138,7 @@ class _OnboardingState extends State<Onboarding> {
                                     child: Text(
                                       "\"${item.testimonial}.\"",
                                       style: const TextStyle(
-                                        fontSize: 24.0,
+                                        fontSize: 18.0,
                                         color: Colors.white,
                                       ).copyWith(
                                         fontWeight: FontWeight.bold,
@@ -134,15 +155,11 @@ class _OnboardingState extends State<Onboarding> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Text(
-                                    item.personTitle,
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.white,
-                                    ).copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  Text(item.personTitle,
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.white,
+                                      )),
                                 ],
                               ),
                             ],
@@ -156,12 +173,7 @@ class _OnboardingState extends State<Onboarding> {
             );
           },
         ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Container(
-              padding: const EdgeInsets.all(30.0),
-              child: const Text("DIONEEBEE")),
-        ),
+        Align(alignment: Alignment.topLeft, child: appTitle()),
         Align(
           alignment: Alignment.bottomRight,
           child: Padding(

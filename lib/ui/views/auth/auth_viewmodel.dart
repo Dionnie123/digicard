@@ -2,6 +2,7 @@ import 'package:digicard/app/app.router.dart';
 import 'package:digicard/app/models/login_dto.dart';
 import 'package:digicard/app/models/register_dto.dart';
 import 'package:digicard/app/services/auth_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
@@ -39,7 +40,12 @@ class AuthViewModel extends BaseViewModel {
   }
 
   initialiseForms() {
-    loginFormModel = LoginDtoForm(LoginDtoForm.formElements(LoginDto()), null);
+    loginFormModel = LoginDtoForm(
+        LoginDtoForm.formElements(LoginDto(
+          email: kDebugMode ? 'dionnie_bulingit@yahoo.com' : '',
+          password: kDebugMode ? 'qweqwe456' : '',
+        )),
+        null);
     if (loginFormModel.form.disabled) {
       loginFormModel.form.markAsDisabled();
     }
@@ -67,8 +73,7 @@ class AuthViewModel extends BaseViewModel {
 
   Future signIn({required email, required password}) async {
     await runBusyFuture(
-            _authService.signInWithEmail(
-                email: 'dionnie_bulingit@yahoo.com', password: 'qweqwe456'),
+            _authService.signInWithEmail(email: email, password: password),
             throwException: true)
         .then((value) {
       if (value != null) {

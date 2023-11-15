@@ -48,7 +48,7 @@ class HomeView extends StackedView<HomeViewModel> {
             body: ScaffoldListWrapper(
               isBusy: viewModel.isBusy,
               emptyIndicatorWidget: const EZEmptyDisplay(
-                icon: Icons.card_giftcard_rounded,
+                icon: Icon(Icons.error_rounded, size: 30),
                 title: "Ooops! looks empty here",
               ),
               onRefresh: () async {
@@ -58,7 +58,11 @@ class HomeView extends StackedView<HomeViewModel> {
               builder: (context, constraints) {
                 return GridView.builder(
                   gridDelegate: ListItemHeightDelegate(
-                      crossAxisCount: isMobile(context) ? 2 : 4,
+                      crossAxisCount: (constraints.maxWidth <= 500 + 280)
+                          ? 2
+                          : (constraints.maxWidth <= 1024)
+                              ? 3
+                              : 5,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       height: 242),

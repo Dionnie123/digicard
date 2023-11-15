@@ -13,6 +13,7 @@ import 'package:flutter_ez_core/flutter_ez_core.dart';
 import 'package:flutter_intro/flutter_intro.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -102,16 +103,26 @@ class MainApp extends StatelessWidget {
               ),
             ),
             builder: (context, regularTheme, darkTheme, themeMode) {
-              return MaterialApp.router(
-                title: "Digicard",
-                theme: regularTheme,
-                darkTheme: darkTheme,
-                themeMode: ThemeMode.dark,
-                scrollBehavior: MyCustomScrollBehavior(),
-                debugShowCheckedModeBanner: false,
-                routerDelegate: stackedRouter.delegate(),
-                routeInformationParser: stackedRouter.defaultRouteParser(
-                  includePrefixMatches: true,
+              return GlobalLoaderOverlay(
+                duration: const Duration(milliseconds: 250),
+                reverseDuration: const Duration(milliseconds: 250),
+                useDefaultLoading: false,
+                overlayColor: Colors.black.withOpacity(0.6),
+                overlayWidget: const Center(
+                    child: CircularProgressIndicator(
+                  color: kcPrimaryColor,
+                )),
+                child: MaterialApp.router(
+                  title: "Digicard",
+                  theme: regularTheme,
+                  darkTheme: darkTheme,
+                  themeMode: ThemeMode.dark,
+                  scrollBehavior: MyCustomScrollBehavior(),
+                  debugShowCheckedModeBanner: false,
+                  routerDelegate: stackedRouter.delegate(),
+                  routeInformationParser: stackedRouter.defaultRouteParser(
+                    includePrefixMatches: true,
+                  ),
                 ),
               );
             }));
@@ -119,6 +130,7 @@ class MainApp extends StatelessWidget {
 }
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
   @override
   Set<PointerDeviceKind> get dragDevices => {
         PointerDeviceKind.touch,

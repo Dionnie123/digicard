@@ -50,8 +50,8 @@ class NativeContactsService with ListenableServiceMixin {
 
   Future<Contact?> _cardToContact(DigitalCard card) async {
     try {
-      Map<String, List<CustomLink>> customLinks =
-          groupBy(card.customLinks, (e) {
+      Map<String, List<CustomLink>> customLinks = groupBy(
+          card.customLinks.map((e) => CustomLink.fromJson(e)).toList(), (e) {
         return e.label;
       });
       Uint8List? bytes;

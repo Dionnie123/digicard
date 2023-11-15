@@ -35,6 +35,7 @@ class DrawerWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: 15.0),
                 DrawerMenu(
                   leading: Image.asset(
                     'assets/icons/cards.png',

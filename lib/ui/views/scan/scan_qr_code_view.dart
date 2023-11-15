@@ -2,6 +2,7 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:stacked/stacked.dart';
 
@@ -27,18 +28,27 @@ class ScanQRCodeView extends StackedView<ScanViewModel> {
                 backgroundColor: Colors.transparent,
                 automaticallyImplyLeading: true,
               ),
-              body: QRView(
-                key: viewModel.qrKey,
-                onQRViewCreated: (c) {
-                  viewModel.onQRViewCreated(c);
-                },
-                overlay: QrScannerOverlayShape(
-                    borderColor: kcPrimaryColor,
-                    borderRadius: 10,
-                    borderLength: 30,
-                    borderWidth: 10,
-                    cutOutSize: 200),
-              ));
+              body: viewModel.status == PermissionStatus.granted ||
+                      viewModel.status == PermissionStatus.limited ||
+                      viewModel.status == PermissionStatus.provisional
+                  ? QRView(
+                      key: viewModel.qrKey,
+                      onQRViewCreated: (c) {
+                        viewModel.onQRViewCreated(c);
+                      },
+                      overlay: QrScannerOverlayShape(
+
+                          //   overlayColor: Colors.transparent,
+                          borderColor: kcPrimaryColor,
+                          borderRadius: 10,
+                          borderLength: 30,
+                          borderWidth: 10,
+                          cutOutSize: 200),
+                    )
+                  : const Center(
+                      child: SizedBox(
+                      child: Text("No Camera Available."),
+                    )));
         });
   }
 

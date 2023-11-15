@@ -77,7 +77,7 @@ class MainWidget extends StatelessWidget {
 
     Widget empty() {
       return const EZEmptyDisplay(
-          icon: Icons.error_rounded, title: "Card not found");
+          icon: Icon(Icons.error_rounded), title: "Card not found");
     }
 
     return SafeArea(

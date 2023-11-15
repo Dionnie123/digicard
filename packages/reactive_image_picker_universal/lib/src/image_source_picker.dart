@@ -33,64 +33,61 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
   Widget build(BuildContext context) {
     const imageSize = 80.0;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          InkWell(
-            borderRadius: BorderRadius.circular(12),
-            onTap: () async {
-              type = await showModalBottomSheet<dynamic>(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return ImageSourceDialog(
-                      showRemoveImage: img != null,
-                    );
-                  });
-              if (type == ImageSource.gallery || type == ImageSource.camera) {
-                pickedImage = await picker.pickImage(source: type);
-                if (pickedImage != null) {
-                  img = await pickedImage?.readAsBytes();
-                  widget.onChanged(img);
-                  setState(() {});
-                }
-              } else if (type == false) {
-                pickedImage = null;
-                img = null;
+    return Column(
+      children: [
+        InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () async {
+            type = await showModalBottomSheet<dynamic>(
+                context: context,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return ImageSourceDialog(
+                    showRemoveImage: img != null,
+                  );
+                });
+            if (type == ImageSource.gallery || type == ImageSource.camera) {
+              pickedImage = await picker.pickImage(source: type);
+              if (pickedImage != null) {
+                img = await pickedImage?.readAsBytes();
                 widget.onChanged(img);
                 setState(() {});
               }
-            },
-            child: ClipRRect(
-              clipBehavior: Clip.antiAlias,
-              borderRadius: BorderRadius.circular(12),
-              child: Stack(
-                children: [
+            } else if (type == false) {
+              pickedImage = null;
+              img = null;
+              widget.onChanged(img);
+              setState(() {});
+            }
+          },
+          child: ClipRRect(
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.circular(12),
+            child: Stack(
+              children: [
+                Container(
+                  color: Colors.grey,
+                  width: imageSize,
+                  height: imageSize,
+                  child: const Center(
+                    child: Icon(Icons.upload_rounded),
+                  ),
+                ),
+                if (img != null)
                   Container(
                     color: Colors.grey,
-                    width: imageSize,
-                    height: imageSize,
-                    child: const Center(
-                      child: Icon(Icons.upload_rounded),
+                    child: Image.memory(
+                      img ?? Uint8List(0),
+                      width: imageSize,
+                      height: imageSize,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  if (img != null)
-                    Container(
-                      color: Colors.grey,
-                      child: Image.memory(
-                        img ?? Uint8List(0),
-                        width: imageSize,
-                        height: imageSize,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                ],
-              ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

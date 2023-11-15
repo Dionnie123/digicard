@@ -22,6 +22,7 @@ class HomeViewModel extends ReactiveViewModel {
   final _navigationService = locator<RouterService>();
   final _digitalCardService = locator<DigitalCardService>();
   final _contactsService = locator<ContactsService>();
+
   @override
   List<ListenableServiceMixin> get listenableServices => [
         _digitalCardService,

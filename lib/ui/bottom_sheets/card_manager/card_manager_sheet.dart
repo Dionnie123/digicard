@@ -24,8 +24,6 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
     CardManagerSheetModel viewModel,
     Widget? child,
   ) {
-    final colorTheme = Color(viewModel.card.color);
-
     LoadingType? loadingType;
     if (viewModel.busy(duplicateBusyKey)) {
       loadingType = LoadingType.duplicate;
@@ -38,91 +36,93 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
     return LoaderOverlayWrapper(
         type: loadingType,
         builder: (context) {
-          return BottomSheetWrapper(notchColor: colorTheme, children: [
-            Text(
-              viewModel.card.title,
-              maxLines: 2,
-              style: const TextStyle(
-                fontSize: 22,
-              ),
-            ),
-            vSpaceRegular,
-            Row(
+          return BottomSheetWrapper(
+              notchColor: viewModel.card.color,
               children: [
-                Expanded(
-                  child: PanelButton.big(
-                    color: colorTheme,
-                    onTap: () {
-                      viewModel.send();
-                    },
-                    icon: const Icon(
-                      FontAwesomeIcons.paperPlane,
-                      size: 36,
-                    ),
-                    title: "SEND",
-                    subtitle: "Send via QR, Email, Text and more.",
+                Text(
+                  viewModel.card.title,
+                  maxLines: 2,
+                  style: const TextStyle(
+                    fontSize: 22,
                   ),
                 ),
-                hSpaceSmall,
-                Expanded(
-                  child: PanelButton.big(
-                    color: colorTheme,
-                    onTap: () {
-                      viewModel.view(request.data);
-                    },
-                    icon: const Icon(
-                      FontAwesomeIcons.eye,
-                      size: 36,
+                vSpaceRegular,
+                Row(
+                  children: [
+                    Expanded(
+                      child: PanelButton.big(
+                        color: viewModel.card.color,
+                        onTap: () {
+                          viewModel.share();
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.paperPlane,
+                          size: 36,
+                        ),
+                        title: "SHARE",
+                        subtitle: "Send via QR, Email, Text and more.",
+                      ),
                     ),
-                    title: "VIEW",
-                    subtitle: "Open your card in Digicard.",
-                  ),
+                    hSpaceSmall,
+                    Expanded(
+                      child: PanelButton.big(
+                        color: viewModel.card.color,
+                        onTap: () {
+                          viewModel.view(request.data);
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.eye,
+                          size: 36,
+                        ),
+                        title: "VIEW",
+                        subtitle: "Open your card in Digicard.",
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            vSpaceSmall,
-            Row(
-              children: [
-                Expanded(
-                  child: PanelButton(
-                      color: colorTheme,
-                      onTap: () async {
-                        viewModel.edit(request.data);
-                      },
-                      icon: const Icon(FontAwesomeIcons.penToSquare),
-                      title: "Edit"),
+                vSpaceSmall,
+                Row(
+                  children: [
+                    Expanded(
+                      child: PanelButton(
+                          color: viewModel.card.color,
+                          onTap: () async {
+                            viewModel.edit(request.data);
+                          },
+                          icon: const Icon(FontAwesomeIcons.penToSquare),
+                          title: "Edit"),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            vSpaceSmall,
-            Row(
-              children: [
-                Expanded(
-                  child: PanelButton(
-                      color: colorTheme,
-                      onTap: () async {
-                        await viewModel.duplicate(request.data);
-                      },
-                      icon: const Icon(FontAwesomeIcons.copy),
-                      title: "Duplicate"),
+                vSpaceSmall,
+                Row(
+                  children: [
+                    Expanded(
+                      child: PanelButton(
+                          color: viewModel.card.color,
+                          onTap: () async {
+                            await viewModel.duplicate(request.data);
+                          },
+                          icon: const Icon(FontAwesomeIcons.copy),
+                          title: "Duplicate"),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            vSpaceSmall,
-            Row(
-              children: [
-                Expanded(
-                  child: PanelButton(
-                      color: colorTheme,
-                      onTap: () async {
-                        await viewModel.delete(request.data.id);
-                      },
-                      icon: const Icon(FontAwesomeIcons.trash),
-                      title: "Delete"),
+                vSpaceSmall,
+                Row(
+                  children: [
+                    Expanded(
+                      child: PanelButton(
+                          color: viewModel.card.color,
+                          onTap: () async {
+                            await viewModel.delete(request.data.id);
+                          },
+                          icon: const Icon(FontAwesomeIcons.trash),
+                          title: "Delete"),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ]);
+              ]);
         });
   }
 

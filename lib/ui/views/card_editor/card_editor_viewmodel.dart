@@ -5,10 +5,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:digicard/app/app.dialogs.dart';
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/app.logger.dart';
-import 'package:digicard/app/app.router.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/env/env.dart';
-import 'package:digicard/app/models/custom_link.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
 
@@ -67,47 +65,6 @@ class CardEditorViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  editCustomLink(CustomLink customLink, {required int index}) async {
-    var x = await _navigationService.navigateToCustomLinkView(
-      customLink: customLink,
-      index: index,
-    );
-
-    _formModel.customLinksInsert(index, x);
-    _formModel.customLinksValueUpdate(x['customLink']);
-
-    _formModel.form.markAsDirty();
-    notifyListeners();
-  }
-
-  addCustomLink(CustomLink customLink) async {
-    formModel.form.unfocus();
-    var x = await _navigationService.navigateToCustomLinkView(
-      customLink: customLink,
-    );
-    _formModel.addCustomLinksItem(x["customLink"]);
-    _formModel.form.markAsDirty();
-  }
-
-  removeCustomLink(int index) {
-    formModel.form.unfocus();
-    _dialogService
-        .showCustomDialog(
-      variant: DialogType.confirm,
-      description:
-          "You sure you want to remove this ${_formModel.customLinksControl.control("$index.type").value}?",
-      mainButtonTitle: "Remove",
-      secondaryButtonTitle: "Cancel",
-      barrierDismissible: true,
-    )
-        .then((value) async {
-      if (value!.confirmed) {
-        _formModel.removeCustomLinksItemAtIndex(index);
-        _formModel.form.markAsDirty();
-      }
-    });
-  }
-
   Future<bool> confirmExit() async {
     _formModel.form.unfocus();
     if (formModel.form.pristine == true && actionType == ActionType.duplicate) {
@@ -146,10 +103,7 @@ class CardEditorViewModel extends ReactiveViewModel {
           description: "First name is required",
           barrierDismissible: true);
     } else {
-      final customLinks = _formModel.customLinksControl.value ?? [];
-      final formValue = _formModel.model.copyWith(
-          customLinks:
-              customLinks.map((e) => CustomLink.fromJson(e!)).toList());
+      final formValue = _formModel.model;
 
       if (actionType == ActionType.create) {
         await runBusyFuture(_digitalCardsService.create(formValue),
@@ -167,7 +121,7 @@ class CardEditorViewModel extends ReactiveViewModel {
       setBusyForObject(doneBusyKey, false);
       _formModel.form.markAsPristine(updateParent: true);
 
-      _navigationService.back();
+      await _navigationService.pop(true);
     }
     notifyListeners();
   }
