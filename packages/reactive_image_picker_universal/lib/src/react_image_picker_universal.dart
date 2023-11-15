@@ -22,9 +22,8 @@ class ReactiveImagePickerUniversal<T> extends ReactiveFormField<T, Uint8List> {
               onImageFetched: (value) {},
               imageUrl: imageUrl,
               onChanged: (value) {
-                /*          field.control.markAsDirty();
-                field.didChange(value);
-                field.control.updateValueAndValidity(); */
+                field.control.markAsDirty();
+                field.control.updateValueAndValidity();
                 field.didChange(value);
                 onChanged?.call(field.control);
               },

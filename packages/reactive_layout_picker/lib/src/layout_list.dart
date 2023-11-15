@@ -77,14 +77,15 @@ class __LayoutPickerState extends State<LayoutList> {
   }
 }
 
-class ReactiveLayoutPicker extends ReactiveFormField<int, int> {
+class ReactiveLayoutPicker<T> extends ReactiveFormField<T, int> {
   ReactiveLayoutPicker({
     Key? key,
     String? formControlName,
-    FormControl<int>? formControl,
+    FormControl<T>? formControl,
     final Color? primaryColor,
     final Color? secondaryColor,
     final Color? selectedColor,
+    ReactiveFormFieldCallback<T>? onChanged,
   }) : super(
           key: key,
           formControlName: formControlName,
@@ -95,10 +96,11 @@ class ReactiveLayoutPicker extends ReactiveFormField<int, int> {
                 secondaryColor: secondaryColor,
                 selectedColor: selectedColor,
                 value: field.value,
-                onChange: (layout) {
-                  field.control.value = layout;
+                onChange: (value) {
                   field.control.markAsDirty();
-                  field.didChange;
+                  field.control.updateValueAndValidity();
+                  field.didChange(value);
+                  onChanged?.call(field.control);
                 });
           },
         ) {
@@ -109,6 +111,6 @@ class ReactiveLayoutPicker extends ReactiveFormField<int, int> {
   }
 
   @override
-  ReactiveFormFieldState<int, int> createState() =>
-      ReactiveFormFieldState<int, int>();
+  ReactiveFormFieldState<T, int> createState() =>
+      ReactiveFormFieldState<T, int>();
 }

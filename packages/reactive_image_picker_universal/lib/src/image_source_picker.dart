@@ -33,6 +33,13 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
   }
 
   @override
+  void dispose() {
+    pickedImage = null;
+    img = null;
+    super.dispose();
+  }
+
+  @override
   void initState() {
     () async {
       img = widget.value;
