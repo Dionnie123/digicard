@@ -1,4 +1,5 @@
 import 'package:digicard/app/constants/stacked_keys.dart';
+import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/views/card_editor/card_editor_viewmodel.dart';
@@ -46,6 +47,8 @@ class _CardTabFormState extends State<CardTabForm>
 
     Widget avatarField() {
       return ReactiveImagePickerUniversal(
+        imageUrl:
+            "${Env.supabaseAvatarUrl}${formModel?.avatarUrlControl.value}",
         formControl: formModel?.avatarFileControl,
         readOnly: !viewModel.editMode,
       );
@@ -53,6 +56,7 @@ class _CardTabFormState extends State<CardTabForm>
 
     Widget logoField() {
       return ReactiveImagePickerUniversal(
+        imageUrl: "${Env.supabaseLogoUrl}${formModel?.logoUrlControl.value}",
         formControl: formModel?.logoFileControl,
         readOnly: !viewModel.editMode,
       );

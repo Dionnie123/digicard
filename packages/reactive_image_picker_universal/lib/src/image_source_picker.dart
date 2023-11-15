@@ -4,10 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reactive_image_picker_universal/src/image_source_dialog.dart';
 
+import 'image_cache_downloader.dart';
+
 class ImageSourcePicker extends StatefulWidget {
+  final String? imageUrl;
   final Uint8List? value;
   final Function(Uint8List?) onChanged;
-  const ImageSourcePicker({super.key, required this.onChanged, this.value});
+  final Function(Uint8List?) onImageFetched;
+  const ImageSourcePicker(
+      {super.key,
+      required this.onChanged,
+      this.value,
+      this.imageUrl,
+      required this.onImageFetched});
 
   @override
   State<ImageSourcePicker> createState() => _ImageSourcePickerState();
@@ -25,7 +34,14 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
 
   @override
   void initState() {
-    img = widget.value;
+    () async {
+      img = widget.value;
+      img ??= await imageCacheDownload(widget.imageUrl.toString());
+      setState(() {
+        //  widget.onChanged(img);
+      });
+    }();
+
     super.initState();
   }
 

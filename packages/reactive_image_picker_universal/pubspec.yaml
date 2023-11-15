@@ -14,7 +14,7 @@ dependencies:
   crop_your_image: ^0.7.5
   image_picker: ^1.0.4
   #image_picker_for_web: ^3.0.1
-
+  flutter_cache_manager: ^3.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

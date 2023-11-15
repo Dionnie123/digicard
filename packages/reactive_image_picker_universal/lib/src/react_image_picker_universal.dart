@@ -11,6 +11,7 @@ class ReactiveImagePickerUniversal
     Key? key,
     bool? readOnly,
     String? formControlName,
+    String? imageUrl,
     FormControl<Uint8List>? formControl,
   }) : super(
           key: key,
@@ -18,6 +19,8 @@ class ReactiveImagePickerUniversal
           formControl: formControl,
           builder: (field) {
             return ImageSourcePicker(
+              onImageFetched: (value) {},
+              imageUrl: imageUrl,
               onChanged: (value) {
                 field.control.value = value;
                 field.control.markAsDirty();
