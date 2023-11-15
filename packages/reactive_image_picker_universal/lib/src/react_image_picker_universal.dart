@@ -5,14 +5,14 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import 'image_source_picker.dart';
 
-class ReactiveImagePickerUniversal
-    extends ReactiveFormField<Uint8List, Uint8List> {
+class ReactiveImagePickerUniversal<T> extends ReactiveFormField<T, Uint8List> {
   ReactiveImagePickerUniversal({
     Key? key,
     bool? readOnly,
     String? formControlName,
     String? imageUrl,
-    FormControl<Uint8List>? formControl,
+    FormControl<T>? formControl,
+    ReactiveFormFieldCallback<T>? onChanged,
   }) : super(
           key: key,
           formControlName: formControlName,
@@ -22,10 +22,11 @@ class ReactiveImagePickerUniversal
               onImageFetched: (value) {},
               imageUrl: imageUrl,
               onChanged: (value) {
-                field.control.value = value;
-                field.control.markAsDirty();
+                /*          field.control.markAsDirty();
                 field.didChange(value);
-                field.control.updateValueAndValidity();
+                field.control.updateValueAndValidity(); */
+                field.didChange(value);
+                onChanged?.call(field.control);
               },
             );
           },
@@ -37,6 +38,6 @@ class ReactiveImagePickerUniversal
   }
 
   @override
-  ReactiveFormFieldState<Uint8List, Uint8List> createState() =>
-      ReactiveFormFieldState<Uint8List, Uint8List>();
+  ReactiveFormFieldState<T, Uint8List> createState() =>
+      ReactiveFormFieldState<T, Uint8List>();
 }

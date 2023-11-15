@@ -147,15 +147,20 @@ class DigitalCardService with ListenableServiceMixin {
   Future update(DigitalCard card) async {
     try {
       final data = DigitalCardExtension.toMapUpdate(card.toJson());
+      if (card.avatarUrl.isEmpty && card.avatarFile != null) {
+        data["avatar_url"] = await imageSave(
+          card.avatarFile,
+          folderPath: 'avatars',
+        );
+      }
 
-      data["avatar_url"] = await imageSave(
-        card.avatarFile,
-        folderPath: 'avatars',
-      );
-      data["logo_url"] = await imageSave(
-        card.logoFile,
-        folderPath: 'logos',
-      );
+      if (card.logoUrl.isEmpty && card.logoFile != null) {
+        data["logo_url"] = await imageSave(
+          card.logoFile,
+          folderPath: 'logos',
+        );
+      }
+
       final updatedCard =
           await _supabase.from('cards').update(data).eq('id', card.id).select();
       if (updatedCard is List<dynamic>) {

@@ -47,6 +47,9 @@ class _CardTabFormState extends State<CardTabForm>
 
     Widget avatarField() {
       return ReactiveImagePickerUniversal(
+        onChanged: (control) {
+          formModel?.avatarUrlControl.updateValue("");
+        },
         imageUrl:
             "${Env.supabaseAvatarUrl}${formModel?.avatarUrlControl.value}",
         formControl: formModel?.avatarFileControl,
@@ -56,6 +59,9 @@ class _CardTabFormState extends State<CardTabForm>
 
     Widget logoField() {
       return ReactiveImagePickerUniversal(
+        onChanged: (control) {
+          formModel?.logoUrlControl.updateValue("");
+        },
         imageUrl: "${Env.supabaseLogoUrl}${formModel?.logoUrlControl.value}",
         formControl: formModel?.logoFileControl,
         readOnly: !viewModel.editMode,
