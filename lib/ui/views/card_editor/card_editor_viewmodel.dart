@@ -46,7 +46,7 @@ class CardEditorViewModel extends ReactiveViewModel {
   }
 
   Future<bool> showExitDialog(bool isFormPristine) async {
-    if (isFormPristine && actionType == ActionType.duplicate) {
+    if (isFormPristine == false && actionType == ActionType.duplicate) {
       DialogResponse? res = await _dialogService.showCustomDialog(
         variant: DialogType.confirm,
         title: "Discard",
