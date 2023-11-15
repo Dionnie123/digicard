@@ -4,7 +4,6 @@ export 'extensions/color_extension.dart';
 export 'extensions/string_extension.dart';
 export 'flutter_ez_core.dart';
 export 'helpers/image_cache_downloader.dart';
-export 'helpers/uint8ListConverter.dart';
 export 'helpers/offline_checker.dart';
 export 'helpers/ui_helpers.dart';
 export 'life_cycle_manager/life_cycle_manager.dart';

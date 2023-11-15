@@ -73,7 +73,7 @@ class HomeViewModel extends ReactiveViewModel {
   create() {
     _navigationService.navigateToCardEditorView(
       card: DigitalCard.blank(),
-      actionType: ActionType.view,
+      actionType: ActionType.create,
     );
   }
 

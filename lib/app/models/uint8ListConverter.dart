@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:digicard/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -23,11 +24,11 @@ class ColorConverter implements JsonConverter<Color, int> {
 
   @override
   Color fromJson(int? json) {
-    return json == null ? Colors.orange : Color(json);
+    return json == null ? kcPrimaryColor : Color(json);
   }
 
   @override
   int toJson(Color? object) {
-    return object?.value ?? Colors.orange.value;
+    return object?.value ?? kcPrimaryColor.value;
   }
 }

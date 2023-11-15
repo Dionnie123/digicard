@@ -232,7 +232,7 @@ class _CardTabFormState extends State<CardTabForm>
                   : "Create Card"),
           actions: [
             ReactiveDigitalCardFormConsumer(builder: (context, f, w) {
-              return ((viewModel.editMode) && formModel?.form.pristine != true)
+              return (viewModel.editMode && formModel?.form.pristine != true)
                   ? TextButton(
                       onPressed: () async {
                         formModel?.form.unfocus();
@@ -293,21 +293,24 @@ class _CardTabFormState extends State<CardTabForm>
                                   color: Theme.of(context)
                                       .inputDecorationTheme
                                       .fillColor,
-                                  //elevation: 5,
                                   margin: EdgeInsets.zero,
                                   clipBehavior: Clip.antiAlias,
                                   child: ExpansionTile(
-                                    collapsedBackgroundColor: colorTheme,
+                                    // collapsedBackgroundColor: colorTheme,
 
                                     iconColor: colorTheme.lighten(),
                                     // tilePadding: const EdgeInsets.all(0.0),
                                     shape:
                                         Border.all(color: Colors.transparent),
                                     childrenPadding: const EdgeInsets.all(8.0),
-                                    title: Text(
-                                      "${formModel?.prefixControl.value ?? ""} ${formModel?.firstNameControl.value ?? ""} ${formModel?.middleNameControl.value ?? ""} ${formModel?.lastNameControl.value ?? ""} ${formModel?.suffixControl.value ?? ""}"
-                                          .sanitize(),
-                                    ),
+                                    title: Builder(builder: (context) {
+                                      final fullName =
+                                          "${formModel?.prefixControl.value ?? ""} ${formModel?.firstNameControl.value ?? ""} ${formModel?.middleNameControl.value ?? ""} ${formModel?.lastNameControl.value ?? ""} ${formModel?.suffixControl.value ?? ""}"
+                                              .sanitize();
+                                      return Text(fullName.isNotEmpty
+                                          ? fullName
+                                          : "Full name");
+                                    }),
                                     children: <Widget>[
                                       prefixField(),
                                       vSpaceSmall,

@@ -1,10 +1,8 @@
 import 'dart:typed_data';
-
-import 'package:digicard/ui/common/app_colors.dart';
-
-import 'package:flutter_ez_core/helpers/uint8ListConverter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
+import 'package:digicard/ui/common/app_colors.dart';
+import 'uint8ListConverter.dart';
 part 'digital_card.freezed.dart';
 part 'digital_card.g.dart';
 part 'digital_card.gform.dart';
@@ -19,7 +17,7 @@ class DigitalCard with _$DigitalCard {
     required int id,
     required String userId,
     required String uuid,
-    @Default("") @RfControl() String firstName,
+    @Default("") @RfControl(validators: [RequiredValidator()]) String firstName,
     @Default("") String logoUrl,
     @Default("") String avatarUrl,
     @Default("New Card") @RfControl() String title,

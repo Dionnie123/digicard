@@ -23,7 +23,7 @@ mixin _$DigitalCard {
   int get id => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get uuid => throw _privateConstructorUsedError;
-  @RfControl()
+  @RfControl(validators: [RequiredValidator()])
   String get firstName => throw _privateConstructorUsedError;
   String get logoUrl => throw _privateConstructorUsedError;
   String get avatarUrl => throw _privateConstructorUsedError;
@@ -83,7 +83,7 @@ abstract class $DigitalCardCopyWith<$Res> {
       {int id,
       String userId,
       String uuid,
-      @RfControl() String firstName,
+      @RfControl(validators: [RequiredValidator()]) String firstName,
       String logoUrl,
       String avatarUrl,
       @RfControl() String title,
@@ -263,7 +263,7 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       {int id,
       String userId,
       String uuid,
-      @RfControl() String firstName,
+      @RfControl(validators: [RequiredValidator()]) String firstName,
       String logoUrl,
       String avatarUrl,
       @RfControl() String title,
@@ -437,7 +437,7 @@ class _$DigitalCardImpl implements _DigitalCard {
       {required this.id,
       required this.userId,
       required this.uuid,
-      @RfControl() this.firstName = "",
+      @RfControl(validators: [RequiredValidator()]) this.firstName = "",
       this.logoUrl = "",
       this.avatarUrl = "",
       @RfControl() this.title = "New Card",
@@ -472,7 +472,7 @@ class _$DigitalCardImpl implements _DigitalCard {
   final String uuid;
   @override
   @JsonKey()
-  @RfControl()
+  @RfControl(validators: [RequiredValidator()])
   final String firstName;
   @override
   @JsonKey()
@@ -658,7 +658,7 @@ abstract class _DigitalCard implements DigitalCard {
       {required final int id,
       required final String userId,
       required final String uuid,
-      @RfControl() final String firstName,
+      @RfControl(validators: [RequiredValidator()]) final String firstName,
       final String logoUrl,
       final String avatarUrl,
       @RfControl() final String title,
@@ -691,7 +691,7 @@ abstract class _DigitalCard implements DigitalCard {
   @override
   String get uuid;
   @override
-  @RfControl()
+  @RfControl(validators: [RequiredValidator()])
   String get firstName;
   @override
   String get logoUrl;
