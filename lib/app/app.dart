@@ -17,7 +17,6 @@ import 'package:digicard/ui/dialogs/confirm/confirm_dialog.dart';
 import 'package:digicard/ui/dialogs/error/error_dialog.dart';
 import 'package:digicard/ui/dialogs/info/info_dialog.dart';
 import 'package:digicard/ui/views/forgot_password/forgot_password_view.dart';
-import 'package:digicard/ui/views/custom_link/custom_link_view.dart';
 import 'services/auth_service.dart';
 import 'services/authentication_service.supabase.dart';
 import 'services/contacts_service.dart';
@@ -52,7 +51,6 @@ import 'package:digicard/ui/views/dashboard/dashboard_view.dart';
     MaterialRoute(page: CardEditorView),
     MaterialRoute(path: "/p/:uuid", page: CardViewerView),
     MaterialRoute(page: ForgotPasswordView),
-    MaterialRoute(page: CustomLinkView),
     CustomRoute(
         page: ScanView, transitionsBuilder: TransitionsBuilders.noTransition),
     MaterialRoute(page: DashboardView),

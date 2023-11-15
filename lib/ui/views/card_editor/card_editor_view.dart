@@ -25,8 +25,6 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
   @override
   void onDispose(CardEditorViewModel viewModel) {
     viewModel.model = DigitalCard.blank();
-    viewModel.formModel.reset();
-    viewModel.formModel.form.dispose();
     super.onDispose(viewModel);
   }
 
@@ -36,47 +34,49 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
     CardEditorViewModel viewModel,
     Widget? child,
   ) {
-    return WillPopScope(
-      onWillPop: () async {
-        return await viewModel.confirmExit();
-      },
-      child: ReactiveDigitalCardForm(
-        form: viewModel.formModel,
-        child: ReactiveValueListenableBuilder<dynamic>(
-            formControl: viewModel.formModel.colorControl,
-            builder: (context, color, child) {
-              final colorTheme = color.value;
-              return LoaderOverlayWrapper(
-                  color: colorTheme,
-                  type: viewModel.busy(saveBusyKey)
-                      ? LoadingType.save
-                      : viewModel.busy(doneBusyKey)
-                          ? LoadingType.done
-                          : null,
-                  builder: (context) {
-                    return isMobile(context)
-                        ? const CardTabForm()
-                        : Row(
-                            children: [
-                              const Expanded(child: CardTabForm()),
-                              const VerticalDivider(
-                                width: 1,
-                                thickness: 1,
-                              ),
-                              Expanded(
-                                child: ReactiveDigitalCardFormConsumer(
-                                    builder: (context, f, c) {
-                                  return CardViewerSplitView(
-                                    card: f.model,
-                                  );
-                                }),
-                              )
-                            ],
-                          );
-                  });
-            }),
-      ),
-    );
+    return DigitalCardFormBuilder(
+        model: card,
+        builder: (context, form, _) {
+          return WillPopScope(
+            onWillPop: () async {
+              form.form.unfocus();
+              return await viewModel.showExitDialog(form.form.pristine);
+            },
+            child: ReactiveValueListenableBuilder<Color?>(
+                formControl: form.colorControl,
+                builder: (context, color, child) {
+                  final colorTheme = color.value;
+                  return LoaderOverlayWrapper(
+                      color: colorTheme,
+                      type: viewModel.busy(saveBusyKey)
+                          ? LoadingType.save
+                          : viewModel.busy(doneBusyKey)
+                              ? LoadingType.done
+                              : null,
+                      builder: (context) {
+                        return isMobile(context)
+                            ? const CardTabForm()
+                            : Row(
+                                children: [
+                                  const Expanded(child: CardTabForm()),
+                                  const VerticalDivider(
+                                    width: 1,
+                                    thickness: 1,
+                                  ),
+                                  Expanded(
+                                    child: ReactiveDigitalCardFormConsumer(
+                                        builder: (context, f, c) {
+                                      return CardViewerSplitView(
+                                        card: f.model,
+                                      );
+                                    }),
+                                  )
+                                ],
+                              );
+                      });
+                }),
+          );
+        });
   }
 
   @override

@@ -60,6 +60,7 @@ mixin _$DigitalCard {
   String get company => throw _privateConstructorUsedError;
   @RfControl()
   String get headline => throw _privateConstructorUsedError;
+  @RfControl()
   List<Map<String, dynamic>> get customLinks =>
       throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -100,7 +101,7 @@ abstract class $DigitalCardCopyWith<$Res> {
       @RfControl() String department,
       @RfControl() String company,
       @RfControl() String headline,
-      List<Map<String, dynamic>> customLinks,
+      @RfControl() List<Map<String, dynamic>> customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? addedAt});
@@ -280,7 +281,7 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       @RfControl() String department,
       @RfControl() String company,
       @RfControl() String headline,
-      List<Map<String, dynamic>> customLinks,
+      @RfControl() List<Map<String, dynamic>> customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? addedAt});
@@ -454,7 +455,7 @@ class _$DigitalCardImpl implements _DigitalCard {
       @RfControl() this.department = "",
       @RfControl() this.company = "",
       @RfControl() this.headline = "",
-      final List<Map<String, dynamic>> customLinks = const [],
+      @RfControl() final List<Map<String, dynamic>> customLinks = const [],
       this.createdAt,
       this.updatedAt,
       this.addedAt})
@@ -543,6 +544,7 @@ class _$DigitalCardImpl implements _DigitalCard {
   final List<Map<String, dynamic>> _customLinks;
   @override
   @JsonKey()
+  @RfControl()
   List<Map<String, dynamic>> get customLinks {
     if (_customLinks is EqualUnmodifiableListView) return _customLinks;
     // ignore: implicit_dynamic_type
@@ -674,7 +676,7 @@ abstract class _DigitalCard implements DigitalCard {
       @RfControl() final String department,
       @RfControl() final String company,
       @RfControl() final String headline,
-      final List<Map<String, dynamic>> customLinks,
+      @RfControl() final List<Map<String, dynamic>> customLinks,
       final DateTime? createdAt,
       final DateTime? updatedAt,
       final DateTime? addedAt}) = _$DigitalCardImpl;
@@ -744,6 +746,7 @@ abstract class _DigitalCard implements DigitalCard {
   @RfControl()
   String get headline;
   @override
+  @RfControl()
   List<Map<String, dynamic>> get customLinks;
   @override
   DateTime? get createdAt;

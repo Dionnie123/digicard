@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
-import 'package:digicard/app/models/custom_link.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
@@ -50,9 +49,9 @@ class NativeContactsService with ListenableServiceMixin {
 
   Future<Contact?> _cardToContact(DigitalCard card) async {
     try {
-      Map<String, List<CustomLink>> customLinks = groupBy(
-          card.customLinks.map((e) => CustomLink.fromJson(e)).toList(), (e) {
-        return e.label;
+      Map<String, List<Map<String, dynamic>>> customLinks =
+          groupBy(card.customLinks.map((e) => e).toList(), (e) {
+        return e['label'];
       });
       Uint8List? bytes;
       if (card.avatarUrl.isNotEmpty) {
@@ -76,19 +75,19 @@ class NativeContactsService with ListenableServiceMixin {
             )
           ],
           emails: customLinks["Email"]?.map((e) {
-                return Email(e.value);
+                return Email(e['value']);
               }).toList() ??
               [],
           phones: customLinks["Phone Number"]?.map((e) {
-                return Phone(e.value);
+                return Phone(e['value']);
               }).toList() ??
               [],
           websites: customLinks["Website"]?.map((e) {
-                return Website(e.value);
+                return Website(e['value']);
               }).toList() ??
               [],
           addresses: customLinks["Address"]?.map((e) {
-                return Address(e.value);
+                return Address(e['value']);
               }).toList() ??
               []);
     } catch (e) {

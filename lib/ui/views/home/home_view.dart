@@ -44,7 +44,7 @@ class HomeView extends StackedView<HomeViewModel> {
         child: SplitView(
           content: PageScaffold(
             floatingActionButton: floatActionButton(),
-            title: 'Cards',
+            title: 'CARDS',
             body: ScaffoldListWrapper(
               isBusy: viewModel.isBusy,
               emptyIndicatorWidget: const EZEmptyDisplay(

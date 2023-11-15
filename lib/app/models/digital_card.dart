@@ -37,7 +37,7 @@ class DigitalCard with _$DigitalCard {
     @Default("") @RfControl() String department,
     @Default("") @RfControl() String company,
     @Default("") @RfControl() String headline,
-    @Default([]) List<Map<String, dynamic>> customLinks,
+    @Default([]) @RfControl() List<Map<String, dynamic>> customLinks,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? addedAt,

@@ -1,5 +1,3 @@
-import 'package:digicard/app/extensions/custom_link_extension.dart';
-import 'package:digicard/app/models/custom_link.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/views/card_editor/widgets/icon_list_item.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,6 @@ import 'package:flutter_ez_core/flutter_ez_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked_themes/stacked_themes.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CardItems {
   final BuildContext context;
@@ -104,27 +101,27 @@ class CardItems {
         : const SizedBox.shrink();
   }
 
-  Widget customLinks(List<CustomLink> value) {
+  Widget customLinks(List<Map<String, dynamic>> value) {
     return value.isNotEmpty
         ? Wrap(
             runSpacing: 5,
             spacing: 5,
             children: value.map((e) {
               return GestureDetector(
-                  onTap: (e.extras().uri != null)
+                  /*   onTap: (e.extras().uri != null)
                       ? () async {
                           if (await launchUrl(e.extras().uri ?? Uri())) {
                             throw Exception(
                                 'Could not launch ${e.extras().uri}');
                           }
                         }
-                      : null,
+                      : null, */
                   child: IconListItem(
-                    icon: e.extras().icon,
-                    iconColor: Colors.white,
-                    backgroundColor: color,
-                    text: e.value.sanitize(),
-                  ));
+                icon: Icons.link_rounded,
+                iconColor: Colors.white,
+                backgroundColor: color,
+                text: e['value'],
+              ));
             }).toList(),
           )
         : const SizedBox.shrink();

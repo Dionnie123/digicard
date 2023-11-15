@@ -10,7 +10,6 @@ import 'package:reactive_image_picker_universal/reactive_image_picker_universal.
 import 'package:reactive_layout_picker/reactive_layout_picker.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
 import 'package:stacked/stacked.dart';
-import 'form_components/collapsible_field.dart';
 
 class CardTabForm extends StatefulWidget {
   const CardTabForm({Key? key}) : super(key: key);
@@ -30,13 +29,13 @@ class _CardTabFormState extends State<CardTabForm>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    ReactiveDigitalCardForm.of(context);
+    final formModel = ReactiveDigitalCardForm.of(context);
     final viewModel = getParentViewModel<CardEditorViewModel>(
       context,
       listen: true,
     );
-    final formModel = viewModel.formModel;
-    final colorTheme = formModel.colorControl.value ?? kcPrimaryColor;
+    /*  final formModel = viewModel.formModel; */
+    final colorTheme = formModel?.colorControl.value ?? kcPrimaryColor;
 
     const inputStyle = InputDecoration(
         contentPadding: EdgeInsets.all(12),
@@ -47,21 +46,21 @@ class _CardTabFormState extends State<CardTabForm>
 
     Widget avatarField() {
       return ReactiveImagePickerUniversal(
-        formControl: formModel.avatarFileControl,
+        formControl: formModel?.avatarFileControl,
         readOnly: !viewModel.editMode,
       );
     }
 
     Widget logoField() {
       return ReactiveImagePickerUniversal(
-        formControl: formModel.logoFileControl,
+        formControl: formModel?.logoFileControl,
         readOnly: !viewModel.editMode,
       );
     }
 
     Widget colorPickerField() {
       return ReactiveMaterialColorPicker<Color>(
-        formControl: formModel.colorControl,
+        formControl: formModel?.colorControl,
       );
     }
 
@@ -69,7 +68,7 @@ class _CardTabFormState extends State<CardTabForm>
       return ReactiveLayoutPicker(
         primaryColor: colorTheme,
         selectedColor: colorTheme,
-        formControl: formModel.layoutControl,
+        formControl: formModel?.layoutControl,
       );
     }
 
@@ -79,7 +78,7 @@ class _CardTabFormState extends State<CardTabForm>
         child: ReactiveTextField(
           onSubmitted: (control) {},
           showErrors: (control) => false,
-          formControl: formModel.titleControl,
+          formControl: formModel?.titleControl,
           textInputAction: TextInputAction.done,
           decoration: inputStyle.copyWith(label: const Text("Title")),
         ),
@@ -91,7 +90,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.prefixControl,
+          formControl: formModel?.prefixControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Prefix")),
         ),
@@ -103,7 +102,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.firstNameControl,
+          formControl: formModel?.firstNameControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("First name*")),
         ),
@@ -115,7 +114,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.middleNameControl,
+          formControl: formModel?.middleNameControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Middle name")),
         ),
@@ -127,7 +126,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.lastNameControl,
+          formControl: formModel?.lastNameControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Last name")),
         ),
@@ -139,7 +138,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.suffixControl,
+          formControl: formModel?.suffixControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Suffix")),
         ),
@@ -151,7 +150,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.accreditationsControl,
+          formControl: formModel?.accreditationsControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Accreditations")),
         ),
@@ -163,7 +162,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.maidenNameControl,
+          formControl: formModel?.maidenNameControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Maiden Name")),
         ),
@@ -175,7 +174,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.positionControl,
+          formControl: formModel?.positionControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Position")),
         ),
@@ -185,7 +184,7 @@ class _CardTabFormState extends State<CardTabForm>
     Widget departmentField() {
       return ReactiveTextField(
         showErrors: (control) => false,
-        formControl: formModel.departmentControl,
+        formControl: formModel?.departmentControl,
         textInputAction: TextInputAction.next,
         decoration: inputStyle.copyWith(label: const Text("Department")),
       );
@@ -196,7 +195,7 @@ class _CardTabFormState extends State<CardTabForm>
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.companyControl,
+          formControl: formModel?.companyControl,
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Company")),
         ),
@@ -206,14 +205,14 @@ class _CardTabFormState extends State<CardTabForm>
     Widget linksField() {
       return ReactiveLinksPicker(
         backgroundColor: colorTheme,
-        formControl: formModel.customLinksControl,
+        formControl: formModel?.customLinksControl,
       );
     }
 
     Widget headlineField() {
       return ReactiveTextField(
           showErrors: (control) => false,
-          formControl: formModel.headlineControl,
+          formControl: formModel?.headlineControl,
           textInputAction: TextInputAction.newline,
           keyboardType: TextInputType.multiline,
           maxLines: null,
@@ -233,11 +232,20 @@ class _CardTabFormState extends State<CardTabForm>
                   : "Create Card"),
           actions: [
             ReactiveDigitalCardFormConsumer(builder: (context, f, w) {
-              return ((viewModel.editMode) &&
-                      viewModel.formModel.form.pristine != true)
+              return ((viewModel.editMode) && formModel?.form.pristine != true)
                   ? TextButton(
                       onPressed: () async {
-                        await viewModel.save();
+                        formModel?.form.unfocus();
+                        if (formModel?.firstNameControl.hasErrors == true) {
+                          viewModel.showFormErrorsDialog();
+                        } else {
+                          await viewModel
+                              .save(formModel?.model ?? DigitalCard.blank())
+                              .then((value) async {
+                            formModel?.form.markAsPristine(updateParent: true);
+                            await viewModel.exitEditor();
+                          });
+                        }
                       },
                       child: Text(
                         "Save",
@@ -281,33 +289,42 @@ class _CardTabFormState extends State<CardTabForm>
                               children: [
                                 titleField(),
                                 vSpaceSmall,
-                                CollapsibleField(
-                                    onToggle: (expanded) {
-                                      viewModel.formModel.form.unfocus();
-                                    },
-                                    value:
-                                        "${formModel.prefixControl.value ?? ""} ${formModel.firstNameControl.value ?? ""} ${formModel.middleNameControl.value ?? ""} ${formModel.lastNameControl.value ?? ""} ${formModel.suffixControl.value ?? ""}"
-                                            .sanitize(),
-                                    body: Padding(
-                                      padding: const EdgeInsets.only(left: 30),
-                                      child: Column(
-                                        children: [
-                                          prefixField(),
-                                          vSpaceSmall,
-                                          firstNameField(),
-                                          vSpaceSmall,
-                                          middleNameField(),
-                                          vSpaceSmall,
-                                          lastNameField(),
-                                          vSpaceSmall,
-                                          suffixField(),
-                                          vSpaceSmall,
-                                          accrediationsField(),
-                                          vSpaceSmall,
-                                          maidenNameField(),
-                                        ],
-                                      ),
-                                    )),
+                                Card(
+                                  color: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .fillColor,
+                                  //elevation: 5,
+                                  margin: EdgeInsets.zero,
+                                  clipBehavior: Clip.antiAlias,
+                                  child: ExpansionTile(
+                                    collapsedBackgroundColor: colorTheme,
+
+                                    iconColor: colorTheme.lighten(),
+                                    // tilePadding: const EdgeInsets.all(0.0),
+                                    shape:
+                                        Border.all(color: Colors.transparent),
+                                    childrenPadding: const EdgeInsets.all(8.0),
+                                    title: Text(
+                                      "${formModel?.prefixControl.value ?? ""} ${formModel?.firstNameControl.value ?? ""} ${formModel?.middleNameControl.value ?? ""} ${formModel?.lastNameControl.value ?? ""} ${formModel?.suffixControl.value ?? ""}"
+                                          .sanitize(),
+                                    ),
+                                    children: <Widget>[
+                                      prefixField(),
+                                      vSpaceSmall,
+                                      firstNameField(),
+                                      vSpaceSmall,
+                                      middleNameField(),
+                                      vSpaceSmall,
+                                      lastNameField(),
+                                      vSpaceSmall,
+                                      suffixField(),
+                                      vSpaceSmall,
+                                      accrediationsField(),
+                                      vSpaceSmall,
+                                      maidenNameField(),
+                                    ],
+                                  ),
+                                ),
                                 vSpaceSmall,
                                 positionField(),
                                 vSpaceSmall,

@@ -1,4 +1,3 @@
-import 'package:flutter_ez_core/helpers/image_cache_downloader.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -6,7 +5,6 @@ import 'package:digicard/app/app.dialogs.dart';
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
 
@@ -23,12 +21,10 @@ class CardEditorViewModel extends ReactiveViewModel {
   @override
   void onFutureError(error, Object? key) {
     log.e(error);
-
     _dialogService.showCustomDialog(
         variant: DialogType.error,
         barrierDismissible: true,
         description: error.toString());
-
     super.onFutureError(error, key);
   }
 
@@ -38,36 +34,19 @@ class CardEditorViewModel extends ReactiveViewModel {
   bool editMode = false;
   late ActionType actionType;
   late DigitalCard model;
-  late DigitalCardForm _formModel;
-  DigitalCardForm get formModel => _formModel;
-
-  bool formSubmitAttempt = false;
 
   Future<void> initialize(DigitalCard m, ActionType action) async {
     model = m;
     actionType = action;
-    editMode = [ActionType.create, ActionType.edit, ActionType.duplicate]
-        .contains(actionType);
-
-    _formModel = DigitalCardForm(DigitalCardForm.formElements(m), null);
-    final elements = DigitalCardForm.formElements(m);
-    _formModel.form.setValidators(elements.validators);
-    _formModel.form.setAsyncValidators(elements.asyncValidators);
-    if (elements.disabled) {
-      _formModel.form.markAsDisabled();
-    }
-    _formModel.form.addAll(elements.controls);
-    _formModel.avatarFileControl?.value =
-        await imageCacheDownload("${Env.supabaseAvatarUrl}${m.avatarUrl}");
-
-    _formModel.logoFileControl?.value =
-        await imageCacheDownload("${Env.supabaseLogoUrl}${m.logoUrl}");
-    notifyListeners();
+    editMode = [
+      ActionType.create,
+      ActionType.edit,
+      ActionType.duplicate,
+    ].contains(actionType);
   }
 
-  Future<bool> confirmExit() async {
-    _formModel.form.unfocus();
-    if (formModel.form.pristine == true && actionType == ActionType.duplicate) {
+  Future<bool> showExitDialog(bool isFormPristine) async {
+    if (isFormPristine && actionType == ActionType.duplicate) {
       DialogResponse? res = await _dialogService.showCustomDialog(
         variant: DialogType.confirm,
         title: "Discard",
@@ -79,7 +58,7 @@ class CardEditorViewModel extends ReactiveViewModel {
       return res?.confirmed ?? false;
     }
 
-    if (formModel.form.pristine == false) {
+    if (isFormPristine == false) {
       DialogResponse? res = await _dialogService.showCustomDialog(
         variant: DialogType.confirm,
         title: "Unsaved Changes",
@@ -93,36 +72,31 @@ class CardEditorViewModel extends ReactiveViewModel {
     return Future.value(true);
   }
 
-  save() async {
-    _formModel.form.unfocus();
-    formSubmitAttempt = true;
+  Future<void> showFormErrorsDialog() async {
+    await _dialogService.showCustomDialog(
+        variant: DialogType.info,
+        description: "First name is required",
+        barrierDismissible: true);
+  }
 
-    if (_formModel.firstNameControl.hasErrors) {
-      _dialogService.showCustomDialog(
-          variant: DialogType.info,
-          description: "First name is required",
-          barrierDismissible: true);
-    } else {
-      final formValue = _formModel.model;
-
-      if (actionType == ActionType.create) {
-        await runBusyFuture(_digitalCardsService.create(formValue),
-            throwException: true, busyObject: saveBusyKey);
-      } else if (actionType == ActionType.edit) {
-        await runBusyFuture(_digitalCardsService.update(formValue),
-            throwException: true, busyObject: saveBusyKey);
-      } else if (actionType == ActionType.duplicate) {
-        await runBusyFuture(_digitalCardsService.duplicate(formValue),
-            throwException: true, busyObject: saveBusyKey);
-      }
-      setBusyForObject(saveBusyKey, false);
-      setBusyForObject(doneBusyKey, true);
-      await Future.delayed(const Duration(seconds: 1));
-      setBusyForObject(doneBusyKey, false);
-      _formModel.form.markAsPristine(updateParent: true);
-
-      await _navigationService.pop(true);
+  Future<void> save(DigitalCard formValue) async {
+    if (actionType == ActionType.create) {
+      await runBusyFuture(_digitalCardsService.create(formValue),
+          throwException: true, busyObject: saveBusyKey);
+    } else if (actionType == ActionType.edit) {
+      await runBusyFuture(_digitalCardsService.update(formValue),
+          throwException: true, busyObject: saveBusyKey);
+    } else if (actionType == ActionType.duplicate) {
+      await runBusyFuture(_digitalCardsService.duplicate(formValue),
+          throwException: true, busyObject: saveBusyKey);
     }
-    notifyListeners();
+    setBusyForObject(saveBusyKey, false);
+    setBusyForObject(doneBusyKey, true);
+    await Future.delayed(const Duration(seconds: 1));
+    setBusyForObject(doneBusyKey, false);
+  }
+
+  Future exitEditor() async {
+    await _navigationService.pop(true);
   }
 }
