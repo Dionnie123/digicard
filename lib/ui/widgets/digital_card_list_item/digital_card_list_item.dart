@@ -27,6 +27,13 @@ class DigitalCardListItem extends StatelessWidget {
                   width: double.infinity,
                   height: imageSize,
                   fit: BoxFit.cover,
+                  imageBuilder: (context, imageProvider) {
+                    return Container(
+                        decoration: BoxDecoration(
+                            color: card.color.darken(0.2),
+                            image: DecorationImage(
+                                fit: BoxFit.cover, image: imageProvider)));
+                  },
                   placeholder: (context, url) {
                     return Container(color: card.color.darken(0.2));
                   },
@@ -64,8 +71,7 @@ class DigitalCardListItem extends StatelessWidget {
       height: 233,
       child: IntrinsicHeight(
         child: Card(
-          elevation: 1,
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.hardEdge,
           child: InkWell(
             onTap: () => onTap(),
             child: Column(
