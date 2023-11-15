@@ -30,7 +30,7 @@ class DrawerMenu extends StatelessWidget {
         },
         title: Text(title,
             style: TextStyle(
-                fontSize: 14, color: selected ? Colors.white : Colors.white)),
+                fontSize: 16, color: selected ? Colors.white : Colors.white)),
       ),
     );
   }

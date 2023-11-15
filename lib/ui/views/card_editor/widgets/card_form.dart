@@ -205,6 +205,7 @@ class _CardTabFormState extends State<CardTabForm>
 
     Widget linksField() {
       return ReactiveLinksPicker(
+        backgroundColor: colorTheme,
         formControl: formModel.customLinksControl,
       );
     }

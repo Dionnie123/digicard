@@ -53,7 +53,7 @@ class __LayoutPickerState extends State<LayoutList> {
     ];
     return SizedBox(
       width: double.infinity,
-      height: 120,
+      height: 122,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: _layout.length,
