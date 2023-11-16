@@ -40,7 +40,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
               notchColor: viewModel.card.color,
               children: [
                 Text(
-                  viewModel.card.title,
+                  viewModel.card.title.toString(),
                   maxLines: 2,
                   style: const TextStyle(
                     fontSize: 22,

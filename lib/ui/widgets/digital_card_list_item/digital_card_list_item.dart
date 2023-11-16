@@ -49,7 +49,7 @@ class DigitalCardListItem extends StatelessWidget {
 
     Widget title() {
       return Text(
-        card.title,
+        card.title.toString(),
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,

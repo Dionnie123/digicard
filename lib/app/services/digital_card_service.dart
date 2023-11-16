@@ -190,10 +190,10 @@ class DigitalCardService with ListenableServiceMixin {
 
   Future delete(DigitalCard card) async {
     try {
-      if (card.avatarUrl.isNotEmpty) {
+      if (card.avatarUrl.toString().isNotEmpty) {
         await imageDelete(folderPath: "avatars/${card.avatarUrl}");
       }
-      if (card.logoUrl.isNotEmpty) {
+      if (card.logoUrl.toString().isNotEmpty) {
         await imageDelete(folderPath: "logos/${card.logoUrl}");
       }
       await _supabase.from('cards').delete().eq('id', card.id);
@@ -219,7 +219,8 @@ class DigitalCardService with ListenableServiceMixin {
 
       if (isCopyOriginalAvatar) {
         data["avatar_url"] = await imageCopy(
-            sourceFileName: originalCard.avatarUrl, folderPath: 'avatars');
+            sourceFileName: originalCard.avatarUrl.toString(),
+            folderPath: 'avatars');
       }
       if (isUploadNewAvatar) {
         data["avatar_url"] =
@@ -232,7 +233,8 @@ class DigitalCardService with ListenableServiceMixin {
 
       if (isCopyOriginalLogo) {
         data["logo_url"] = await imageCopy(
-            sourceFileName: originalCard.logoUrl, folderPath: 'logos');
+            sourceFileName: originalCard.logoUrl.toString(),
+            folderPath: 'logos');
       }
 
       if (isUploadNewLogo) {

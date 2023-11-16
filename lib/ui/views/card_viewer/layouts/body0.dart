@@ -22,8 +22,8 @@ class Body0 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            cardItems.headline(viewModel.card.headline),
-            // cardItems.customLinks(viewModel.card.customLinks),
+            cardItems.headline(viewModel.card.headline.toString()),
+            // cardItems.customLinks(viewModel.card?.customLinks),
             if (viewModel.isCardOwnedByUser())
               cardItems.dateCreated(viewModel.card.createdAt),
             if (viewModel.isCardInContacts())

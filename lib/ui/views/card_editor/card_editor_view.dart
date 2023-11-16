@@ -73,7 +73,7 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                   Expanded(
                                     child: ReactiveDigitalCardFormConsumer(
                                         builder: (context, form, _) {
-                                      return const Text("");
+                                      return Text(form.form.value.toString());
                                     }),
                                   )
                                 ],

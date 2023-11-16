@@ -49,10 +49,10 @@ class _CardTabFormState extends State<CardTabForm>
       return ReactiveImagePickerUniversal(
         onChanged: (control) {
           if (control.value == null) {
-            formModel?.avatarUrlControl.updateValue("");
+            formModel?.avatarUrlControl?.updateValue("");
           }
         },
-        imageUrl: "${Env.supabaseAvatarUrl}${formModel?.model.avatarUrl}",
+        imageUrl: "${Env.supabaseLogoUrl}${formModel?.avatarUrlControl?.value}",
         formControl: formModel?.avatarFileControl,
         readOnly: !viewModel.editMode,
       );
@@ -62,10 +62,10 @@ class _CardTabFormState extends State<CardTabForm>
       return ReactiveImagePickerUniversal(
         onChanged: (control) {
           if (control.value == null) {
-            formModel?.logoUrlControl.updateValue("");
+            formModel?.logoUrlControl?.updateValue("");
           }
         },
-        imageUrl: "${Env.supabaseLogoUrl}${formModel?.logoUrlControl.value}",
+        imageUrl: "${Env.supabaseLogoUrl}${formModel?.logoUrlControl?.value}",
         formControl: formModel?.logoFileControl,
         readOnly: !viewModel.editMode,
       );
@@ -249,7 +249,7 @@ class _CardTabFormState extends State<CardTabForm>
                   ? TextButton(
                       onPressed: () async {
                         formModel?.form.unfocus();
-                        if (formModel?.firstNameControl.hasErrors == true) {
+                        if (formModel?.firstNameControl?.hasErrors == true) {
                           viewModel.showFormErrorsDialog();
                         } else {
                           await viewModel
@@ -304,7 +304,7 @@ class _CardTabFormState extends State<CardTabForm>
                                 /*   vSpaceSmall,
                                 Builder(builder: (context) {
                                   final fullName =
-                                      "${formModel?.prefixControl.value ?? ""} ${formModel?.firstNameControl.value ?? ""} ${formModel?.middleNameControl.value ?? ""} ${formModel?.lastNameControl.value ?? ""} ${formModel?.suffixControl.value ?? ""}"
+                                      "${formModel?.prefixControl?.value ?? ""} ${formModel?.firstNameControl?.value ?? ""} ${formModel?.middleNameControl?.value ?? ""} ${formModel?.lastNameControl?.value ?? ""} ${formModel?.suffixControl?.value ?? ""}"
                                           .sanitize();
                                   return Text(fullName.isNotEmpty
                                       ? fullName

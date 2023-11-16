@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:digicard/ui/common/app_colors.dart';
@@ -14,27 +14,34 @@ class DigitalCard with _$DigitalCard {
     fieldRename: FieldRename.snake,
   )
   factory DigitalCard({
-    required int id,
-    required String userId,
-    required String uuid,
-    @Default("") @RfControl(validators: [RequiredValidator()]) String firstName,
-    @Default("") String logoUrl,
-    @Default("") String avatarUrl,
-    @Default("New Card") @RfControl() String title,
-    @Default("") @RfControl() String prefix,
-    @Default("") @RfControl() String middleName,
-    @Default("") @RfControl() String lastName,
-    @Default("") @RfControl() String suffix,
-    @Default("") @RfControl() String accreditations,
-    @Default("") @RfControl() String maidenName,
+    int? id,
+    String? userId,
+    String? uuid,
+    @RfControl() String? firstName,
+    String? logoUrl,
+    String? avatarUrl,
+    @Default("New Card") @RfControl() String? title,
+    @RfControl() String? prefix,
+    @RfControl() String? middleName,
+    @RfControl() String? lastName,
+    @RfControl() String? suffix,
+    @RfControl() String? accreditations,
+    @RfControl() String? maidenName,
     @RfControl() dynamic avatarFile, //@Uint8ListConverter()
     @RfControl() dynamic logoFile,
-    @Default(kcPrimaryColor) @ColorConverter() @RfControl() Color color,
+    @RfControl()
+    @Default(Colors.red)
+    @JsonKey(
+      name: "color",
+      fromJson: colorfromJson,
+      toJson: colortoJson,
+    )
+    Color color,
     @Default(0) @RfControl() int layout,
-    @Default("") @RfControl() String position,
-    @Default("") @RfControl() String department,
-    @Default("") @RfControl() String company,
-    @Default("") @RfControl() String headline,
+    @RfControl() String? position,
+    @RfControl() String? department,
+    @RfControl() String? company,
+    @RfControl() String? headline,
     @Default([]) @RfControl() List<Map<String, dynamic>> customLinks,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -51,3 +58,9 @@ class DigitalCard with _$DigitalCard {
   factory DigitalCard.fromJson(Map<String, dynamic> json) =>
       _$DigitalCardFromJson(json);
 }
+
+Color colorfromJson(int? val) {
+  return val == null ? Color(val ?? 0xFFFFA500) : const Color(0xFFFFA500);
+}
+
+int colortoJson(Color? val) => val?.value ?? 0xFFFFA500;

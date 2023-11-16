@@ -54,7 +54,7 @@ class NativeContactsService with ListenableServiceMixin {
         return e['label'];
       });
       Uint8List? bytes;
-      if (card.avatarUrl.isNotEmpty) {
+      if (card.avatarUrl.toString().isNotEmpty) {
         bytes = await _urlToUint8List(card.avatarHttpUrl);
       }
 
@@ -62,16 +62,16 @@ class NativeContactsService with ListenableServiceMixin {
           photo: bytes,
           displayName: "${card.firstName} ${card.lastName}",
           name: Name(
-            first: card.firstName,
-            last: card.lastName,
-            middle: card.middleName,
-            prefix: card.prefix,
-            suffix: card.suffix,
+            first: card.firstName ?? "",
+            last: card.lastName ?? "",
+            middle: card.middleName ?? "",
+            prefix: card.prefix ?? "",
+            suffix: card.suffix ?? "",
           ),
           organizations: [
             Organization(
-              title: card.position,
-              company: card.company,
+              title: card.position ?? "",
+              company: card.company ?? "",
             )
           ],
           emails: customLinks["Email"]?.map((e) {

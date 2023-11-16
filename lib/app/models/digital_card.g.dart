@@ -8,29 +8,29 @@ part of 'digital_card.dart';
 
 _$DigitalCardImpl _$$DigitalCardImplFromJson(Map<String, dynamic> json) =>
     _$DigitalCardImpl(
-      id: json['id'] as int,
-      userId: json['user_id'] as String,
-      uuid: json['uuid'] as String,
-      firstName: json['first_name'] as String? ?? "",
-      logoUrl: json['logo_url'] as String? ?? "",
-      avatarUrl: json['avatar_url'] as String? ?? "",
+      id: json['id'] as int?,
+      userId: json['user_id'] as String?,
+      uuid: json['uuid'] as String?,
+      firstName: json['first_name'] as String?,
+      logoUrl: json['logo_url'] as String?,
+      avatarUrl: json['avatar_url'] as String?,
       title: json['title'] as String? ?? "New Card",
-      prefix: json['prefix'] as String? ?? "",
-      middleName: json['middle_name'] as String? ?? "",
-      lastName: json['last_name'] as String? ?? "",
-      suffix: json['suffix'] as String? ?? "",
-      accreditations: json['accreditations'] as String? ?? "",
-      maidenName: json['maiden_name'] as String? ?? "",
+      prefix: json['prefix'] as String?,
+      middleName: json['middle_name'] as String?,
+      lastName: json['last_name'] as String?,
+      suffix: json['suffix'] as String?,
+      accreditations: json['accreditations'] as String?,
+      maidenName: json['maiden_name'] as String?,
       avatarFile: json['avatar_file'],
       logoFile: json['logo_file'],
       color: json['color'] == null
-          ? kcPrimaryColor
-          : const ColorConverter().fromJson(json['color'] as int),
+          ? Colors.red
+          : colorfromJson(json['color'] as int?),
       layout: json['layout'] as int? ?? 0,
-      position: json['position'] as String? ?? "",
-      department: json['department'] as String? ?? "",
-      company: json['company'] as String? ?? "",
-      headline: json['headline'] as String? ?? "",
+      position: json['position'] as String?,
+      department: json['department'] as String?,
+      company: json['company'] as String?,
+      headline: json['headline'] as String?,
       customLinks: (json['custom_links'] as List<dynamic>?)
               ?.map((e) => e as Map<String, dynamic>)
               .toList() ??
@@ -63,7 +63,7 @@ Map<String, dynamic> _$$DigitalCardImplToJson(_$DigitalCardImpl instance) =>
       'maiden_name': instance.maidenName,
       'avatar_file': instance.avatarFile,
       'logo_file': instance.logoFile,
-      'color': const ColorConverter().toJson(instance.color),
+      'color': colortoJson(instance.color),
       'layout': instance.layout,
       'position': instance.position,
       'department': instance.department,

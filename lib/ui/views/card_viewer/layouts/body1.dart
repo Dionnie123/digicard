@@ -24,10 +24,10 @@ class Body1 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             cardItems.fullName(viewModel.card.fullName()),
-            cardItems.position(viewModel.card.position),
-            cardItems.company(viewModel.card.company),
-            cardItems.headline(viewModel.card.headline),
-            // cardItems.customLinks(viewModel.card.customLinks),
+            cardItems.position(viewModel.card.position.toString()),
+            cardItems.company(viewModel.card.company.toString()),
+            cardItems.headline(viewModel.card.headline.toString()),
+            // cardItems.customLinks(viewModel.card?.customLinks),
             if (viewModel.isCardOwnedByUser())
               cardItems.dateCreated(viewModel.card.createdAt),
             if (viewModel.isCardInContacts())

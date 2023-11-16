@@ -67,7 +67,7 @@ class Heading0 extends StatelessWidget {
     }
 
     Widget fullNameField() {
-      return viewModel.card.firstName.isNotEmpty
+      return viewModel.card.firstName.toString().isNotEmpty
           ? Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: AutoSizeText(
@@ -89,9 +89,9 @@ class Heading0 extends StatelessWidget {
     }
 
     Widget positionField() {
-      return viewModel.card.position.isNotEmpty
+      return viewModel.card.position.toString().isNotEmpty
           ? AutoSizeText(
-              viewModel.card.position.sanitize().toTitleCase(),
+              viewModel.card.position.toString().sanitize().toTitleCase(),
               style: const TextStyle(
                 color: Colors.white,
                 fontStyle: FontStyle.italic,
@@ -105,9 +105,9 @@ class Heading0 extends StatelessWidget {
     }
 
     Widget companyField() {
-      return viewModel.card.company.isNotEmpty
+      return viewModel.card.company.toString().isNotEmpty
           ? AutoSizeText(
-              viewModel.card.company.sanitize().toTitleCase(),
+              viewModel.card.company.toString().sanitize().toTitleCase(),
               style: const TextStyle(
                 color: Colors.white,
                 fontStyle: FontStyle.italic,

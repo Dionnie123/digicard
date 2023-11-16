@@ -19,16 +19,14 @@ class Uint8ListConverter implements JsonConverter<Uint8List?, List<int>?> {
   }
 }
 
-class ColorConverter implements JsonConverter<Color, int> {
+class ColorConverter implements JsonConverter<Color?, int?> {
   const ColorConverter();
 
   @override
-  Color fromJson(int? json) {
-    return json == null ? kcPrimaryColor : Color(json);
+  Color? fromJson(int? val) {
+    return val == null ? Color(val ?? 0xFFFFA500) : const Color(0xFFFFA500);
   }
 
   @override
-  int toJson(Color? object) {
-    return object?.value ?? kcPrimaryColor.value;
-  }
+  int? toJson(Color? val) => val?.value;
 }

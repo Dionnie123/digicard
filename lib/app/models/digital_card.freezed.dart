@@ -20,45 +20,45 @@ DigitalCard _$DigitalCardFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DigitalCard {
-  int get id => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
-  String get uuid => throw _privateConstructorUsedError;
-  @RfControl(validators: [RequiredValidator()])
-  String get firstName => throw _privateConstructorUsedError;
-  String get logoUrl => throw _privateConstructorUsedError;
-  String get avatarUrl => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+  String? get uuid => throw _privateConstructorUsedError;
   @RfControl()
-  String get title => throw _privateConstructorUsedError;
+  String? get firstName => throw _privateConstructorUsedError;
+  String? get logoUrl => throw _privateConstructorUsedError;
+  String? get avatarUrl => throw _privateConstructorUsedError;
   @RfControl()
-  String get prefix => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
   @RfControl()
-  String get middleName => throw _privateConstructorUsedError;
+  String? get prefix => throw _privateConstructorUsedError;
   @RfControl()
-  String get lastName => throw _privateConstructorUsedError;
+  String? get middleName => throw _privateConstructorUsedError;
   @RfControl()
-  String get suffix => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
   @RfControl()
-  String get accreditations => throw _privateConstructorUsedError;
+  String? get suffix => throw _privateConstructorUsedError;
   @RfControl()
-  String get maidenName => throw _privateConstructorUsedError;
+  String? get accreditations => throw _privateConstructorUsedError;
+  @RfControl()
+  String? get maidenName => throw _privateConstructorUsedError;
   @RfControl()
   dynamic get avatarFile =>
       throw _privateConstructorUsedError; //@Uint8ListConverter()
   @RfControl()
   dynamic get logoFile => throw _privateConstructorUsedError;
-  @ColorConverter()
   @RfControl()
+  @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
   Color get color => throw _privateConstructorUsedError;
   @RfControl()
   int get layout => throw _privateConstructorUsedError;
   @RfControl()
-  String get position => throw _privateConstructorUsedError;
+  String? get position => throw _privateConstructorUsedError;
   @RfControl()
-  String get department => throw _privateConstructorUsedError;
+  String? get department => throw _privateConstructorUsedError;
   @RfControl()
-  String get company => throw _privateConstructorUsedError;
+  String? get company => throw _privateConstructorUsedError;
   @RfControl()
-  String get headline => throw _privateConstructorUsedError;
+  String? get headline => throw _privateConstructorUsedError;
   @RfControl()
   List<Map<String, dynamic>> get customLinks =>
       throw _privateConstructorUsedError;
@@ -79,27 +79,29 @@ abstract class $DigitalCardCopyWith<$Res> {
       _$DigitalCardCopyWithImpl<$Res, DigitalCard>;
   @useResult
   $Res call(
-      {int id,
-      String userId,
-      String uuid,
-      @RfControl(validators: [RequiredValidator()]) String firstName,
-      String logoUrl,
-      String avatarUrl,
-      @RfControl() String title,
-      @RfControl() String prefix,
-      @RfControl() String middleName,
-      @RfControl() String lastName,
-      @RfControl() String suffix,
-      @RfControl() String accreditations,
-      @RfControl() String maidenName,
+      {int? id,
+      String? userId,
+      String? uuid,
+      @RfControl() String? firstName,
+      String? logoUrl,
+      String? avatarUrl,
+      @RfControl() String? title,
+      @RfControl() String? prefix,
+      @RfControl() String? middleName,
+      @RfControl() String? lastName,
+      @RfControl() String? suffix,
+      @RfControl() String? accreditations,
+      @RfControl() String? maidenName,
       @RfControl() dynamic avatarFile,
       @RfControl() dynamic logoFile,
-      @ColorConverter() @RfControl() Color color,
+      @RfControl()
+      @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
+      Color color,
       @RfControl() int layout,
-      @RfControl() String position,
-      @RfControl() String department,
-      @RfControl() String company,
-      @RfControl() String headline,
+      @RfControl() String? position,
+      @RfControl() String? department,
+      @RfControl() String? company,
+      @RfControl() String? headline,
       @RfControl() List<Map<String, dynamic>> customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
@@ -119,85 +121,85 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? userId = null,
-    Object? uuid = null,
-    Object? firstName = null,
-    Object? logoUrl = null,
-    Object? avatarUrl = null,
-    Object? title = null,
-    Object? prefix = null,
-    Object? middleName = null,
-    Object? lastName = null,
-    Object? suffix = null,
-    Object? accreditations = null,
-    Object? maidenName = null,
+    Object? id = freezed,
+    Object? userId = freezed,
+    Object? uuid = freezed,
+    Object? firstName = freezed,
+    Object? logoUrl = freezed,
+    Object? avatarUrl = freezed,
+    Object? title = freezed,
+    Object? prefix = freezed,
+    Object? middleName = freezed,
+    Object? lastName = freezed,
+    Object? suffix = freezed,
+    Object? accreditations = freezed,
+    Object? maidenName = freezed,
     Object? avatarFile = freezed,
     Object? logoFile = freezed,
     Object? color = null,
     Object? layout = null,
-    Object? position = null,
-    Object? department = null,
-    Object? company = null,
-    Object? headline = null,
+    Object? position = freezed,
+    Object? department = freezed,
+    Object? company = freezed,
+    Object? headline = freezed,
     Object? customLinks = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? addedAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      userId: null == userId
+              as int?,
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      uuid: null == uuid
+              as String?,
+      uuid: freezed == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: null == firstName
+              as String?,
+      firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      logoUrl: null == logoUrl
+              as String?,
+      logoUrl: freezed == logoUrl
           ? _value.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      avatarUrl: null == avatarUrl
+              as String?,
+      avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
+              as String?,
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      prefix: null == prefix
+              as String?,
+      prefix: freezed == prefix
           ? _value.prefix
           : prefix // ignore: cast_nullable_to_non_nullable
-              as String,
-      middleName: null == middleName
+              as String?,
+      middleName: freezed == middleName
           ? _value.middleName
           : middleName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
+              as String?,
+      lastName: freezed == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      suffix: null == suffix
+              as String?,
+      suffix: freezed == suffix
           ? _value.suffix
           : suffix // ignore: cast_nullable_to_non_nullable
-              as String,
-      accreditations: null == accreditations
+              as String?,
+      accreditations: freezed == accreditations
           ? _value.accreditations
           : accreditations // ignore: cast_nullable_to_non_nullable
-              as String,
-      maidenName: null == maidenName
+              as String?,
+      maidenName: freezed == maidenName
           ? _value.maidenName
           : maidenName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       avatarFile: freezed == avatarFile
           ? _value.avatarFile
           : avatarFile // ignore: cast_nullable_to_non_nullable
@@ -214,22 +216,22 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
           ? _value.layout
           : layout // ignore: cast_nullable_to_non_nullable
               as int,
-      position: null == position
+      position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as String,
-      department: null == department
+              as String?,
+      department: freezed == department
           ? _value.department
           : department // ignore: cast_nullable_to_non_nullable
-              as String,
-      company: null == company
+              as String?,
+      company: freezed == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
-              as String,
-      headline: null == headline
+              as String?,
+      headline: freezed == headline
           ? _value.headline
           : headline // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       customLinks: null == customLinks
           ? _value.customLinks
           : customLinks // ignore: cast_nullable_to_non_nullable
@@ -259,27 +261,29 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      String userId,
-      String uuid,
-      @RfControl(validators: [RequiredValidator()]) String firstName,
-      String logoUrl,
-      String avatarUrl,
-      @RfControl() String title,
-      @RfControl() String prefix,
-      @RfControl() String middleName,
-      @RfControl() String lastName,
-      @RfControl() String suffix,
-      @RfControl() String accreditations,
-      @RfControl() String maidenName,
+      {int? id,
+      String? userId,
+      String? uuid,
+      @RfControl() String? firstName,
+      String? logoUrl,
+      String? avatarUrl,
+      @RfControl() String? title,
+      @RfControl() String? prefix,
+      @RfControl() String? middleName,
+      @RfControl() String? lastName,
+      @RfControl() String? suffix,
+      @RfControl() String? accreditations,
+      @RfControl() String? maidenName,
       @RfControl() dynamic avatarFile,
       @RfControl() dynamic logoFile,
-      @ColorConverter() @RfControl() Color color,
+      @RfControl()
+      @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
+      Color color,
       @RfControl() int layout,
-      @RfControl() String position,
-      @RfControl() String department,
-      @RfControl() String company,
-      @RfControl() String headline,
+      @RfControl() String? position,
+      @RfControl() String? department,
+      @RfControl() String? company,
+      @RfControl() String? headline,
       @RfControl() List<Map<String, dynamic>> customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
@@ -297,85 +301,85 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? userId = null,
-    Object? uuid = null,
-    Object? firstName = null,
-    Object? logoUrl = null,
-    Object? avatarUrl = null,
-    Object? title = null,
-    Object? prefix = null,
-    Object? middleName = null,
-    Object? lastName = null,
-    Object? suffix = null,
-    Object? accreditations = null,
-    Object? maidenName = null,
+    Object? id = freezed,
+    Object? userId = freezed,
+    Object? uuid = freezed,
+    Object? firstName = freezed,
+    Object? logoUrl = freezed,
+    Object? avatarUrl = freezed,
+    Object? title = freezed,
+    Object? prefix = freezed,
+    Object? middleName = freezed,
+    Object? lastName = freezed,
+    Object? suffix = freezed,
+    Object? accreditations = freezed,
+    Object? maidenName = freezed,
     Object? avatarFile = freezed,
     Object? logoFile = freezed,
     Object? color = null,
     Object? layout = null,
-    Object? position = null,
-    Object? department = null,
-    Object? company = null,
-    Object? headline = null,
+    Object? position = freezed,
+    Object? department = freezed,
+    Object? company = freezed,
+    Object? headline = freezed,
     Object? customLinks = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? addedAt = freezed,
   }) {
     return _then(_$DigitalCardImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      userId: null == userId
+              as int?,
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      uuid: null == uuid
+              as String?,
+      uuid: freezed == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: null == firstName
+              as String?,
+      firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      logoUrl: null == logoUrl
+              as String?,
+      logoUrl: freezed == logoUrl
           ? _value.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      avatarUrl: null == avatarUrl
+              as String?,
+      avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
+              as String?,
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      prefix: null == prefix
+              as String?,
+      prefix: freezed == prefix
           ? _value.prefix
           : prefix // ignore: cast_nullable_to_non_nullable
-              as String,
-      middleName: null == middleName
+              as String?,
+      middleName: freezed == middleName
           ? _value.middleName
           : middleName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
+              as String?,
+      lastName: freezed == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      suffix: null == suffix
+              as String?,
+      suffix: freezed == suffix
           ? _value.suffix
           : suffix // ignore: cast_nullable_to_non_nullable
-              as String,
-      accreditations: null == accreditations
+              as String?,
+      accreditations: freezed == accreditations
           ? _value.accreditations
           : accreditations // ignore: cast_nullable_to_non_nullable
-              as String,
-      maidenName: null == maidenName
+              as String?,
+      maidenName: freezed == maidenName
           ? _value.maidenName
           : maidenName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       avatarFile: freezed == avatarFile
           ? _value.avatarFile
           : avatarFile // ignore: cast_nullable_to_non_nullable
@@ -392,22 +396,22 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
           ? _value.layout
           : layout // ignore: cast_nullable_to_non_nullable
               as int,
-      position: null == position
+      position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as String,
-      department: null == department
+              as String?,
+      department: freezed == department
           ? _value.department
           : department // ignore: cast_nullable_to_non_nullable
-              as String,
-      company: null == company
+              as String?,
+      company: freezed == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
-              as String,
-      headline: null == headline
+              as String?,
+      headline: freezed == headline
           ? _value.headline
           : headline // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       customLinks: null == customLinks
           ? _value._customLinks
           : customLinks // ignore: cast_nullable_to_non_nullable
@@ -433,27 +437,29 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$DigitalCardImpl implements _DigitalCard {
   _$DigitalCardImpl(
-      {required this.id,
-      required this.userId,
-      required this.uuid,
-      @RfControl(validators: [RequiredValidator()]) this.firstName = "",
-      this.logoUrl = "",
-      this.avatarUrl = "",
+      {this.id,
+      this.userId,
+      this.uuid,
+      @RfControl() this.firstName,
+      this.logoUrl,
+      this.avatarUrl,
       @RfControl() this.title = "New Card",
-      @RfControl() this.prefix = "",
-      @RfControl() this.middleName = "",
-      @RfControl() this.lastName = "",
-      @RfControl() this.suffix = "",
-      @RfControl() this.accreditations = "",
-      @RfControl() this.maidenName = "",
+      @RfControl() this.prefix,
+      @RfControl() this.middleName,
+      @RfControl() this.lastName,
+      @RfControl() this.suffix,
+      @RfControl() this.accreditations,
+      @RfControl() this.maidenName,
       @RfControl() this.avatarFile,
       @RfControl() this.logoFile,
-      @ColorConverter() @RfControl() this.color = kcPrimaryColor,
+      @RfControl()
+      @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
+      this.color = Colors.red,
       @RfControl() this.layout = 0,
-      @RfControl() this.position = "",
-      @RfControl() this.department = "",
-      @RfControl() this.company = "",
-      @RfControl() this.headline = "",
+      @RfControl() this.position,
+      @RfControl() this.department,
+      @RfControl() this.company,
+      @RfControl() this.headline,
       @RfControl() final List<Map<String, dynamic>> customLinks = const [],
       this.createdAt,
       this.updatedAt,
@@ -464,49 +470,40 @@ class _$DigitalCardImpl implements _DigitalCard {
       _$$DigitalCardImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String userId;
+  final String? userId;
   @override
-  final String uuid;
+  final String? uuid;
   @override
-  @JsonKey()
-  @RfControl(validators: [RequiredValidator()])
-  final String firstName;
+  @RfControl()
+  final String? firstName;
   @override
-  @JsonKey()
-  final String logoUrl;
+  final String? logoUrl;
   @override
-  @JsonKey()
-  final String avatarUrl;
+  final String? avatarUrl;
   @override
   @JsonKey()
   @RfControl()
-  final String title;
+  final String? title;
   @override
-  @JsonKey()
   @RfControl()
-  final String prefix;
+  final String? prefix;
   @override
-  @JsonKey()
   @RfControl()
-  final String middleName;
+  final String? middleName;
   @override
-  @JsonKey()
   @RfControl()
-  final String lastName;
+  final String? lastName;
   @override
-  @JsonKey()
   @RfControl()
-  final String suffix;
+  final String? suffix;
   @override
-  @JsonKey()
   @RfControl()
-  final String accreditations;
+  final String? accreditations;
   @override
-  @JsonKey()
   @RfControl()
-  final String maidenName;
+  final String? maidenName;
   @override
   @RfControl()
   final dynamic avatarFile;
@@ -515,30 +512,25 @@ class _$DigitalCardImpl implements _DigitalCard {
   @RfControl()
   final dynamic logoFile;
   @override
-  @JsonKey()
-  @ColorConverter()
   @RfControl()
+  @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
   final Color color;
   @override
   @JsonKey()
   @RfControl()
   final int layout;
   @override
-  @JsonKey()
   @RfControl()
-  final String position;
+  final String? position;
   @override
-  @JsonKey()
   @RfControl()
-  final String department;
+  final String? department;
   @override
-  @JsonKey()
   @RfControl()
-  final String company;
+  final String? company;
   @override
-  @JsonKey()
   @RfControl()
-  final String headline;
+  final String? headline;
   final List<Map<String, dynamic>> _customLinks;
   @override
   @JsonKey()
@@ -653,27 +645,29 @@ class _$DigitalCardImpl implements _DigitalCard {
 
 abstract class _DigitalCard implements DigitalCard {
   factory _DigitalCard(
-      {required final int id,
-      required final String userId,
-      required final String uuid,
-      @RfControl(validators: [RequiredValidator()]) final String firstName,
-      final String logoUrl,
-      final String avatarUrl,
-      @RfControl() final String title,
-      @RfControl() final String prefix,
-      @RfControl() final String middleName,
-      @RfControl() final String lastName,
-      @RfControl() final String suffix,
-      @RfControl() final String accreditations,
-      @RfControl() final String maidenName,
+      {final int? id,
+      final String? userId,
+      final String? uuid,
+      @RfControl() final String? firstName,
+      final String? logoUrl,
+      final String? avatarUrl,
+      @RfControl() final String? title,
+      @RfControl() final String? prefix,
+      @RfControl() final String? middleName,
+      @RfControl() final String? lastName,
+      @RfControl() final String? suffix,
+      @RfControl() final String? accreditations,
+      @RfControl() final String? maidenName,
       @RfControl() final dynamic avatarFile,
       @RfControl() final dynamic logoFile,
-      @ColorConverter() @RfControl() final Color color,
+      @RfControl()
+      @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
+      final Color color,
       @RfControl() final int layout,
-      @RfControl() final String position,
-      @RfControl() final String department,
-      @RfControl() final String company,
-      @RfControl() final String headline,
+      @RfControl() final String? position,
+      @RfControl() final String? department,
+      @RfControl() final String? company,
+      @RfControl() final String? headline,
       @RfControl() final List<Map<String, dynamic>> customLinks,
       final DateTime? createdAt,
       final DateTime? updatedAt,
@@ -683,39 +677,39 @@ abstract class _DigitalCard implements DigitalCard {
       _$DigitalCardImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
-  String get userId;
+  String? get userId;
   @override
-  String get uuid;
-  @override
-  @RfControl(validators: [RequiredValidator()])
-  String get firstName;
-  @override
-  String get logoUrl;
-  @override
-  String get avatarUrl;
+  String? get uuid;
   @override
   @RfControl()
-  String get title;
+  String? get firstName;
+  @override
+  String? get logoUrl;
+  @override
+  String? get avatarUrl;
   @override
   @RfControl()
-  String get prefix;
+  String? get title;
   @override
   @RfControl()
-  String get middleName;
+  String? get prefix;
   @override
   @RfControl()
-  String get lastName;
+  String? get middleName;
   @override
   @RfControl()
-  String get suffix;
+  String? get lastName;
   @override
   @RfControl()
-  String get accreditations;
+  String? get suffix;
   @override
   @RfControl()
-  String get maidenName;
+  String? get accreditations;
+  @override
+  @RfControl()
+  String? get maidenName;
   @override
   @RfControl()
   dynamic get avatarFile;
@@ -723,24 +717,24 @@ abstract class _DigitalCard implements DigitalCard {
   @RfControl()
   dynamic get logoFile;
   @override
-  @ColorConverter()
   @RfControl()
+  @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
   Color get color;
   @override
   @RfControl()
   int get layout;
   @override
   @RfControl()
-  String get position;
+  String? get position;
   @override
   @RfControl()
-  String get department;
+  String? get department;
   @override
   @RfControl()
-  String get company;
+  String? get company;
   @override
   @RfControl()
-  String get headline;
+  String? get headline;
   @override
   @RfControl()
   List<Map<String, dynamic>> get customLinks;
