@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:reactive_image_picker_universal/src/helpers/image_cache_downloader.dart';
 import 'package:reactive_image_picker_universal/src/helpers/valid_url_checker.dart';
 import 'image_source_dialog.dart';
 
