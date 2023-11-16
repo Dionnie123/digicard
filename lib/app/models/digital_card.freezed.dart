@@ -42,8 +42,7 @@ mixin _$DigitalCard {
   @RfControl()
   String? get maidenName => throw _privateConstructorUsedError;
   @RfControl()
-  dynamic get avatarFile =>
-      throw _privateConstructorUsedError; //@Uint8ListConverter()
+  dynamic get avatarFile => throw _privateConstructorUsedError;
   @RfControl()
   dynamic get logoFile => throw _privateConstructorUsedError;
   @RfControl()
@@ -61,7 +60,7 @@ mixin _$DigitalCard {
   @RfControl()
   String? get headline => throw _privateConstructorUsedError;
   @RfControl()
-  List<Map<String, dynamic>> get customLinks =>
+  List<Map<String, dynamic>>? get customLinks =>
       throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -101,7 +100,7 @@ abstract class $DigitalCardCopyWith<$Res> {
       @RfControl() String? department,
       @RfControl() String? company,
       @RfControl() String? headline,
-      @RfControl() List<Map<String, dynamic>> customLinks,
+      @RfControl() List<Map<String, dynamic>>? customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? addedAt});
@@ -141,7 +140,7 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
     Object? department = freezed,
     Object? company = freezed,
     Object? headline = freezed,
-    Object? customLinks = null,
+    Object? customLinks = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? addedAt = freezed,
@@ -231,10 +230,10 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
           ? _value.headline
           : headline // ignore: cast_nullable_to_non_nullable
               as String?,
-      customLinks: null == customLinks
+      customLinks: freezed == customLinks
           ? _value.customLinks
           : customLinks // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
+              as List<Map<String, dynamic>>?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -281,7 +280,7 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       @RfControl() String? department,
       @RfControl() String? company,
       @RfControl() String? headline,
-      @RfControl() List<Map<String, dynamic>> customLinks,
+      @RfControl() List<Map<String, dynamic>>? customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? addedAt});
@@ -319,7 +318,7 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
     Object? department = freezed,
     Object? company = freezed,
     Object? headline = freezed,
-    Object? customLinks = null,
+    Object? customLinks = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? addedAt = freezed,
@@ -409,10 +408,10 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
           ? _value.headline
           : headline // ignore: cast_nullable_to_non_nullable
               as String?,
-      customLinks: null == customLinks
+      customLinks: freezed == customLinks
           ? _value._customLinks
           : customLinks // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
+              as List<Map<String, dynamic>>?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -455,7 +454,7 @@ class _$DigitalCardImpl implements _DigitalCard {
       @RfControl() this.department,
       @RfControl() this.company,
       @RfControl() this.headline,
-      @RfControl() final List<Map<String, dynamic>> customLinks = const [],
+      @RfControl() final List<Map<String, dynamic>>? customLinks = const [],
       this.createdAt,
       this.updatedAt,
       this.addedAt})
@@ -502,7 +501,6 @@ class _$DigitalCardImpl implements _DigitalCard {
   @override
   @RfControl()
   final dynamic avatarFile;
-//@Uint8ListConverter()
   @override
   @RfControl()
   final dynamic logoFile;
@@ -526,14 +524,16 @@ class _$DigitalCardImpl implements _DigitalCard {
   @override
   @RfControl()
   final String? headline;
-  final List<Map<String, dynamic>> _customLinks;
+  final List<Map<String, dynamic>>? _customLinks;
   @override
   @JsonKey()
   @RfControl()
-  List<Map<String, dynamic>> get customLinks {
+  List<Map<String, dynamic>>? get customLinks {
+    final value = _customLinks;
+    if (value == null) return null;
     if (_customLinks is EqualUnmodifiableListView) return _customLinks;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_customLinks);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -661,7 +661,7 @@ abstract class _DigitalCard implements DigitalCard {
       @RfControl() final String? department,
       @RfControl() final String? company,
       @RfControl() final String? headline,
-      @RfControl() final List<Map<String, dynamic>> customLinks,
+      @RfControl() final List<Map<String, dynamic>>? customLinks,
       final DateTime? createdAt,
       final DateTime? updatedAt,
       final DateTime? addedAt}) = _$DigitalCardImpl;
@@ -706,7 +706,7 @@ abstract class _DigitalCard implements DigitalCard {
   @override
   @RfControl()
   dynamic get avatarFile;
-  @override //@Uint8ListConverter()
+  @override
   @RfControl()
   dynamic get logoFile;
   @override
@@ -731,7 +731,7 @@ abstract class _DigitalCard implements DigitalCard {
   String? get headline;
   @override
   @RfControl()
-  List<Map<String, dynamic>> get customLinks;
+  List<Map<String, dynamic>>? get customLinks;
   @override
   DateTime? get createdAt;
   @override

@@ -33,7 +33,7 @@ class DigitalCard with _$DigitalCard {
     @RfControl() String? department,
     @RfControl() String? company,
     @RfControl() String? headline,
-    @Default([]) @RfControl() List<Map<String, dynamic>> customLinks,
+    @Default([]) @RfControl() List<Map<String, dynamic>>? customLinks,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? addedAt,

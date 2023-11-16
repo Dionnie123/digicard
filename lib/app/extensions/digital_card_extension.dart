@@ -1,9 +1,11 @@
 import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/models/digital_card.dart';
+import 'package:flutter_ez_core/extensions/string_extension.dart';
 
 extension DigitalCardExtension on DigitalCard {
   String fullName() {
-    return "$accreditations $prefix  $firstName $middleName $lastName  $suffix";
+    return "${accreditations ?? ""} ${prefix ?? ""}  ${firstName ?? ""} ${middleName ?? ""} ${lastName ?? ""}  ${suffix ?? ""}"
+        .sanitize();
   }
 
   String get avatarHttpUrl {

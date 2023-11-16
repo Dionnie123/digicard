@@ -326,8 +326,8 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   String? get _headlineValue => headlineControl?.value;
 
-  List<Map<String, dynamic>> get _customLinksValue =>
-      customLinksControl.value as List<Map<String, dynamic>>;
+  List<Map<String, dynamic>>? get _customLinksValue =>
+      customLinksControl?.value;
 
   DateTime? get _createdAtValue => createdAtControl?.value;
 
@@ -602,7 +602,7 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   Object? get headlineErrors => headlineControl?.errors;
 
-  Object? get customLinksErrors => customLinksControl.errors;
+  Object? get customLinksErrors => customLinksControl?.errors;
 
   Object? get createdAtErrors => createdAtControl?.errors;
 
@@ -1154,6 +1154,32 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     }
   }
 
+  void customLinksRemove({
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    if (containsCustomLinks) {
+      final controlPath = path;
+      if (controlPath == null) {
+        form.removeControl(
+          customLinksControlName,
+          updateParent: updateParent,
+          emitEvent: emitEvent,
+        );
+      } else {
+        final formGroup = form.control(controlPath);
+
+        if (formGroup is FormGroup) {
+          formGroup.removeControl(
+            customLinksControlName,
+            updateParent: updateParent,
+            emitEvent: emitEvent,
+          );
+        }
+      }
+    }
+  }
+
   void createdAtRemove({
     bool updateParent = true,
     bool emitEvent = true,
@@ -1422,11 +1448,11 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   }
 
   void customLinksValueUpdate(
-    List<Map<String, dynamic>> value, {
+    List<Map<String, dynamic>>? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    customLinksControl.updateValue(value,
+    customLinksControl?.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1647,11 +1673,11 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   }
 
   void customLinksValuePatch(
-    List<Map<String, dynamic>> value, {
+    List<Map<String, dynamic>>? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    customLinksControl.patchValue(value,
+    customLinksControl?.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1893,13 +1919,13 @@ class DigitalCardForm implements FormModel<DigitalCard> {
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void customLinksValueReset(
-    List<Map<String, dynamic>> value, {
+    List<Map<String, dynamic>>? value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      customLinksControl.reset(
+      customLinksControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void createdAtValueReset(
@@ -2013,9 +2039,11 @@ class DigitalCardForm implements FormModel<DigitalCard> {
       ? form.control(headlineControlPath()) as FormControl<String>?
       : null;
 
-  FormControl<List<Map<String, dynamic>>> get customLinksControl =>
-      form.control(customLinksControlPath())
-          as FormControl<List<Map<String, dynamic>>>;
+  FormControl<List<Map<String, dynamic>>>? get customLinksControl =>
+      containsCustomLinks
+          ? form.control(customLinksControlPath())
+              as FormControl<List<Map<String, dynamic>>>?
+          : null;
 
   FormControl<DateTime>? get createdAtControl => containsCreatedAt
       ? form.control(createdAtControlPath()) as FormControl<DateTime>?
@@ -2413,12 +2441,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     bool emitEvent = true,
   }) {
     if (disabled) {
-      customLinksControl.markAsDisabled(
+      customLinksControl?.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      customLinksControl.markAsEnabled(
+      customLinksControl?.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
