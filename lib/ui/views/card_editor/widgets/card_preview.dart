@@ -1,12 +1,14 @@
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
+import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class CardPreview extends StatelessWidget {
   final DigitalCard? card;
@@ -82,37 +84,60 @@ class CardPreview extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children:
-                      (card?.customLinks ?? []).mapIndexed((index, element) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${element['custom'] ?? element['label']}",
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.link,
-                              size: 30,
+              const SizedBox(height: 11),
+              Column(
+                children:
+                    (card?.customLinks ?? []).mapIndexed((index, element) {
+                  return InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 15,
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.email_rounded,
+                            size: 30,
+                          ),
+                          hSpaceRegular,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${element['custom'] ?? element['label']}",
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                Text(
+                                  "${element['value']}",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
                             ),
-                            hSpaceRegular,
-                            Text(
-                              "${element['value']}",
-                              style: const TextStyle(fontSize: 16),
-                            )
-                          ],
-                        ),
-                        vSpaceSmall
-                      ],
-                    );
-                  }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 11),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: QrImageView(
+                  data: "${Env.cardUrl}${card?.uuid}",
+                  version: QrVersions.auto,
+                  errorCorrectionLevel: QrErrorCorrectLevel.M,
+                  size: 200,
+                  eyeStyle: const QrEyeStyle(
+                    color: Colors.black,
+                  ),
+                  backgroundColor: Colors.white,
+                  gapless: true,
                 ),
-              )
+              ),
               /*   Stack(
                 children: [
                   Positioned(
