@@ -24,131 +24,149 @@ class CardPreview extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           margin: const EdgeInsets.all(12.0),
-          child: Column(
-            children: [
-              Container(
-                color: card?.color?.darken(0.15) ?? kcPrimaryColor.darken(0.15),
-                child: AspectRatio(
-                  aspectRatio: 1 / 1,
-                  child: Stack(
-                    children: [
-                      if (card?.avatarUrl != null && card?.avatarFile != false)
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(card?.avatarHttpUrl ?? ""),
-                          )),
-                        ),
-                      if (card?.avatarFile != null && card?.avatarFile != false)
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image:
-                                MemoryImage(card?.avatarFile ?? Uint8List(0)),
-                          )),
-                        ),
-                    ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  color:
+                      card?.color?.darken(0.15) ?? kcPrimaryColor.darken(0.15),
+                  child: AspectRatio(
+                    aspectRatio: 1 / 1,
+                    child: Stack(
+                      children: [
+                        if (card?.avatarUrl != null &&
+                            card?.avatarFile != false)
+                          Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(card?.avatarHttpUrl ?? ""),
+                            )),
+                          ),
+                        if (card?.avatarFile != null &&
+                            card?.avatarFile is Uint8List)
+                          Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image:
+                                  MemoryImage(card?.avatarFile ?? Uint8List(0)),
+                            )),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                color: card?.color ?? kcPrimaryColor,
-                padding: const EdgeInsets.all(15),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${card?.fullName()}",
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        vSpaceSmall,
-                        Text(
-                          "${card?.position}",
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    )),
-                    const SizedBox(width: 15),
-                    CircleAvatar(
-                        backgroundColor: card?.color ?? kcPrimaryColor,
-                        backgroundImage: NetworkImage(card?.logoHttpUrl ?? ""),
-                        radius: 50.0)
-                  ],
-                ),
-              ),
-              const SizedBox(height: 11),
-              Column(
-                children:
-                    (card?.customLinks ?? []).mapIndexed((index, element) {
-                  return InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 4,
-                        horizontal: 15,
-                      ),
-                      child: Row(
+                Container(
+                  color: card?.color ?? kcPrimaryColor,
+                  padding: const EdgeInsets.all(15),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
-                            Icons.email_rounded,
-                            size: 30,
+                          Text(
+                            "${card?.fullName()}",
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          hSpaceRegular,
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${element['custom'] ?? element['label']}",
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                Text(
-                                  "${element['value']}",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ],
+                          vSpaceSmall,
+                          Text(
+                            "${card?.position}",
+                            style: const TextStyle(
+                              fontSize: 16,
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 11),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: QrImageView(
-                  data: "${Env.cardUrl}${card?.uuid}",
-                  version: QrVersions.auto,
-                  errorCorrectionLevel: QrErrorCorrectLevel.M,
-                  size: 200,
-                  eyeStyle: const QrEyeStyle(
-                    color: Colors.black,
+                      )),
+                      const SizedBox(width: 15),
+                      Stack(
+                        children: [
+                          if (card?.logoUrl != null && card?.logoFile != false)
+                            CircleAvatar(
+                                backgroundColor: card?.color ?? kcPrimaryColor,
+                                backgroundImage:
+                                    NetworkImage(card?.logoHttpUrl ?? ""),
+                                radius: 50.0),
+                          if (card?.logoFile != null &&
+                              card?.logoFile is Uint8List)
+                            CircleAvatar(
+                                backgroundColor: card?.color ?? kcPrimaryColor,
+                                backgroundImage:
+                                    MemoryImage(card?.logoFile ?? Uint8List(0)),
+                                radius: 50.0),
+                        ],
+                      )
+                    ],
                   ),
-                  backgroundColor: Colors.white,
-                  gapless: true,
                 ),
-              ),
-              /*   Stack(
-                children: [
-                  Positioned(
-                    top: 20,
-                    child:
-                  )
-                ],
-              ) */
+                const SizedBox(height: 11),
+                Column(
+                  children:
+                      (card?.customLinks ?? []).mapIndexed((index, element) {
+                    return InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 15,
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.email_rounded,
+                              size: 30,
+                            ),
+                            hSpaceRegular,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${element['custom'] ?? element['label']}",
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  Text(
+                                    "${element['value']}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 11),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: QrImageView(
+                    data: "${Env.cardUrl}${card?.uuid}",
+                    version: QrVersions.auto,
+                    errorCorrectionLevel: QrErrorCorrectLevel.M,
+                    size: 200,
+                    eyeStyle: const QrEyeStyle(
+                      color: Colors.black,
+                    ),
+                    backgroundColor: Colors.white,
+                    gapless: true,
+                  ),
+                ),
+                /*   Stack(
+                  children: [
+                    Positioned(
+                      top: 20,
+                      child:
+                    )
+                  ],
+                ) */
 
-              /*  Text(card.toString()) */
-            ],
+                /*  Text(card.toString()) */
+              ],
+            ),
           ),
         ),
       ),
