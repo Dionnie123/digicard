@@ -38,7 +38,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => RouterService());
   locator.registerLazySingleton(() => UserService());
   final supabaseAuthService = SupabaseAuthService();
-  await supabaseAuthService.init();
+  await supabaseAuthService.initialise();
   locator.registerSingleton<AuthService>(supabaseAuthService);
 
   locator.registerLazySingleton(() => BottomSheetService());
