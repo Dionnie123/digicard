@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_image_picker_universal/src/helpers/image_cache_downloader.dart';
+import 'package:reactive_image_picker_universal/src/helpers/valid_url_checker.dart';
 import 'image_source_dialog.dart';
 
 class ImageSourcePicker extends StatefulWidget {
@@ -93,7 +94,8 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
                 isScrollControlled: true,
                 builder: (BuildContext context) {
                   return ImageSourceDialog(
-                    showRemoveImage: (img != null && img!.isNotEmpty),
+                    showRemoveImage: ((img != null && img!.isNotEmpty) ||
+                        isValidUrl(widget.imageUrl.toString())),
                   );
                 });
             if (type == ImageSource.gallery || type == ImageSource.camera) {
@@ -123,7 +125,7 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
                     child: Icon(Icons.upload_rounded),
                   ),
                 ),
-                if (widget.imageUrl != null)
+                if (widget.imageUrl != null && widget.value != false)
                   Container(
                     color: Colors.grey,
                     child: Image.network(
