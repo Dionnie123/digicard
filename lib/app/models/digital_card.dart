@@ -27,8 +27,8 @@ class DigitalCard with _$DigitalCard {
     @Default("") @RfControl() String suffix,
     @Default("") @RfControl() String accreditations,
     @Default("") @RfControl() String maidenName,
-    @Uint8ListConverter() @RfControl() Uint8List? avatarFile,
-    @Uint8ListConverter() @RfControl() Uint8List? logoFile,
+    @RfControl() dynamic avatarFile, //@Uint8ListConverter()
+    @RfControl() dynamic logoFile,
     @Default(kcPrimaryColor) @ColorConverter() @RfControl() Color color,
     @Default(0) @RfControl() int layout,
     @Default("") @RfControl() String position,

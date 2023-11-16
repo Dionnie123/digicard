@@ -88,11 +88,7 @@ class DigitalCardService with ListenableServiceMixin {
 
   Future imageDelete({required String folderPath}) async {
     try {
-      await _supabase
-          .from('storage.objects')
-          .delete()
-          .eq('bucket_id', 'images')
-          .eq('name', folderPath);
+      await _supabase.storage.from('images').remove([folderPath]);
     } catch (e) {
       log.e("imageDelete() : ${e.toString()}");
     }
@@ -103,8 +99,10 @@ class DigitalCardService with ListenableServiceMixin {
       final data = await _supabase
           .from('cards')
           .select('*')
-          .in_('user_id', [_userService.userId]).order('created_at',
-              ascending: true);
+          .in_('user_id', [_userService.userId]).order(
+        'created_at',
+        ascending: true,
+      );
       if (data is List && data.isNotEmpty) {
         _digitalCards.value = data.map((e) => DigitalCard.fromJson(e)).toList();
       }
@@ -147,18 +145,34 @@ class DigitalCardService with ListenableServiceMixin {
   Future update(DigitalCard card) async {
     try {
       final data = DigitalCardExtension.toMapUpdate(card.toJson());
-      if (card.avatarUrl.isEmpty && card.avatarFile != null) {
-        data["avatar_url"] = await imageSave(
+      final oldAvatar = data["avatar_url"];
+      final oldLogo = data["logo_url"];
+
+      debugPrint(card.avatarFile.toString());
+      if (card.avatarFile is Uint8List) {
+        await imageSave(
           card.avatarFile,
           folderPath: 'avatars',
-        );
+        ).then((value) async {
+          data["avatar_url"] = value;
+        });
+      }
+      if (card.avatarFile is bool && card.avatarFile == false) {
+        await imageDelete(folderPath: "avatars/$oldAvatar");
+        data["avatar_url"] = "";
       }
 
-      if (card.logoUrl.isEmpty && card.logoFile != null) {
-        data["logo_url"] = await imageSave(
+      if (card.logoFile is Uint8List) {
+        debugPrint(card.logoFile.toString());
+        await imageSave(
           card.logoFile,
           folderPath: 'logos',
-        );
+        ).then((value) async {
+          data["logo_url"] = value;
+        });
+      }
+      if (card.logoFile is bool && card.logoFile == false) {
+        await imageDelete(folderPath: "logos/$oldLogo");
       }
 
       final updatedCard =
@@ -176,6 +190,12 @@ class DigitalCardService with ListenableServiceMixin {
 
   Future delete(DigitalCard card) async {
     try {
+      if (card.avatarUrl.isNotEmpty) {
+        await imageDelete(folderPath: "avatars/${card.avatarUrl}");
+      }
+      if (card.logoUrl.isNotEmpty) {
+        await imageDelete(folderPath: "logos/${card.logoUrl}");
+      }
       await _supabase.from('cards').delete().eq('id', card.id);
       _digitalCards.value.removeWhere((element) => element.id == card.id);
       notifyListeners();

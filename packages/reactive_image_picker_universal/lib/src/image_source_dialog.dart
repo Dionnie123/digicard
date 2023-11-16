@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'sliver_grid_delegate.dart';
+import 'helpers/sliver_grid_delegate.dart';
 
 class ImageSourceDialog extends StatefulWidget {
   final bool showUploadImage;

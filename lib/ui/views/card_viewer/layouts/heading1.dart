@@ -1,4 +1,3 @@
-import 'package:digicard/ui/views/card_editor/widgets/card.wave_divider.dart';
 import 'package:digicard/ui/views/card_viewer/card_viewer_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -88,12 +87,13 @@ class Heading1 extends StatelessWidget {
                 Positioned(
                   bottom: 0,
                   width: size.maxWidth,
-                  child: CardWaveDivider(
+                  child: const Text("RRR"),
+                  /*   child: CardWaveDivider(
                     context,
                     color: viewModel.color,
                     size: size,
                     child: logoField(),
-                  ),
+                  ), */
                 )
               ],
             )),

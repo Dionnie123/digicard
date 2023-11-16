@@ -1,11 +1,151 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:reactive_image_picker_universal/src/helpers/image_cache_downloader.dart';
+import 'image_source_dialog.dart';
 
-import 'image_source_picker.dart';
+class ImageSourcePicker extends StatefulWidget {
+  final String? imageUrl;
+  final dynamic value;
+  final Function(dynamic) onChanged;
 
-class ReactiveImagePickerUniversal<T> extends ReactiveFormField<T, Uint8List> {
+  const ImageSourcePicker({
+    super.key,
+    required this.onChanged,
+    this.value,
+    this.imageUrl,
+  });
+
+  @override
+  State<ImageSourcePicker> createState() => _ImageSourcePickerState();
+}
+
+class _ImageSourcePickerState extends State<ImageSourcePicker> {
+  final ImagePicker picker = ImagePicker();
+
+  dynamic type;
+  XFile? pickedImage;
+  Uint8List? img;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _asyncMethod();
+    });
+
+    super.initState();
+  }
+
+  _asyncMethod() async {
+    img = widget.value ??
+        await imageCacheDownload(
+          widget.imageUrl.toString(),
+        );
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+/*     pickedImage = null;
+    img = null; */
+    super.dispose();
+  }
+
+/*   Future<Uint8List?> cropImage(String? src) async {
+    return await ImageCropper().cropImage(
+      sourcePath: src ?? '',
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        WebUiSettings(
+          context: context,
+          presentStyle: CropperPresentStyle.page,
+          enableExif: true,
+          enableZoom: true,
+          showZoomer: true,
+        ),
+        AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: true,
+        ),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+      ],
+    ).then((croppedFile) async {
+      return await croppedFile?.readAsBytes();
+    });
+  }
+ */
+  @override
+  Widget build(BuildContext context) {
+    const imageSize = 80.0;
+
+    return Column(
+      children: [
+        InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () async {
+            type = await showModalBottomSheet<dynamic>(
+                context: context,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return ImageSourceDialog(
+                    showRemoveImage: (img != null && img!.isNotEmpty),
+                  );
+                });
+            if (type == ImageSource.gallery || type == ImageSource.camera) {
+              pickedImage = await picker.pickImage(source: type);
+              if (pickedImage != null) {
+                img = await pickedImage?.readAsBytes();
+                widget.onChanged(img);
+              }
+            } else if (type == false) {
+              pickedImage = null;
+              img = null;
+
+              widget.onChanged(false);
+            }
+            setState(() {});
+          },
+          child: ClipRRect(
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.circular(12),
+            child: Stack(
+              children: [
+                Container(
+                  color: Colors.grey,
+                  width: imageSize,
+                  height: imageSize,
+                  child: const Center(
+                    child: Icon(Icons.upload_rounded),
+                  ),
+                ),
+                if (img != null)
+                  Container(
+                    color: Colors.grey,
+                    child: Image.memory(
+                      img!,
+                      width: imageSize,
+                      height: imageSize,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ReactiveImagePickerUniversal<T> extends ReactiveFormField<T, dynamic> {
   ReactiveImagePickerUniversal({
     Key? key,
     bool? readOnly,
@@ -19,7 +159,7 @@ class ReactiveImagePickerUniversal<T> extends ReactiveFormField<T, Uint8List> {
           formControl: formControl,
           builder: (field) {
             return ImageSourcePicker(
-              onImageFetched: (value) {},
+              value: field.value,
               imageUrl: imageUrl,
               onChanged: (value) {
                 field.control.markAsDirty();
@@ -37,6 +177,6 @@ class ReactiveImagePickerUniversal<T> extends ReactiveFormField<T, Uint8List> {
   }
 
   @override
-  ReactiveFormFieldState<T, Uint8List> createState() =>
-      ReactiveFormFieldState<T, Uint8List>();
+  ReactiveFormFieldState<T, dynamic> createState() =>
+      ReactiveFormFieldState<T, dynamic>();
 }

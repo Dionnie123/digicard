@@ -41,12 +41,11 @@ mixin _$DigitalCard {
   String get accreditations => throw _privateConstructorUsedError;
   @RfControl()
   String get maidenName => throw _privateConstructorUsedError;
-  @Uint8ListConverter()
   @RfControl()
-  Uint8List? get avatarFile => throw _privateConstructorUsedError;
-  @Uint8ListConverter()
+  dynamic get avatarFile =>
+      throw _privateConstructorUsedError; //@Uint8ListConverter()
   @RfControl()
-  Uint8List? get logoFile => throw _privateConstructorUsedError;
+  dynamic get logoFile => throw _privateConstructorUsedError;
   @ColorConverter()
   @RfControl()
   Color get color => throw _privateConstructorUsedError;
@@ -93,8 +92,8 @@ abstract class $DigitalCardCopyWith<$Res> {
       @RfControl() String suffix,
       @RfControl() String accreditations,
       @RfControl() String maidenName,
-      @Uint8ListConverter() @RfControl() Uint8List? avatarFile,
-      @Uint8ListConverter() @RfControl() Uint8List? logoFile,
+      @RfControl() dynamic avatarFile,
+      @RfControl() dynamic logoFile,
       @ColorConverter() @RfControl() Color color,
       @RfControl() int layout,
       @RfControl() String position,
@@ -202,11 +201,11 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
       avatarFile: freezed == avatarFile
           ? _value.avatarFile
           : avatarFile // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as dynamic,
       logoFile: freezed == logoFile
           ? _value.logoFile
           : logoFile // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as dynamic,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -273,8 +272,8 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       @RfControl() String suffix,
       @RfControl() String accreditations,
       @RfControl() String maidenName,
-      @Uint8ListConverter() @RfControl() Uint8List? avatarFile,
-      @Uint8ListConverter() @RfControl() Uint8List? logoFile,
+      @RfControl() dynamic avatarFile,
+      @RfControl() dynamic logoFile,
       @ColorConverter() @RfControl() Color color,
       @RfControl() int layout,
       @RfControl() String position,
@@ -380,11 +379,11 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
       avatarFile: freezed == avatarFile
           ? _value.avatarFile
           : avatarFile // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as dynamic,
       logoFile: freezed == logoFile
           ? _value.logoFile
           : logoFile // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as dynamic,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -447,8 +446,8 @@ class _$DigitalCardImpl implements _DigitalCard {
       @RfControl() this.suffix = "",
       @RfControl() this.accreditations = "",
       @RfControl() this.maidenName = "",
-      @Uint8ListConverter() @RfControl() this.avatarFile,
-      @Uint8ListConverter() @RfControl() this.logoFile,
+      @RfControl() this.avatarFile,
+      @RfControl() this.logoFile,
       @ColorConverter() @RfControl() this.color = kcPrimaryColor,
       @RfControl() this.layout = 0,
       @RfControl() this.position = "",
@@ -509,13 +508,12 @@ class _$DigitalCardImpl implements _DigitalCard {
   @RfControl()
   final String maidenName;
   @override
-  @Uint8ListConverter()
   @RfControl()
-  final Uint8List? avatarFile;
+  final dynamic avatarFile;
+//@Uint8ListConverter()
   @override
-  @Uint8ListConverter()
   @RfControl()
-  final Uint8List? logoFile;
+  final dynamic logoFile;
   @override
   @JsonKey()
   @ColorConverter()
@@ -668,8 +666,8 @@ abstract class _DigitalCard implements DigitalCard {
       @RfControl() final String suffix,
       @RfControl() final String accreditations,
       @RfControl() final String maidenName,
-      @Uint8ListConverter() @RfControl() final Uint8List? avatarFile,
-      @Uint8ListConverter() @RfControl() final Uint8List? logoFile,
+      @RfControl() final dynamic avatarFile,
+      @RfControl() final dynamic logoFile,
       @ColorConverter() @RfControl() final Color color,
       @RfControl() final int layout,
       @RfControl() final String position,
@@ -719,13 +717,11 @@ abstract class _DigitalCard implements DigitalCard {
   @RfControl()
   String get maidenName;
   @override
-  @Uint8ListConverter()
   @RfControl()
-  Uint8List? get avatarFile;
-  @override
-  @Uint8ListConverter()
+  dynamic get avatarFile;
+  @override //@Uint8ListConverter()
   @RfControl()
-  Uint8List? get logoFile;
+  dynamic get logoFile;
   @override
   @ColorConverter()
   @RfControl()

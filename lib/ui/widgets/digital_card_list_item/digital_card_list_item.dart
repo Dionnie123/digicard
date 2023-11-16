@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:digicard/app/env/env.dart';
 import 'package:flutter/material.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
@@ -20,37 +21,29 @@ class DigitalCardListItem extends StatelessWidget {
       return Container(
         color: card.color,
         child: Material(
-          child: (card.avatarUrl.isNotEmpty)
-              ? CachedNetworkImage(
-                  imageUrl:
-                      "https://kbetklswsjdfouluglbr.supabase.co/storage/v1/object/public/images/avatars/${card.avatarUrl}",
-                  width: double.infinity,
-                  height: imageSize,
-                  fit: BoxFit.cover,
-                  imageBuilder: (context, imageProvider) {
-                    return Container(
-                        decoration: BoxDecoration(
-                            color: card.color.darken(0.2),
-                            image: DecorationImage(
-                                fit: BoxFit.cover, image: imageProvider)));
-                  },
-                  placeholder: (context, url) {
-                    return Container(color: card.color.darken(0.2));
-                  },
-                  errorWidget: (context, url, error) {
-                    return Container(
-                      width: double.infinity,
-                      height: imageSize,
-                      color: card.color.darken(0.2),
-                    );
-                  },
-                )
-              : Container(
-                  width: double.infinity,
-                  height: imageSize,
-                  color: card.color.darken(0.2),
-                ),
-        ),
+            child: CachedNetworkImage(
+          imageUrl: "${Env.supabaseAvatarUrl}${card.avatarUrl}",
+          width: double.infinity,
+          height: imageSize,
+          fit: BoxFit.cover,
+          imageBuilder: (context, imageProvider) {
+            return Container(
+                decoration: BoxDecoration(
+                    color: card.color.darken(0.2),
+                    image: DecorationImage(
+                        fit: BoxFit.cover, image: imageProvider)));
+          },
+          placeholder: (context, url) {
+            return Container(color: card.color.darken(0.2));
+          },
+          errorWidget: (context, url, error) {
+            return Container(
+              width: double.infinity,
+              height: imageSize,
+              color: card.color.darken(0.2),
+            );
+          },
+        )),
       );
     }
 

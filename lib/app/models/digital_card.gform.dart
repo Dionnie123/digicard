@@ -310,9 +310,9 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   String get _maidenNameValue => maidenNameControl.value as String;
 
-  Uint8List? get _avatarFileValue => avatarFileControl?.value;
+  dynamic get _avatarFileValue => avatarFileControl.value as dynamic;
 
-  Uint8List? get _logoFileValue => logoFileControl?.value;
+  dynamic get _logoFileValue => logoFileControl.value as dynamic;
 
   Color get _colorValue => colorControl.value as Color;
 
@@ -586,9 +586,9 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   Object? get maidenNameErrors => maidenNameControl.errors;
 
-  Object? get avatarFileErrors => avatarFileControl?.errors;
+  Object? get avatarFileErrors => avatarFileControl.errors;
 
-  Object? get logoFileErrors => logoFileControl?.errors;
+  Object? get logoFileErrors => logoFileControl.errors;
 
   Object? get colorErrors => colorControl.errors;
 
@@ -659,58 +659,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   void get updatedAtFocus => form.focus(updatedAtControlPath());
 
   void get addedAtFocus => form.focus(addedAtControlPath());
-
-  void avatarFileRemove({
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (containsAvatarFile) {
-      final controlPath = path;
-      if (controlPath == null) {
-        form.removeControl(
-          avatarFileControlName,
-          updateParent: updateParent,
-          emitEvent: emitEvent,
-        );
-      } else {
-        final formGroup = form.control(controlPath);
-
-        if (formGroup is FormGroup) {
-          formGroup.removeControl(
-            avatarFileControlName,
-            updateParent: updateParent,
-            emitEvent: emitEvent,
-          );
-        }
-      }
-    }
-  }
-
-  void logoFileRemove({
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (containsLogoFile) {
-      final controlPath = path;
-      if (controlPath == null) {
-        form.removeControl(
-          logoFileControlName,
-          updateParent: updateParent,
-          emitEvent: emitEvent,
-        );
-      } else {
-        final formGroup = form.control(controlPath);
-
-        if (formGroup is FormGroup) {
-          formGroup.removeControl(
-            logoFileControlName,
-            updateParent: updateParent,
-            emitEvent: emitEvent,
-          );
-        }
-      }
-    }
-  }
 
   void createdAtRemove({
     bool updateParent = true,
@@ -908,20 +856,20 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   }
 
   void avatarFileValueUpdate(
-    Uint8List? value, {
+    dynamic value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    avatarFileControl?.updateValue(value,
+    avatarFileControl.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
   void logoFileValueUpdate(
-    Uint8List? value, {
+    dynamic value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    logoFileControl?.updateValue(value,
+    logoFileControl.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1133,20 +1081,20 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   }
 
   void avatarFileValuePatch(
-    Uint8List? value, {
+    dynamic value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    avatarFileControl?.patchValue(value,
+    avatarFileControl.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
   void logoFileValuePatch(
-    Uint8List? value, {
+    dynamic value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    logoFileControl?.patchValue(value,
+    logoFileControl.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1371,23 +1319,23 @@ class DigitalCardForm implements FormModel<DigitalCard> {
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void avatarFileValueReset(
-    Uint8List? value, {
+    dynamic value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      avatarFileControl?.reset(
+      avatarFileControl.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void logoFileValueReset(
-    Uint8List? value, {
+    dynamic value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      logoFileControl?.reset(
+      logoFileControl.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void colorValueReset(
@@ -1529,13 +1477,11 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   FormControl<String> get maidenNameControl =>
       form.control(maidenNameControlPath()) as FormControl<String>;
 
-  FormControl<Uint8List>? get avatarFileControl => containsAvatarFile
-      ? form.control(avatarFileControlPath()) as FormControl<Uint8List>?
-      : null;
+  FormControl<dynamic> get avatarFileControl =>
+      form.control(avatarFileControlPath()) as FormControl<dynamic>;
 
-  FormControl<Uint8List>? get logoFileControl => containsLogoFile
-      ? form.control(logoFileControlPath()) as FormControl<Uint8List>?
-      : null;
+  FormControl<dynamic> get logoFileControl =>
+      form.control(logoFileControlPath()) as FormControl<dynamic>;
 
   FormControl<Color> get colorControl =>
       form.control(colorControlPath()) as FormControl<Color>;
@@ -1811,12 +1757,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     bool emitEvent = true,
   }) {
     if (disabled) {
-      avatarFileControl?.markAsDisabled(
+      avatarFileControl.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      avatarFileControl?.markAsEnabled(
+      avatarFileControl.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -1829,12 +1775,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     bool emitEvent = true,
   }) {
     if (disabled) {
-      logoFileControl?.markAsDisabled(
+      logoFileControl.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      logoFileControl?.markAsEnabled(
+      logoFileControl.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -2187,14 +2133,14 @@ class DigitalCardForm implements FormModel<DigitalCard> {
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
-        avatarFileControlName: FormControl<Uint8List>(
+        avatarFileControlName: FormControl<dynamic>(
             value: digitalCard?.avatarFile,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
-        logoFileControlName: FormControl<Uint8List>(
+        logoFileControlName: FormControl<dynamic>(
             value: digitalCard?.logoFile,
             validators: [],
             asyncValidators: [],

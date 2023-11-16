@@ -4,6 +4,7 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/ui/common/app_colors.dart';
+import 'package:digicard/ui/views/card_editor/widgets/card_preview.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/helpers/image_cache_downloader.dart';
@@ -63,17 +64,16 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                             ? const CardTabForm()
                             : Row(
                                 children: [
-                                  const Expanded(child: CardTabForm()),
+                                  const SizedBox(
+                                      width: 600, child: CardTabForm()),
                                   const VerticalDivider(
                                     width: 1,
                                     thickness: 1,
                                   ),
                                   Expanded(
                                     child: ReactiveDigitalCardFormConsumer(
-                                        builder: (context, f, c) {
-                                      return CardViewerSplitView(
-                                        card: f.model,
-                                      );
+                                        builder: (context, form, _) {
+                                      return const Text("");
                                     }),
                                   )
                                 ],

@@ -48,10 +48,11 @@ class _CardTabFormState extends State<CardTabForm>
     Widget avatarField() {
       return ReactiveImagePickerUniversal(
         onChanged: (control) {
-          formModel?.avatarUrlControl.updateValue("");
+          if (control.value == null) {
+            formModel?.avatarUrlControl.updateValue("");
+          }
         },
-        imageUrl:
-            "${Env.supabaseAvatarUrl}${formModel?.avatarUrlControl.value}",
+        imageUrl: "${Env.supabaseAvatarUrl}${formModel?.model.avatarUrl}",
         formControl: formModel?.avatarFileControl,
         readOnly: !viewModel.editMode,
       );
@@ -60,7 +61,9 @@ class _CardTabFormState extends State<CardTabForm>
     Widget logoField() {
       return ReactiveImagePickerUniversal(
         onChanged: (control) {
-          formModel?.logoUrlControl.updateValue("");
+          if (control.value == null) {
+            formModel?.logoUrlControl.updateValue("");
+          }
         },
         imageUrl: "${Env.supabaseLogoUrl}${formModel?.logoUrlControl.value}",
         formControl: formModel?.logoFileControl,
@@ -298,46 +301,29 @@ class _CardTabFormState extends State<CardTabForm>
                             Column(
                               children: [
                                 titleField(),
+                                /*   vSpaceSmall,
+                                Builder(builder: (context) {
+                                  final fullName =
+                                      "${formModel?.prefixControl.value ?? ""} ${formModel?.firstNameControl.value ?? ""} ${formModel?.middleNameControl.value ?? ""} ${formModel?.lastNameControl.value ?? ""} ${formModel?.suffixControl.value ?? ""}"
+                                          .sanitize();
+                                  return Text(fullName.isNotEmpty
+                                      ? fullName
+                                      : "Full name");
+                                }), */
                                 vSpaceSmall,
-                                Card(
-                                  color: Theme.of(context)
-                                      .inputDecorationTheme
-                                      .fillColor,
-                                  margin: EdgeInsets.zero,
-                                  clipBehavior: Clip.antiAlias,
-                                  child: ExpansionTile(
-                                    // collapsedBackgroundColor: colorTheme,
-
-                                    iconColor: colorTheme.lighten(),
-                                    // tilePadding: const EdgeInsets.all(0.0),
-                                    shape:
-                                        Border.all(color: Colors.transparent),
-                                    childrenPadding: const EdgeInsets.all(8.0),
-                                    title: Builder(builder: (context) {
-                                      final fullName =
-                                          "${formModel?.prefixControl.value ?? ""} ${formModel?.firstNameControl.value ?? ""} ${formModel?.middleNameControl.value ?? ""} ${formModel?.lastNameControl.value ?? ""} ${formModel?.suffixControl.value ?? ""}"
-                                              .sanitize();
-                                      return Text(fullName.isNotEmpty
-                                          ? fullName
-                                          : "Full name");
-                                    }),
-                                    children: <Widget>[
-                                      prefixField(),
-                                      vSpaceSmall,
-                                      firstNameField(),
-                                      vSpaceSmall,
-                                      middleNameField(),
-                                      vSpaceSmall,
-                                      lastNameField(),
-                                      vSpaceSmall,
-                                      suffixField(),
-                                      vSpaceSmall,
-                                      accrediationsField(),
-                                      vSpaceSmall,
-                                      maidenNameField(),
-                                    ],
-                                  ),
-                                ),
+                                prefixField(),
+                                vSpaceSmall,
+                                firstNameField(),
+                                vSpaceSmall,
+                                middleNameField(),
+                                vSpaceSmall,
+                                lastNameField(),
+                                vSpaceSmall,
+                                suffixField(),
+                                vSpaceSmall,
+                                accrediationsField(),
+                                vSpaceSmall,
+                                maidenNameField(),
                                 vSpaceSmall,
                                 positionField(),
                                 vSpaceSmall,
