@@ -18,6 +18,10 @@ class CardPreview extends StatelessWidget {
       body: SizedBox(
         width: 440,
         child: Card(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          margin: const EdgeInsets.all(12.0),
           child: Column(
             children: [
               Container(
@@ -103,7 +107,7 @@ class CardPreview extends StatelessWidget {
                             )
                           ],
                         ),
-                        vSpaceTiny
+                        vSpaceSmall
                       ],
                     );
                   }).toList(),
