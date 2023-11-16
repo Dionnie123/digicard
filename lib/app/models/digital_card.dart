@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
-import 'package:digicard/ui/common/app_colors.dart';
 import 'uint8ListConverter.dart';
 part 'digital_card.freezed.dart';
 part 'digital_card.g.dart';
@@ -27,7 +25,7 @@ class DigitalCard with _$DigitalCard {
     @RfControl() String? suffix,
     @RfControl() String? accreditations,
     @RfControl() String? maidenName,
-    @RfControl() dynamic avatarFile, //@Uint8ListConverter()
+    @RfControl() dynamic avatarFile,
     @RfControl() dynamic logoFile,
     @RfControl() @ColorConverter() @RfControl() Color? color,
     @RfControl() int? layout,
@@ -41,12 +39,7 @@ class DigitalCard with _$DigitalCard {
     DateTime? addedAt,
   }) = _DigitalCard;
 
-  factory DigitalCard.blank() => DigitalCard(
-        id: -1,
-        userId: "",
-        uuid: "",
-        firstName: "",
-      );
+  factory DigitalCard.blank() => DigitalCard();
 
   factory DigitalCard.fromJson(Map<String, dynamic> json) =>
       _$DigitalCardFromJson(json);
