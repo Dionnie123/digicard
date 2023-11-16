@@ -83,6 +83,10 @@ class CardPreview extends StatelessWidget {
                       const SizedBox(width: 15),
                       Stack(
                         children: [
+                          if (card?.logoFile == false)
+                            CircleAvatar(
+                                backgroundColor: card?.color ?? kcPrimaryColor,
+                                radius: 50.0),
                           if (card?.logoUrl != null && card?.logoFile != false)
                             CircleAvatar(
                                 backgroundColor: card?.color ?? kcPrimaryColor,
