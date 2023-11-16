@@ -10,6 +10,7 @@ import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/app/services/contacts_service.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
 import 'package:digicard/app/services/native_contacts_service.dart';
+import 'package:digicard/ui/common/app_colors.dart';
 import 'package:flutter_ez_core/helpers/image_cache_downloader.dart';
 import 'package:stacked/stacked.dart';
 import 'package:digicard/app/app.locator.dart';
@@ -40,7 +41,7 @@ class CardViewerViewModel extends ReactiveViewModel {
 
   late DigitalCard card;
   DisplayType displayType = DisplayType.public;
-  Color get color => card.color;
+  Color get color => card.color ?? kcPrimaryColor;
   bool isDarkMode = false;
 
   Future start({

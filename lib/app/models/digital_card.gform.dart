@@ -314,9 +314,9 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   dynamic get _logoFileValue => logoFileControl.value as dynamic;
 
-  Color get _colorValue => colorControl.value as Color;
+  Color? get _colorValue => colorControl?.value;
 
-  int get _layoutValue => layoutControl.value as int;
+  int? get _layoutValue => layoutControl?.value;
 
   String? get _positionValue => positionControl?.value;
 
@@ -590,9 +590,9 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   Object? get logoFileErrors => logoFileControl.errors;
 
-  Object? get colorErrors => colorControl.errors;
+  Object? get colorErrors => colorControl?.errors;
 
-  Object? get layoutErrors => layoutControl.errors;
+  Object? get layoutErrors => layoutControl?.errors;
 
   Object? get positionErrors => positionControl?.errors;
 
@@ -998,6 +998,58 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     }
   }
 
+  void colorRemove({
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    if (containsColor) {
+      final controlPath = path;
+      if (controlPath == null) {
+        form.removeControl(
+          colorControlName,
+          updateParent: updateParent,
+          emitEvent: emitEvent,
+        );
+      } else {
+        final formGroup = form.control(controlPath);
+
+        if (formGroup is FormGroup) {
+          formGroup.removeControl(
+            colorControlName,
+            updateParent: updateParent,
+            emitEvent: emitEvent,
+          );
+        }
+      }
+    }
+  }
+
+  void layoutRemove({
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    if (containsLayout) {
+      final controlPath = path;
+      if (controlPath == null) {
+        form.removeControl(
+          layoutControlName,
+          updateParent: updateParent,
+          emitEvent: emitEvent,
+        );
+      } else {
+        final formGroup = form.control(controlPath);
+
+        if (formGroup is FormGroup) {
+          formGroup.removeControl(
+            layoutControlName,
+            updateParent: updateParent,
+            emitEvent: emitEvent,
+          );
+        }
+      }
+    }
+  }
+
   void positionRemove({
     bool updateParent = true,
     bool emitEvent = true,
@@ -1316,20 +1368,20 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   }
 
   void colorValueUpdate(
-    Color value, {
+    Color? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    colorControl.updateValue(value,
+    colorControl?.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
   void layoutValueUpdate(
-    int value, {
+    int? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    layoutControl.updateValue(value,
+    layoutControl?.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1541,20 +1593,20 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   }
 
   void colorValuePatch(
-    Color value, {
+    Color? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    colorControl.patchValue(value,
+    colorControl?.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
   void layoutValuePatch(
-    int value, {
+    int? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    layoutControl.patchValue(value,
+    layoutControl?.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1781,23 +1833,23 @@ class DigitalCardForm implements FormModel<DigitalCard> {
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void colorValueReset(
-    Color value, {
+    Color? value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      colorControl.reset(
+      colorControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void layoutValueReset(
-    int value, {
+    int? value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      layoutControl.reset(
+      layoutControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void positionValueReset(
@@ -1937,11 +1989,13 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   FormControl<dynamic> get logoFileControl =>
       form.control(logoFileControlPath()) as FormControl<dynamic>;
 
-  FormControl<Color> get colorControl =>
-      form.control(colorControlPath()) as FormControl<Color>;
+  FormControl<Color>? get colorControl => containsColor
+      ? form.control(colorControlPath()) as FormControl<Color>?
+      : null;
 
-  FormControl<int> get layoutControl =>
-      form.control(layoutControlPath()) as FormControl<int>;
+  FormControl<int>? get layoutControl => containsLayout
+      ? form.control(layoutControlPath()) as FormControl<int>?
+      : null;
 
   FormControl<String>? get positionControl => containsPosition
       ? form.control(positionControlPath()) as FormControl<String>?
@@ -2251,12 +2305,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     bool emitEvent = true,
   }) {
     if (disabled) {
-      colorControl.markAsDisabled(
+      colorControl?.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      colorControl.markAsEnabled(
+      colorControl?.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -2269,12 +2323,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     bool emitEvent = true,
   }) {
     if (disabled) {
-      layoutControl.markAsDisabled(
+      layoutControl?.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      layoutControl.markAsEnabled(
+      layoutControl?.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );

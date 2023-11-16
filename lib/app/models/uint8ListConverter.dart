@@ -24,7 +24,7 @@ class ColorConverter implements JsonConverter<Color?, int?> {
 
   @override
   Color? fromJson(int? val) {
-    return val == null ? Color(val ?? 0xFFFFA500) : const Color(0xFFFFA500);
+    return val == null ? Color(val ?? 0xFFFFA500) : Color(val);
   }
 
   @override

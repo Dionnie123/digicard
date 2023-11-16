@@ -47,10 +47,11 @@ mixin _$DigitalCard {
   @RfControl()
   dynamic get logoFile => throw _privateConstructorUsedError;
   @RfControl()
-  @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
-  Color get color => throw _privateConstructorUsedError;
+  @ColorConverter()
   @RfControl()
-  int get layout => throw _privateConstructorUsedError;
+  Color? get color => throw _privateConstructorUsedError;
+  @RfControl()
+  int? get layout => throw _privateConstructorUsedError;
   @RfControl()
   String? get position => throw _privateConstructorUsedError;
   @RfControl()
@@ -94,10 +95,8 @@ abstract class $DigitalCardCopyWith<$Res> {
       @RfControl() String? maidenName,
       @RfControl() dynamic avatarFile,
       @RfControl() dynamic logoFile,
-      @RfControl()
-      @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
-      Color color,
-      @RfControl() int layout,
+      @RfControl() @ColorConverter() @RfControl() Color? color,
+      @RfControl() int? layout,
       @RfControl() String? position,
       @RfControl() String? department,
       @RfControl() String? company,
@@ -136,8 +135,8 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
     Object? maidenName = freezed,
     Object? avatarFile = freezed,
     Object? logoFile = freezed,
-    Object? color = null,
-    Object? layout = null,
+    Object? color = freezed,
+    Object? layout = freezed,
     Object? position = freezed,
     Object? department = freezed,
     Object? company = freezed,
@@ -208,14 +207,14 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
           ? _value.logoFile
           : logoFile // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      color: null == color
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as Color,
-      layout: null == layout
+              as Color?,
+      layout: freezed == layout
           ? _value.layout
           : layout // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -276,10 +275,8 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       @RfControl() String? maidenName,
       @RfControl() dynamic avatarFile,
       @RfControl() dynamic logoFile,
-      @RfControl()
-      @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
-      Color color,
-      @RfControl() int layout,
+      @RfControl() @ColorConverter() @RfControl() Color? color,
+      @RfControl() int? layout,
       @RfControl() String? position,
       @RfControl() String? department,
       @RfControl() String? company,
@@ -316,8 +313,8 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
     Object? maidenName = freezed,
     Object? avatarFile = freezed,
     Object? logoFile = freezed,
-    Object? color = null,
-    Object? layout = null,
+    Object? color = freezed,
+    Object? layout = freezed,
     Object? position = freezed,
     Object? department = freezed,
     Object? company = freezed,
@@ -388,14 +385,14 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
           ? _value.logoFile
           : logoFile // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      color: null == color
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as Color,
-      layout: null == layout
+              as Color?,
+      layout: freezed == layout
           ? _value.layout
           : layout // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -452,10 +449,8 @@ class _$DigitalCardImpl implements _DigitalCard {
       @RfControl() this.maidenName,
       @RfControl() this.avatarFile,
       @RfControl() this.logoFile,
-      @RfControl()
-      @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
-      this.color = Colors.red,
-      @RfControl() this.layout = 0,
+      @RfControl() @ColorConverter() @RfControl() this.color,
+      @RfControl() this.layout,
       @RfControl() this.position,
       @RfControl() this.department,
       @RfControl() this.company,
@@ -513,12 +508,12 @@ class _$DigitalCardImpl implements _DigitalCard {
   final dynamic logoFile;
   @override
   @RfControl()
-  @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
-  final Color color;
-  @override
-  @JsonKey()
+  @ColorConverter()
   @RfControl()
-  final int layout;
+  final Color? color;
+  @override
+  @RfControl()
+  final int? layout;
   @override
   @RfControl()
   final String? position;
@@ -660,10 +655,8 @@ abstract class _DigitalCard implements DigitalCard {
       @RfControl() final String? maidenName,
       @RfControl() final dynamic avatarFile,
       @RfControl() final dynamic logoFile,
-      @RfControl()
-      @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
-      final Color color,
-      @RfControl() final int layout,
+      @RfControl() @ColorConverter() @RfControl() final Color? color,
+      @RfControl() final int? layout,
       @RfControl() final String? position,
       @RfControl() final String? department,
       @RfControl() final String? company,
@@ -718,11 +711,12 @@ abstract class _DigitalCard implements DigitalCard {
   dynamic get logoFile;
   @override
   @RfControl()
-  @JsonKey(name: "color", fromJson: colorfromJson, toJson: colortoJson)
-  Color get color;
+  @ColorConverter()
+  @RfControl()
+  Color? get color;
   @override
   @RfControl()
-  int get layout;
+  int? get layout;
   @override
   @RfControl()
   String? get position;

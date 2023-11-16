@@ -29,15 +29,8 @@ class DigitalCard with _$DigitalCard {
     @RfControl() String? maidenName,
     @RfControl() dynamic avatarFile, //@Uint8ListConverter()
     @RfControl() dynamic logoFile,
-    @RfControl()
-    @Default(Colors.red)
-    @JsonKey(
-      name: "color",
-      fromJson: colorfromJson,
-      toJson: colortoJson,
-    )
-    Color color,
-    @Default(0) @RfControl() int layout,
+    @RfControl() @ColorConverter() @RfControl() Color? color,
+    @RfControl() int? layout,
     @RfControl() String? position,
     @RfControl() String? department,
     @RfControl() String? company,
@@ -58,9 +51,3 @@ class DigitalCard with _$DigitalCard {
   factory DigitalCard.fromJson(Map<String, dynamic> json) =>
       _$DigitalCardFromJson(json);
 }
-
-Color colorfromJson(int? val) {
-  return val == null ? Color(val ?? 0xFFFFA500) : const Color(0xFFFFA500);
-}
-
-int colortoJson(Color? val) => val?.value ?? 0xFFFFA500;

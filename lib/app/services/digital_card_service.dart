@@ -145,10 +145,10 @@ class DigitalCardService with ListenableServiceMixin {
   Future update(DigitalCard card) async {
     try {
       final data = DigitalCardExtension.toMapUpdate(card.toJson());
+      print(data["color"]);
       final oldAvatar = data["avatar_url"];
       final oldLogo = data["logo_url"];
 
-      debugPrint(card.avatarFile.toString());
       if (card.avatarFile is Uint8List) {
         await imageSave(
           card.avatarFile,
@@ -163,7 +163,6 @@ class DigitalCardService with ListenableServiceMixin {
       }
 
       if (card.logoFile is Uint8List) {
-        debugPrint(card.logoFile.toString());
         await imageSave(
           card.logoFile,
           folderPath: 'logos',
@@ -173,6 +172,7 @@ class DigitalCardService with ListenableServiceMixin {
       }
       if (card.logoFile is bool && card.logoFile == false) {
         await imageDelete(folderPath: "logos/$oldLogo");
+        data["logo_url"] = "";
       }
 
       final updatedCard =

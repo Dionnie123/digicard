@@ -23,10 +23,8 @@ _$DigitalCardImpl _$$DigitalCardImplFromJson(Map<String, dynamic> json) =>
       maidenName: json['maiden_name'] as String?,
       avatarFile: json['avatar_file'],
       logoFile: json['logo_file'],
-      color: json['color'] == null
-          ? Colors.red
-          : colorfromJson(json['color'] as int?),
-      layout: json['layout'] as int? ?? 0,
+      color: const ColorConverter().fromJson(json['color'] as int?),
+      layout: json['layout'] as int?,
       position: json['position'] as String?,
       department: json['department'] as String?,
       company: json['company'] as String?,
@@ -63,7 +61,7 @@ Map<String, dynamic> _$$DigitalCardImplToJson(_$DigitalCardImpl instance) =>
       'maiden_name': instance.maidenName,
       'avatar_file': instance.avatarFile,
       'logo_file': instance.logoFile,
-      'color': colortoJson(instance.color),
+      'color': const ColorConverter().toJson(instance.color),
       'layout': instance.layout,
       'position': instance.position,
       'department': instance.department,

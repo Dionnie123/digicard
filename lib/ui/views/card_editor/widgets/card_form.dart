@@ -36,7 +36,7 @@ class _CardTabFormState extends State<CardTabForm>
       listen: true,
     );
     /*  final formModel = viewModel.formModel; */
-    final colorTheme = formModel?.colorControl.value ?? kcPrimaryColor;
+    final colorTheme = formModel?.colorControl?.value ?? kcPrimaryColor;
 
     const inputStyle = InputDecoration(
         contentPadding: EdgeInsets.all(12),
@@ -52,7 +52,8 @@ class _CardTabFormState extends State<CardTabForm>
             formModel?.avatarUrlControl?.updateValue("");
           }
         },
-        imageUrl: "${Env.supabaseLogoUrl}${formModel?.avatarUrlControl?.value}",
+        imageUrl:
+            "${Env.supabaseAvatarUrl}${formModel?.avatarUrlControl?.value}",
         formControl: formModel?.avatarFileControl,
         readOnly: !viewModel.editMode,
       );

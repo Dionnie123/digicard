@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/env/env.dart';
 import 'package:digicard/ui/bottom_sheets/bottom_sheet_wrapper.dart';
+import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
         type: loadingType,
         builder: (context) {
           return BottomSheetWrapper(
-            notchColor: viewModel.card.color,
+            notchColor: viewModel.card.color ?? kcPrimaryColor,
             children: [
               Screenshot(
                 key: UniqueKey(),

@@ -1,5 +1,6 @@
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/ui/bottom_sheets/bottom_sheet_wrapper.dart';
+import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
@@ -37,7 +38,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
         type: loadingType,
         builder: (context) {
           return BottomSheetWrapper(
-              notchColor: viewModel.card.color,
+              notchColor: viewModel.card.color ?? kcPrimaryColor,
               children: [
                 Text(
                   viewModel.card.title.toString(),

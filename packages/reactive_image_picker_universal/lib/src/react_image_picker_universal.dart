@@ -38,10 +38,7 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
   }
 
   _asyncMethod() async {
-    img = widget.value ??
-        await imageCacheDownload(
-          widget.imageUrl.toString(),
-        );
+    img = widget.value;
     setState(() {});
   }
 
@@ -126,7 +123,24 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
                     child: Icon(Icons.upload_rounded),
                   ),
                 ),
-                if (img != null)
+                if (widget.imageUrl != null)
+                  Container(
+                    color: Colors.grey,
+                    child: Image.network(
+                      widget.imageUrl.toString(),
+                      errorBuilder: (context, error, stackTrace) {
+                        return const SizedBox(
+                          width: imageSize,
+                          height: imageSize,
+                          child: Center(child: Icon(Icons.error)),
+                        );
+                      },
+                      width: imageSize,
+                      height: imageSize,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                if (img != null && img!.isNotEmpty)
                   Container(
                     color: Colors.grey,
                     child: Image.memory(

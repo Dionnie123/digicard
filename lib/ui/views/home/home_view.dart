@@ -62,7 +62,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           ? 2
                           : (constraints.maxWidth <= 1024)
                               ? 3
-                              : 5,
+                              : 7,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       height: 242),
