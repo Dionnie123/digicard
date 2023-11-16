@@ -47,8 +47,8 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
 
   @override
   void dispose() {
-/*     pickedImage = null;
-    img = null; */
+    pickedImage = null;
+    img = null;
     super.dispose();
   }
 
@@ -114,7 +114,7 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
             setState(() {});
           },
           child: ClipRRect(
-            clipBehavior: Clip.antiAlias,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
             borderRadius: BorderRadius.circular(12),
             child: Stack(
               children: [
