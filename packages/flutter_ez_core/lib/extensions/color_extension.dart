@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension ColorExtension on Color {
-  Color darken([double amount = .1]) {
+  Color darken([double amount = .07]) {
     assert(amount >= 0 && amount <= 1);
 
     final hsl = HSLColor.fromColor(this);
@@ -10,7 +10,7 @@ extension ColorExtension on Color {
     return hslDark.toColor();
   }
 
-  Color lighten([double amount = .1]) {
+  Color lighten([double amount = .07]) {
     assert(amount >= 0 && amount <= 1);
 
     final hsl = HSLColor.fromColor(this);

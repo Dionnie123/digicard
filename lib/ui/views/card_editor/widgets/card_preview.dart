@@ -28,8 +28,7 @@ class CardPreview extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  color:
-                      card?.color?.darken(0.15) ?? kcPrimaryColor.darken(0.15),
+                  color: card?.color?.darken() ?? kcPrimaryColor.darken(),
                   child: AspectRatio(
                     aspectRatio: 1 / 1,
                     child: Stack(
