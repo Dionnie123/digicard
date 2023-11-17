@@ -72,10 +72,10 @@ class CardEditorViewModel extends ReactiveViewModel {
     return Future.value(true);
   }
 
-  Future<void> showFormErrorsDialog() async {
+  Future<void> showFormErrorsDialog(String message) async {
     await _dialogService.showCustomDialog(
         variant: DialogType.info,
-        description: "First name is required",
+        description: message,
         barrierDismissible: true);
   }
 

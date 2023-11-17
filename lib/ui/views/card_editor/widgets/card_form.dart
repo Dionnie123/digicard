@@ -159,30 +159,6 @@ class _CardTabFormState extends State<CardTabForm>
       );
     }
 
-    Widget accrediationsField() {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(5),
-        child: ReactiveTextField(
-          showErrors: (control) => false,
-          formControl: formModel?.accreditationsControl,
-          textInputAction: TextInputAction.next,
-          decoration: inputStyle.copyWith(label: const Text("Accreditations")),
-        ),
-      );
-    }
-
-    Widget maidenNameField() {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(5),
-        child: ReactiveTextField(
-          showErrors: (control) => false,
-          formControl: formModel?.maidenNameControl,
-          textInputAction: TextInputAction.next,
-          decoration: inputStyle.copyWith(label: const Text("Maiden Name")),
-        ),
-      );
-    }
-
     Widget positionField() {
       return ClipRRect(
         borderRadius: BorderRadius.circular(5),
@@ -192,15 +168,6 @@ class _CardTabFormState extends State<CardTabForm>
           textInputAction: TextInputAction.next,
           decoration: inputStyle.copyWith(label: const Text("Position")),
         ),
-      );
-    }
-
-    Widget departmentField() {
-      return ReactiveTextField(
-        showErrors: (control) => false,
-        formControl: formModel?.departmentControl,
-        textInputAction: TextInputAction.next,
-        decoration: inputStyle.copyWith(label: const Text("Department")),
       );
     }
 
@@ -250,8 +217,9 @@ class _CardTabFormState extends State<CardTabForm>
                   ? TextButton(
                       onPressed: () async {
                         formModel?.form.unfocus();
-                        if (formModel?.firstNameControl?.hasErrors == true) {
-                          viewModel.showFormErrorsDialog();
+                        if (formModel?.form.hasErrors == true) {
+                          viewModel.showFormErrorsDialog(
+                              "${formModel?.form.errors.values}");
                         } else {
                           await viewModel
                               .save(formModel?.model ?? DigitalCard.blank())
@@ -322,13 +290,7 @@ class _CardTabFormState extends State<CardTabForm>
                                 vSpaceSmall,
                                 suffixField(),
                                 vSpaceSmall,
-                                accrediationsField(),
-                                vSpaceSmall,
-                                maidenNameField(),
-                                vSpaceSmall,
                                 positionField(),
-                                vSpaceSmall,
-                                departmentField(),
                                 vSpaceSmall,
                                 companyField(),
                                 vSpaceSmall,

@@ -38,15 +38,11 @@ mixin _$DigitalCard {
   @RfControl()
   String? get suffix => throw _privateConstructorUsedError;
   @RfControl()
-  String? get accreditations => throw _privateConstructorUsedError;
-  @RfControl()
-  String? get maidenName => throw _privateConstructorUsedError;
-  @RfControl()
   dynamic get avatarFile => throw _privateConstructorUsedError;
   @RfControl()
   dynamic get logoFile => throw _privateConstructorUsedError;
-  @RfControl()
   @ColorConverter()
+  @RfControl()
   @RfControl()
   Color? get color => throw _privateConstructorUsedError;
   @RfControl()
@@ -54,12 +50,10 @@ mixin _$DigitalCard {
   @RfControl()
   String? get position => throw _privateConstructorUsedError;
   @RfControl()
-  String? get department => throw _privateConstructorUsedError;
-  @RfControl()
   String? get company => throw _privateConstructorUsedError;
   @RfControl()
   String? get headline => throw _privateConstructorUsedError;
-  @RfControl()
+  @RfControl(validators: [NotEmptyValidator()])
   List<Map<String, dynamic>>? get customLinks =>
       throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -90,17 +84,15 @@ abstract class $DigitalCardCopyWith<$Res> {
       @RfControl() String? middleName,
       @RfControl() String? lastName,
       @RfControl() String? suffix,
-      @RfControl() String? accreditations,
-      @RfControl() String? maidenName,
       @RfControl() dynamic avatarFile,
       @RfControl() dynamic logoFile,
-      @RfControl() @ColorConverter() @RfControl() Color? color,
+      @ColorConverter() @RfControl() @RfControl() Color? color,
       @RfControl() int? layout,
       @RfControl() String? position,
-      @RfControl() String? department,
       @RfControl() String? company,
       @RfControl() String? headline,
-      @RfControl() List<Map<String, dynamic>>? customLinks,
+      @RfControl(validators: [NotEmptyValidator()])
+      List<Map<String, dynamic>>? customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? addedAt});
@@ -130,14 +122,11 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
     Object? middleName = freezed,
     Object? lastName = freezed,
     Object? suffix = freezed,
-    Object? accreditations = freezed,
-    Object? maidenName = freezed,
     Object? avatarFile = freezed,
     Object? logoFile = freezed,
     Object? color = freezed,
     Object? layout = freezed,
     Object? position = freezed,
-    Object? department = freezed,
     Object? company = freezed,
     Object? headline = freezed,
     Object? customLinks = freezed,
@@ -190,14 +179,6 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
           ? _value.suffix
           : suffix // ignore: cast_nullable_to_non_nullable
               as String?,
-      accreditations: freezed == accreditations
-          ? _value.accreditations
-          : accreditations // ignore: cast_nullable_to_non_nullable
-              as String?,
-      maidenName: freezed == maidenName
-          ? _value.maidenName
-          : maidenName // ignore: cast_nullable_to_non_nullable
-              as String?,
       avatarFile: freezed == avatarFile
           ? _value.avatarFile
           : avatarFile // ignore: cast_nullable_to_non_nullable
@@ -217,10 +198,6 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
       position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as String?,
-      department: freezed == department
-          ? _value.department
-          : department // ignore: cast_nullable_to_non_nullable
               as String?,
       company: freezed == company
           ? _value.company
@@ -270,17 +247,15 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       @RfControl() String? middleName,
       @RfControl() String? lastName,
       @RfControl() String? suffix,
-      @RfControl() String? accreditations,
-      @RfControl() String? maidenName,
       @RfControl() dynamic avatarFile,
       @RfControl() dynamic logoFile,
-      @RfControl() @ColorConverter() @RfControl() Color? color,
+      @ColorConverter() @RfControl() @RfControl() Color? color,
       @RfControl() int? layout,
       @RfControl() String? position,
-      @RfControl() String? department,
       @RfControl() String? company,
       @RfControl() String? headline,
-      @RfControl() List<Map<String, dynamic>>? customLinks,
+      @RfControl(validators: [NotEmptyValidator()])
+      List<Map<String, dynamic>>? customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? addedAt});
@@ -308,14 +283,11 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
     Object? middleName = freezed,
     Object? lastName = freezed,
     Object? suffix = freezed,
-    Object? accreditations = freezed,
-    Object? maidenName = freezed,
     Object? avatarFile = freezed,
     Object? logoFile = freezed,
     Object? color = freezed,
     Object? layout = freezed,
     Object? position = freezed,
-    Object? department = freezed,
     Object? company = freezed,
     Object? headline = freezed,
     Object? customLinks = freezed,
@@ -368,14 +340,6 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
           ? _value.suffix
           : suffix // ignore: cast_nullable_to_non_nullable
               as String?,
-      accreditations: freezed == accreditations
-          ? _value.accreditations
-          : accreditations // ignore: cast_nullable_to_non_nullable
-              as String?,
-      maidenName: freezed == maidenName
-          ? _value.maidenName
-          : maidenName // ignore: cast_nullable_to_non_nullable
-              as String?,
       avatarFile: freezed == avatarFile
           ? _value.avatarFile
           : avatarFile // ignore: cast_nullable_to_non_nullable
@@ -395,10 +359,6 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
       position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as String?,
-      department: freezed == department
-          ? _value.department
-          : department // ignore: cast_nullable_to_non_nullable
               as String?,
       company: freezed == company
           ? _value.company
@@ -444,17 +404,15 @@ class _$DigitalCardImpl implements _DigitalCard {
       @RfControl() this.middleName,
       @RfControl() this.lastName,
       @RfControl() this.suffix,
-      @RfControl() this.accreditations,
-      @RfControl() this.maidenName,
       @RfControl() this.avatarFile,
       @RfControl() this.logoFile,
-      @RfControl() @ColorConverter() @RfControl() this.color,
+      @ColorConverter() @RfControl() @RfControl() this.color,
       @RfControl() this.layout,
       @RfControl() this.position,
-      @RfControl() this.department,
       @RfControl() this.company,
       @RfControl() this.headline,
-      @RfControl() final List<Map<String, dynamic>>? customLinks = const [],
+      @RfControl(validators: [NotEmptyValidator()])
+      final List<Map<String, dynamic>>? customLinks = const [],
       this.createdAt,
       this.updatedAt,
       this.addedAt})
@@ -494,19 +452,13 @@ class _$DigitalCardImpl implements _DigitalCard {
   final String? suffix;
   @override
   @RfControl()
-  final String? accreditations;
-  @override
-  @RfControl()
-  final String? maidenName;
-  @override
-  @RfControl()
   final dynamic avatarFile;
   @override
   @RfControl()
   final dynamic logoFile;
   @override
-  @RfControl()
   @ColorConverter()
+  @RfControl()
   @RfControl()
   final Color? color;
   @override
@@ -517,9 +469,6 @@ class _$DigitalCardImpl implements _DigitalCard {
   final String? position;
   @override
   @RfControl()
-  final String? department;
-  @override
-  @RfControl()
   final String? company;
   @override
   @RfControl()
@@ -527,7 +476,7 @@ class _$DigitalCardImpl implements _DigitalCard {
   final List<Map<String, dynamic>>? _customLinks;
   @override
   @JsonKey()
-  @RfControl()
+  @RfControl(validators: [NotEmptyValidator()])
   List<Map<String, dynamic>>? get customLinks {
     final value = _customLinks;
     if (value == null) return null;
@@ -545,7 +494,7 @@ class _$DigitalCardImpl implements _DigitalCard {
 
   @override
   String toString() {
-    return 'DigitalCard(id: $id, userId: $userId, uuid: $uuid, firstName: $firstName, logoUrl: $logoUrl, avatarUrl: $avatarUrl, title: $title, prefix: $prefix, middleName: $middleName, lastName: $lastName, suffix: $suffix, accreditations: $accreditations, maidenName: $maidenName, avatarFile: $avatarFile, logoFile: $logoFile, color: $color, layout: $layout, position: $position, department: $department, company: $company, headline: $headline, customLinks: $customLinks, createdAt: $createdAt, updatedAt: $updatedAt, addedAt: $addedAt)';
+    return 'DigitalCard(id: $id, userId: $userId, uuid: $uuid, firstName: $firstName, logoUrl: $logoUrl, avatarUrl: $avatarUrl, title: $title, prefix: $prefix, middleName: $middleName, lastName: $lastName, suffix: $suffix, avatarFile: $avatarFile, logoFile: $logoFile, color: $color, layout: $layout, position: $position, company: $company, headline: $headline, customLinks: $customLinks, createdAt: $createdAt, updatedAt: $updatedAt, addedAt: $addedAt)';
   }
 
   @override
@@ -568,10 +517,6 @@ class _$DigitalCardImpl implements _DigitalCard {
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
             (identical(other.suffix, suffix) || other.suffix == suffix) &&
-            (identical(other.accreditations, accreditations) ||
-                other.accreditations == accreditations) &&
-            (identical(other.maidenName, maidenName) ||
-                other.maidenName == maidenName) &&
             const DeepCollectionEquality()
                 .equals(other.avatarFile, avatarFile) &&
             const DeepCollectionEquality().equals(other.logoFile, logoFile) &&
@@ -579,8 +524,6 @@ class _$DigitalCardImpl implements _DigitalCard {
             (identical(other.layout, layout) || other.layout == layout) &&
             (identical(other.position, position) ||
                 other.position == position) &&
-            (identical(other.department, department) ||
-                other.department == department) &&
             (identical(other.company, company) || other.company == company) &&
             (identical(other.headline, headline) ||
                 other.headline == headline) &&
@@ -608,14 +551,11 @@ class _$DigitalCardImpl implements _DigitalCard {
         middleName,
         lastName,
         suffix,
-        accreditations,
-        maidenName,
         const DeepCollectionEquality().hash(avatarFile),
         const DeepCollectionEquality().hash(logoFile),
         color,
         layout,
         position,
-        department,
         company,
         headline,
         const DeepCollectionEquality().hash(_customLinks),
@@ -651,17 +591,15 @@ abstract class _DigitalCard implements DigitalCard {
       @RfControl() final String? middleName,
       @RfControl() final String? lastName,
       @RfControl() final String? suffix,
-      @RfControl() final String? accreditations,
-      @RfControl() final String? maidenName,
       @RfControl() final dynamic avatarFile,
       @RfControl() final dynamic logoFile,
-      @RfControl() @ColorConverter() @RfControl() final Color? color,
+      @ColorConverter() @RfControl() @RfControl() final Color? color,
       @RfControl() final int? layout,
       @RfControl() final String? position,
-      @RfControl() final String? department,
       @RfControl() final String? company,
       @RfControl() final String? headline,
-      @RfControl() final List<Map<String, dynamic>>? customLinks,
+      @RfControl(validators: [NotEmptyValidator()])
+      final List<Map<String, dynamic>>? customLinks,
       final DateTime? createdAt,
       final DateTime? updatedAt,
       final DateTime? addedAt}) = _$DigitalCardImpl;
@@ -699,19 +637,13 @@ abstract class _DigitalCard implements DigitalCard {
   String? get suffix;
   @override
   @RfControl()
-  String? get accreditations;
-  @override
-  @RfControl()
-  String? get maidenName;
-  @override
-  @RfControl()
   dynamic get avatarFile;
   @override
   @RfControl()
   dynamic get logoFile;
   @override
-  @RfControl()
   @ColorConverter()
+  @RfControl()
   @RfControl()
   Color? get color;
   @override
@@ -722,15 +654,12 @@ abstract class _DigitalCard implements DigitalCard {
   String? get position;
   @override
   @RfControl()
-  String? get department;
-  @override
-  @RfControl()
   String? get company;
   @override
   @RfControl()
   String? get headline;
   @override
-  @RfControl()
+  @RfControl(validators: [NotEmptyValidator()])
   List<Map<String, dynamic>>? get customLinks;
   @override
   DateTime? get createdAt;

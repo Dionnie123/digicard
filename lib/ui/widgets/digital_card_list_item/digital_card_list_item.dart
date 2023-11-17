@@ -29,18 +29,18 @@ class DigitalCardListItem extends StatelessWidget {
           imageBuilder: (context, imageProvider) {
             return Container(
                 decoration: BoxDecoration(
-                    color: card.color?.darken(0.2),
+                    color: card.color?.darken(),
                     image: DecorationImage(
                         fit: BoxFit.cover, image: imageProvider)));
           },
           placeholder: (context, url) {
-            return Container(color: card.color?.darken(0.2));
+            return Container(color: card.color?.darken());
           },
           errorWidget: (context, url, error) {
             return Container(
               width: double.infinity,
               height: imageSize,
-              color: card.color?.darken(0.2),
+              color: card.color?.darken(),
             );
           },
         )),

@@ -4,7 +4,7 @@ import 'package:flutter_ez_core/extensions/string_extension.dart';
 
 extension DigitalCardExtension on DigitalCard {
   String fullName() {
-    return "${accreditations ?? ""} ${prefix ?? ""}  ${firstName ?? ""} ${middleName ?? ""} ${lastName ?? ""}  ${suffix ?? ""}"
+    return "${prefix ?? ""}  ${firstName ?? ""} ${middleName ?? ""} ${lastName ?? ""}  ${suffix ?? ""}"
         .sanitize();
   }
 

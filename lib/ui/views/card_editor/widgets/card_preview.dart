@@ -22,7 +22,7 @@ class CardPreview extends StatelessWidget {
         child: Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
           margin: const EdgeInsets.all(12.0),
           child: SingleChildScrollView(
             child: Column(
@@ -33,6 +33,7 @@ class CardPreview extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 1 / 1,
                     child: Stack(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
                       children: [
                         if (card?.avatarUrl != null &&
                             card?.avatarFile != false)
@@ -71,9 +72,16 @@ class CardPreview extends StatelessWidget {
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          vSpaceSmall,
                           Text(
                             "${card?.position}",
+                            style: const TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 15,
+                            ),
+                          ),
+                          vSpaceSmall,
+                          Text(
+                            "${card?.company}",
                             style: const TextStyle(
                               fontSize: 16,
                             ),
@@ -85,27 +93,33 @@ class CardPreview extends StatelessWidget {
                         children: [
                           if (card?.logoFile == false)
                             CircleAvatar(
-                                backgroundColor: card?.color ?? kcPrimaryColor,
-                                radius: 50.0),
+                                backgroundColor:
+                                    card?.color?.darken() ?? kcPrimaryColor,
+                                radius: 45.0),
                           if (card?.logoUrl != null && card?.logoFile != false)
                             CircleAvatar(
-                                backgroundColor: card?.color ?? kcPrimaryColor,
+                                backgroundColor:
+                                    card?.color?.darken() ?? kcPrimaryColor,
                                 backgroundImage:
                                     NetworkImage(card?.logoHttpUrl ?? ""),
-                                radius: 50.0),
+                                radius: 45.0),
                           if (card?.logoFile != null &&
                               card?.logoFile is Uint8List)
                             CircleAvatar(
-                                backgroundColor: card?.color ?? kcPrimaryColor,
+                                backgroundColor:
+                                    card?.color?.darken() ?? kcPrimaryColor,
                                 backgroundImage:
                                     MemoryImage(card?.logoFile ?? Uint8List(0)),
-                                radius: 50.0),
+                                radius: 45.0),
                         ],
                       )
                     ],
                   ),
                 ),
-                const SizedBox(height: 11),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text(card?.headline ?? ""),
+                ),
                 Column(
                   children:
                       (card?.customLinks ?? []).mapIndexed((index, element) {
@@ -144,19 +158,21 @@ class CardPreview extends StatelessWidget {
                     );
                   }).toList(),
                 ),
-                const SizedBox(height: 11),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: QrImageView(
-                    data: "${Env.cardUrl}${card?.uuid}",
-                    version: QrVersions.auto,
-                    errorCorrectionLevel: QrErrorCorrectLevel.M,
-                    size: 200,
-                    eyeStyle: const QrEyeStyle(
-                      color: Colors.black,
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: QrImageView(
+                      data: "${Env.cardUrl}${card?.uuid}",
+                      version: QrVersions.auto,
+                      errorCorrectionLevel: QrErrorCorrectLevel.M,
+                      size: 200,
+                      eyeStyle: const QrEyeStyle(
+                        color: Colors.black,
+                      ),
+                      backgroundColor: Colors.white,
+                      gapless: true,
                     ),
-                    backgroundColor: Colors.white,
-                    gapless: true,
                   ),
                 ),
                 /*   Stack(

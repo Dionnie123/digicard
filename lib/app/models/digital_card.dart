@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
+import 'package:reactive_links_picker/reactive_links_picker.dart';
 import 'uint8ListConverter.dart';
 part 'digital_card.freezed.dart';
 part 'digital_card.g.dart';
@@ -23,17 +24,16 @@ class DigitalCard with _$DigitalCard {
     @RfControl() String? middleName,
     @RfControl() String? lastName,
     @RfControl() String? suffix,
-    @RfControl() String? accreditations,
-    @RfControl() String? maidenName,
     @RfControl() dynamic avatarFile,
     @RfControl() dynamic logoFile,
-    @RfControl() @ColorConverter() @RfControl() Color? color,
+    @ColorConverter() @RfControl() @RfControl() Color? color,
     @RfControl() int? layout,
     @RfControl() String? position,
-    @RfControl() String? department,
     @RfControl() String? company,
     @RfControl() String? headline,
-    @Default([]) @RfControl() List<Map<String, dynamic>>? customLinks,
+    @Default([])
+    @RfControl(validators: [NotEmptyValidator()])
+    List<Map<String, dynamic>>? customLinks,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? addedAt,

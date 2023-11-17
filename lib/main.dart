@@ -93,8 +93,17 @@ class MainApp extends StatelessWidget {
               ),
             ),
             lightTheme: ThemeData(
-              //   useMaterial3: true,
+              fontFamily: GoogleFonts.varelaRound().fontFamily,
+              useMaterial3: true,
               brightness: Brightness.light,
+              drawerTheme: const DrawerThemeData(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)))),
+              inputDecorationTheme: const InputDecorationTheme(
+                  isDense: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  filled: true),
               colorScheme: ColorScheme.fromSeed(
                 seedColor: kcPrimaryColor,
                 brightness: Brightness.light,
@@ -116,7 +125,7 @@ class MainApp extends StatelessWidget {
                   title: "Digicard",
                   theme: regularTheme,
                   darkTheme: darkTheme,
-                  themeMode: ThemeMode.dark,
+                  themeMode: ThemeMode.light,
                   scrollBehavior: MyCustomScrollBehavior(),
                   debugShowCheckedModeBanner: false,
                   routerDelegate: stackedRouter.delegate(),

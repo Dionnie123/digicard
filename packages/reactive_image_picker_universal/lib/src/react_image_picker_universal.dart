@@ -93,8 +93,9 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
                 isScrollControlled: true,
                 builder: (BuildContext context) {
                   return ImageSourceDialog(
-                    showRemoveImage: ((img != null && img!.isNotEmpty) ||
-                        isValidUrl(widget.imageUrl.toString())),
+                    showRemoveImage: widget.value != false &&
+                        (((img != null && img!.isNotEmpty) ||
+                            isValidUrl(widget.imageUrl.toString()))),
                   );
                 });
             if (type == ImageSource.gallery || type == ImageSource.camera) {

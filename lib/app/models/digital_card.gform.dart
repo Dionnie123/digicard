@@ -202,10 +202,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   static const String suffixControlName = "suffix";
 
-  static const String accreditationsControlName = "accreditations";
-
-  static const String maidenNameControlName = "maidenName";
-
   static const String avatarFileControlName = "avatarFile";
 
   static const String logoFileControlName = "logoFile";
@@ -215,8 +211,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   static const String layoutControlName = "layout";
 
   static const String positionControlName = "position";
-
-  static const String departmentControlName = "department";
 
   static const String companyControlName = "company";
 
@@ -256,10 +250,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   String suffixControlPath() => pathBuilder(suffixControlName);
 
-  String accreditationsControlPath() => pathBuilder(accreditationsControlName);
-
-  String maidenNameControlPath() => pathBuilder(maidenNameControlName);
-
   String avatarFileControlPath() => pathBuilder(avatarFileControlName);
 
   String logoFileControlPath() => pathBuilder(logoFileControlName);
@@ -269,8 +259,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   String layoutControlPath() => pathBuilder(layoutControlName);
 
   String positionControlPath() => pathBuilder(positionControlName);
-
-  String departmentControlPath() => pathBuilder(departmentControlName);
 
   String companyControlPath() => pathBuilder(companyControlName);
 
@@ -306,10 +294,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   String? get _suffixValue => suffixControl?.value;
 
-  String? get _accreditationsValue => accreditationsControl?.value;
-
-  String? get _maidenNameValue => maidenNameControl?.value;
-
   dynamic get _avatarFileValue => avatarFileControl.value as dynamic;
 
   dynamic get _logoFileValue => logoFileControl.value as dynamic;
@@ -319,8 +303,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   int? get _layoutValue => layoutControl?.value;
 
   String? get _positionValue => positionControl?.value;
-
-  String? get _departmentValue => departmentControl?.value;
 
   String? get _companyValue => companyControl?.value;
 
@@ -434,24 +416,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     }
   }
 
-  bool get containsAccreditations {
-    try {
-      form.control(accreditationsControlPath());
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  bool get containsMaidenName {
-    try {
-      form.control(maidenNameControlPath());
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
   bool get containsAvatarFile {
     try {
       form.control(avatarFileControlPath());
@@ -491,15 +455,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   bool get containsPosition {
     try {
       form.control(positionControlPath());
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  bool get containsDepartment {
-    try {
-      form.control(departmentControlPath());
       return true;
     } catch (e) {
       return false;
@@ -582,10 +537,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   Object? get suffixErrors => suffixControl?.errors;
 
-  Object? get accreditationsErrors => accreditationsControl?.errors;
-
-  Object? get maidenNameErrors => maidenNameControl?.errors;
-
   Object? get avatarFileErrors => avatarFileControl.errors;
 
   Object? get logoFileErrors => logoFileControl.errors;
@@ -595,8 +546,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   Object? get layoutErrors => layoutControl?.errors;
 
   Object? get positionErrors => positionControl?.errors;
-
-  Object? get departmentErrors => departmentControl?.errors;
 
   Object? get companyErrors => companyControl?.errors;
 
@@ -632,10 +581,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   void get suffixFocus => form.focus(suffixControlPath());
 
-  void get accreditationsFocus => form.focus(accreditationsControlPath());
-
-  void get maidenNameFocus => form.focus(maidenNameControlPath());
-
   void get avatarFileFocus => form.focus(avatarFileControlPath());
 
   void get logoFileFocus => form.focus(logoFileControlPath());
@@ -645,8 +590,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   void get layoutFocus => form.focus(layoutControlPath());
 
   void get positionFocus => form.focus(positionControlPath());
-
-  void get departmentFocus => form.focus(departmentControlPath());
 
   void get companyFocus => form.focus(companyControlPath());
 
@@ -946,58 +889,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     }
   }
 
-  void accreditationsRemove({
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (containsAccreditations) {
-      final controlPath = path;
-      if (controlPath == null) {
-        form.removeControl(
-          accreditationsControlName,
-          updateParent: updateParent,
-          emitEvent: emitEvent,
-        );
-      } else {
-        final formGroup = form.control(controlPath);
-
-        if (formGroup is FormGroup) {
-          formGroup.removeControl(
-            accreditationsControlName,
-            updateParent: updateParent,
-            emitEvent: emitEvent,
-          );
-        }
-      }
-    }
-  }
-
-  void maidenNameRemove({
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (containsMaidenName) {
-      final controlPath = path;
-      if (controlPath == null) {
-        form.removeControl(
-          maidenNameControlName,
-          updateParent: updateParent,
-          emitEvent: emitEvent,
-        );
-      } else {
-        final formGroup = form.control(controlPath);
-
-        if (formGroup is FormGroup) {
-          formGroup.removeControl(
-            maidenNameControlName,
-            updateParent: updateParent,
-            emitEvent: emitEvent,
-          );
-        }
-      }
-    }
-  }
-
   void colorRemove({
     bool updateParent = true,
     bool emitEvent = true,
@@ -1068,32 +959,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
         if (formGroup is FormGroup) {
           formGroup.removeControl(
             positionControlName,
-            updateParent: updateParent,
-            emitEvent: emitEvent,
-          );
-        }
-      }
-    }
-  }
-
-  void departmentRemove({
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (containsDepartment) {
-      final controlPath = path;
-      if (controlPath == null) {
-        form.removeControl(
-          departmentControlName,
-          updateParent: updateParent,
-          emitEvent: emitEvent,
-        );
-      } else {
-        final formGroup = form.control(controlPath);
-
-        if (formGroup is FormGroup) {
-          formGroup.removeControl(
-            departmentControlName,
             updateParent: updateParent,
             emitEvent: emitEvent,
           );
@@ -1357,24 +1222,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void accreditationsValueUpdate(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    accreditationsControl?.updateValue(value,
-        updateParent: updateParent, emitEvent: emitEvent);
-  }
-
-  void maidenNameValueUpdate(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    maidenNameControl?.updateValue(value,
-        updateParent: updateParent, emitEvent: emitEvent);
-  }
-
   void avatarFileValueUpdate(
     dynamic value, {
     bool updateParent = true,
@@ -1417,15 +1264,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     bool emitEvent = true,
   }) {
     positionControl?.updateValue(value,
-        updateParent: updateParent, emitEvent: emitEvent);
-  }
-
-  void departmentValueUpdate(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    departmentControl?.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1582,24 +1420,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void accreditationsValuePatch(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    accreditationsControl?.patchValue(value,
-        updateParent: updateParent, emitEvent: emitEvent);
-  }
-
-  void maidenNameValuePatch(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    maidenNameControl?.patchValue(value,
-        updateParent: updateParent, emitEvent: emitEvent);
-  }
-
   void avatarFileValuePatch(
     dynamic value, {
     bool updateParent = true,
@@ -1642,15 +1462,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     bool emitEvent = true,
   }) {
     positionControl?.patchValue(value,
-        updateParent: updateParent, emitEvent: emitEvent);
-  }
-
-  void departmentValuePatch(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    departmentControl?.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1818,26 +1629,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
       suffixControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
-  void accreditationsValueReset(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-    bool removeFocus = false,
-    bool? disabled,
-  }) =>
-      accreditationsControl?.reset(
-          value: value, updateParent: updateParent, emitEvent: emitEvent);
-
-  void maidenNameValueReset(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-    bool removeFocus = false,
-    bool? disabled,
-  }) =>
-      maidenNameControl?.reset(
-          value: value, updateParent: updateParent, emitEvent: emitEvent);
-
   void avatarFileValueReset(
     dynamic value, {
     bool updateParent = true,
@@ -1886,16 +1677,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     bool? disabled,
   }) =>
       positionControl?.reset(
-          value: value, updateParent: updateParent, emitEvent: emitEvent);
-
-  void departmentValueReset(
-    String? value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-    bool removeFocus = false,
-    bool? disabled,
-  }) =>
-      departmentControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void companyValueReset(
@@ -2001,14 +1782,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
       ? form.control(suffixControlPath()) as FormControl<String>?
       : null;
 
-  FormControl<String>? get accreditationsControl => containsAccreditations
-      ? form.control(accreditationsControlPath()) as FormControl<String>?
-      : null;
-
-  FormControl<String>? get maidenNameControl => containsMaidenName
-      ? form.control(maidenNameControlPath()) as FormControl<String>?
-      : null;
-
   FormControl<dynamic> get avatarFileControl =>
       form.control(avatarFileControlPath()) as FormControl<dynamic>;
 
@@ -2025,10 +1798,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   FormControl<String>? get positionControl => containsPosition
       ? form.control(positionControlPath()) as FormControl<String>?
-      : null;
-
-  FormControl<String>? get departmentControl => containsDepartment
-      ? form.control(departmentControlPath()) as FormControl<String>?
       : null;
 
   FormControl<String>? get companyControl => containsCompany
@@ -2255,42 +2024,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     }
   }
 
-  void accreditationsSetDisabled(
-    bool disabled, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (disabled) {
-      accreditationsControl?.markAsDisabled(
-        updateParent: updateParent,
-        emitEvent: emitEvent,
-      );
-    } else {
-      accreditationsControl?.markAsEnabled(
-        updateParent: updateParent,
-        emitEvent: emitEvent,
-      );
-    }
-  }
-
-  void maidenNameSetDisabled(
-    bool disabled, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (disabled) {
-      maidenNameControl?.markAsDisabled(
-        updateParent: updateParent,
-        emitEvent: emitEvent,
-      );
-    } else {
-      maidenNameControl?.markAsEnabled(
-        updateParent: updateParent,
-        emitEvent: emitEvent,
-      );
-    }
-  }
-
   void avatarFileSetDisabled(
     bool disabled, {
     bool updateParent = true,
@@ -2375,24 +2108,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
       );
     } else {
       positionControl?.markAsEnabled(
-        updateParent: updateParent,
-        emitEvent: emitEvent,
-      );
-    }
-  }
-
-  void departmentSetDisabled(
-    bool disabled, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (disabled) {
-      departmentControl?.markAsDisabled(
-        updateParent: updateParent,
-        emitEvent: emitEvent,
-      );
-    } else {
-      departmentControl?.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -2525,14 +2240,11 @@ class DigitalCardForm implements FormModel<DigitalCard> {
         middleName: _middleNameValue,
         lastName: _lastNameValue,
         suffix: _suffixValue,
-        accreditations: _accreditationsValue,
-        maidenName: _maidenNameValue,
         avatarFile: _avatarFileValue,
         logoFile: _logoFileValue,
         color: _colorValue,
         layout: _layoutValue,
         position: _positionValue,
-        department: _departmentValue,
         company: _companyValue,
         headline: _headlineValue,
         customLinks: _customLinksValue,
@@ -2659,20 +2371,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
-        accreditationsControlName: FormControl<String>(
-            value: digitalCard?.accreditations,
-            validators: [],
-            asyncValidators: [],
-            asyncValidatorsDebounceTime: 250,
-            disabled: false,
-            touched: false),
-        maidenNameControlName: FormControl<String>(
-            value: digitalCard?.maidenName,
-            validators: [],
-            asyncValidators: [],
-            asyncValidatorsDebounceTime: 250,
-            disabled: false,
-            touched: false),
         avatarFileControlName: FormControl<dynamic>(
             value: digitalCard?.avatarFile,
             validators: [],
@@ -2708,13 +2406,6 @@ class DigitalCardForm implements FormModel<DigitalCard> {
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
-        departmentControlName: FormControl<String>(
-            value: digitalCard?.department,
-            validators: [],
-            asyncValidators: [],
-            asyncValidatorsDebounceTime: 250,
-            disabled: false,
-            touched: false),
         companyControlName: FormControl<String>(
             value: digitalCard?.company,
             validators: [],
@@ -2731,7 +2422,7 @@ class DigitalCardForm implements FormModel<DigitalCard> {
             touched: false),
         customLinksControlName: FormControl<List<Map<String, dynamic>>>(
             value: digitalCard?.customLinks,
-            validators: [],
+            validators: [NotEmptyValidator()],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
