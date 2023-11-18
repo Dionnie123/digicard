@@ -117,10 +117,12 @@ class _CardTabFormState extends State<CardTabForm>
       return ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: ReactiveTextField(
-          showErrors: (control) => false,
+          showErrors: (control) => true,
           formControl: formModel?.firstNameControl,
           textInputAction: TextInputAction.next,
-          decoration: inputStyle.copyWith(label: const Text("First name*")),
+          decoration: inputStyle.copyWith(
+              errorStyle: const TextStyle(fontSize: 0),
+              label: const Text("First name*")),
         ),
       );
     }

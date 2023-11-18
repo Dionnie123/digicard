@@ -23,12 +23,12 @@ mixin _$DigitalCard {
   int? get id => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
   String? get uuid => throw _privateConstructorUsedError;
-  @RfControl()
-  String? get firstName => throw _privateConstructorUsedError;
   String? get logoUrl => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   @RfControl()
   String? get title => throw _privateConstructorUsedError;
+  @RfControl(validators: [RequiredValidator()])
+  String? get firstName => throw _privateConstructorUsedError;
   @RfControl()
   String? get prefix => throw _privateConstructorUsedError;
   @RfControl()
@@ -76,10 +76,10 @@ abstract class $DigitalCardCopyWith<$Res> {
       {int? id,
       String? userId,
       String? uuid,
-      @RfControl() String? firstName,
       String? logoUrl,
       String? avatarUrl,
       @RfControl() String? title,
+      @RfControl(validators: [RequiredValidator()]) String? firstName,
       @RfControl() String? prefix,
       @RfControl() String? middleName,
       @RfControl() String? lastName,
@@ -114,10 +114,10 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
     Object? id = freezed,
     Object? userId = freezed,
     Object? uuid = freezed,
-    Object? firstName = freezed,
     Object? logoUrl = freezed,
     Object? avatarUrl = freezed,
     Object? title = freezed,
+    Object? firstName = freezed,
     Object? prefix = freezed,
     Object? middleName = freezed,
     Object? lastName = freezed,
@@ -147,10 +147,6 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
       logoUrl: freezed == logoUrl
           ? _value.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
@@ -162,6 +158,10 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
               as String?,
       prefix: freezed == prefix
           ? _value.prefix
@@ -239,10 +239,10 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       {int? id,
       String? userId,
       String? uuid,
-      @RfControl() String? firstName,
       String? logoUrl,
       String? avatarUrl,
       @RfControl() String? title,
+      @RfControl(validators: [RequiredValidator()]) String? firstName,
       @RfControl() String? prefix,
       @RfControl() String? middleName,
       @RfControl() String? lastName,
@@ -275,10 +275,10 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? userId = freezed,
     Object? uuid = freezed,
-    Object? firstName = freezed,
     Object? logoUrl = freezed,
     Object? avatarUrl = freezed,
     Object? title = freezed,
+    Object? firstName = freezed,
     Object? prefix = freezed,
     Object? middleName = freezed,
     Object? lastName = freezed,
@@ -308,10 +308,6 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
       logoUrl: freezed == logoUrl
           ? _value.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
@@ -323,6 +319,10 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
               as String?,
       prefix: freezed == prefix
           ? _value.prefix
@@ -396,10 +396,10 @@ class _$DigitalCardImpl implements _DigitalCard {
       {this.id,
       this.userId,
       this.uuid,
-      @RfControl() this.firstName,
       this.logoUrl,
       this.avatarUrl,
       @RfControl() this.title = "New Card",
+      @RfControl(validators: [RequiredValidator()]) this.firstName,
       @RfControl() this.prefix,
       @RfControl() this.middleName,
       @RfControl() this.lastName,
@@ -428,9 +428,6 @@ class _$DigitalCardImpl implements _DigitalCard {
   @override
   final String? uuid;
   @override
-  @RfControl()
-  final String? firstName;
-  @override
   final String? logoUrl;
   @override
   final String? avatarUrl;
@@ -438,6 +435,9 @@ class _$DigitalCardImpl implements _DigitalCard {
   @JsonKey()
   @RfControl()
   final String? title;
+  @override
+  @RfControl(validators: [RequiredValidator()])
+  final String? firstName;
   @override
   @RfControl()
   final String? prefix;
@@ -494,7 +494,7 @@ class _$DigitalCardImpl implements _DigitalCard {
 
   @override
   String toString() {
-    return 'DigitalCard(id: $id, userId: $userId, uuid: $uuid, firstName: $firstName, logoUrl: $logoUrl, avatarUrl: $avatarUrl, title: $title, prefix: $prefix, middleName: $middleName, lastName: $lastName, suffix: $suffix, avatarFile: $avatarFile, logoFile: $logoFile, color: $color, layout: $layout, position: $position, company: $company, headline: $headline, customLinks: $customLinks, createdAt: $createdAt, updatedAt: $updatedAt, addedAt: $addedAt)';
+    return 'DigitalCard(id: $id, userId: $userId, uuid: $uuid, logoUrl: $logoUrl, avatarUrl: $avatarUrl, title: $title, firstName: $firstName, prefix: $prefix, middleName: $middleName, lastName: $lastName, suffix: $suffix, avatarFile: $avatarFile, logoFile: $logoFile, color: $color, layout: $layout, position: $position, company: $company, headline: $headline, customLinks: $customLinks, createdAt: $createdAt, updatedAt: $updatedAt, addedAt: $addedAt)';
   }
 
   @override
@@ -505,12 +505,12 @@ class _$DigitalCardImpl implements _DigitalCard {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
             (identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
             (identical(other.prefix, prefix) || other.prefix == prefix) &&
             (identical(other.middleName, middleName) ||
                 other.middleName == middleName) &&
@@ -543,10 +543,10 @@ class _$DigitalCardImpl implements _DigitalCard {
         id,
         userId,
         uuid,
-        firstName,
         logoUrl,
         avatarUrl,
         title,
+        firstName,
         prefix,
         middleName,
         lastName,
@@ -583,10 +583,10 @@ abstract class _DigitalCard implements DigitalCard {
       {final int? id,
       final String? userId,
       final String? uuid,
-      @RfControl() final String? firstName,
       final String? logoUrl,
       final String? avatarUrl,
       @RfControl() final String? title,
+      @RfControl(validators: [RequiredValidator()]) final String? firstName,
       @RfControl() final String? prefix,
       @RfControl() final String? middleName,
       @RfControl() final String? lastName,
@@ -614,15 +614,15 @@ abstract class _DigitalCard implements DigitalCard {
   @override
   String? get uuid;
   @override
-  @RfControl()
-  String? get firstName;
-  @override
   String? get logoUrl;
   @override
   String? get avatarUrl;
   @override
   @RfControl()
   String? get title;
+  @override
+  @RfControl(validators: [RequiredValidator()])
+  String? get firstName;
   @override
   @RfControl()
   String? get prefix;
