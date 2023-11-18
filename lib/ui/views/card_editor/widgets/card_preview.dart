@@ -10,11 +10,13 @@ import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class CardPreview extends StatelessWidget {
-  final DigitalCard? card;
-  const CardPreview({super.key, this.card});
+  final Map<String, dynamic> value;
+  const CardPreview({super.key, required this.value});
 
   @override
   Widget build(BuildContext context) {
+    final card = DigitalCard.fromJson(value);
+
     return Scaffold(
       body: SizedBox(
         width: 440,
@@ -27,29 +29,28 @@ class CardPreview extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  color: card?.color?.darken() ?? kcPrimaryColor.darken(),
+                  color: card.color?.darken() ?? kcPrimaryColor.darken(),
                   child: AspectRatio(
                     aspectRatio: 1 / 1,
                     child: Stack(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       children: [
-                        if (card?.avatarUrl != null &&
-                            card?.avatarFile != false)
+                        if (card.avatarUrl != null && card.avatarFile != false)
                           Container(
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(card?.avatarHttpUrl ?? ""),
+                              image: NetworkImage(card.avatarHttpUrl ?? ""),
                             )),
                           ),
-                        if (card?.avatarFile != null &&
-                            card?.avatarFile is Uint8List)
+                        if (card.avatarFile != null &&
+                            card.avatarFile is Uint8List)
                           Container(
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                               fit: BoxFit.cover,
                               image:
-                                  MemoryImage(card?.avatarFile ?? Uint8List(0)),
+                                  MemoryImage(card.avatarFile ?? Uint8List(0)),
                             )),
                           ),
                       ],
@@ -57,7 +58,7 @@ class CardPreview extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  color: card?.color ?? kcPrimaryColor,
+                  color: card.color ?? kcPrimaryColor,
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
@@ -66,12 +67,12 @@ class CardPreview extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${card?.fullName()}",
+                            card.fullName(),
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "${card?.position}",
+                            "${card.position}",
                             style: const TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 15,
@@ -79,7 +80,7 @@ class CardPreview extends StatelessWidget {
                           ),
                           vSpaceSmall,
                           Text(
-                            "${card?.company}",
+                            "${card.company}",
                             style: const TextStyle(
                               fontSize: 16,
                             ),
@@ -89,25 +90,25 @@ class CardPreview extends StatelessWidget {
                       const SizedBox(width: 15),
                       Stack(
                         children: [
-                          if (card?.logoFile == false)
+                          if (card.logoFile == false)
                             CircleAvatar(
                                 backgroundColor:
-                                    card?.color?.darken() ?? kcPrimaryColor,
+                                    card.color?.darken() ?? kcPrimaryColor,
                                 radius: 45.0),
-                          if (card?.logoUrl != null && card?.logoFile != false)
+                          if (card.logoUrl != null && card.logoFile != false)
                             CircleAvatar(
                                 backgroundColor:
-                                    card?.color?.darken() ?? kcPrimaryColor,
+                                    card.color?.darken() ?? kcPrimaryColor,
                                 backgroundImage:
-                                    NetworkImage(card?.logoHttpUrl ?? ""),
+                                    NetworkImage(card.logoHttpUrl ?? ""),
                                 radius: 45.0),
-                          if (card?.logoFile != null &&
-                              card?.logoFile is Uint8List)
+                          if (card.logoFile != null &&
+                              card.logoFile is Uint8List)
                             CircleAvatar(
                                 backgroundColor:
-                                    card?.color?.darken() ?? kcPrimaryColor,
+                                    card.color?.darken() ?? kcPrimaryColor,
                                 backgroundImage:
-                                    MemoryImage(card?.logoFile ?? Uint8List(0)),
+                                    MemoryImage(card.logoFile ?? Uint8List(0)),
                                 radius: 45.0),
                         ],
                       )
@@ -116,11 +117,11 @@ class CardPreview extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: Text(card?.headline ?? ""),
+                  child: Text(card.headline ?? ""),
                 ),
                 Column(
                   children:
-                      (card?.customLinks ?? []).mapIndexed((index, element) {
+                      (card.customLinks ?? []).mapIndexed((index, element) {
                     return InkWell(
                       onTap: () {},
                       child: Padding(
@@ -161,7 +162,7 @@ class CardPreview extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: QrImageView(
-                      data: "${card?.cardHttpUrl}",
+                      data: card.cardHttpUrl,
                       version: QrVersions.auto,
                       errorCorrectionLevel: QrErrorCorrectLevel.M,
                       size: 200,
