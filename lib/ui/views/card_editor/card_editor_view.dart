@@ -4,6 +4,8 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/ui/common/app_colors.dart';
+import 'package:digicard/ui/common/theme.dark.dart';
+import 'package:digicard/ui/common/theme.light.dart';
 import 'package:digicard/ui/views/card_editor/widgets/card_preview.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -51,35 +53,54 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
             child: ReactiveValueListenableBuilder<Color?>(
                 formControl: form.colorControl,
                 builder: (context, color, child) {
-                  final colorTheme = color.value;
-                  return LoaderOverlayWrapper(
-                      color: colorTheme,
-                      type: viewModel.busy(saveBusyKey)
-                          ? LoadingType.save
-                          : viewModel.busy(doneBusyKey)
-                              ? LoadingType.done
-                              : null,
-                      builder: (context) {
-                        return isMobile(context)
-                            ? const CardTabForm()
-                            : Row(
-                                children: [
-                                  const SizedBox(
-                                      width: 600, child: CardTabForm()),
-                                  const VerticalDivider(
-                                    width: 1,
-                                    thickness: 1,
-                                  ),
-                                  Expanded(
-                                    child: ReactiveDigitalCardFormConsumer(
-                                        builder: (context, form, _) {
-                                      return CardPreview(
-                                          value: form.model.toJson());
-                                    }),
-                                  )
-                                ],
-                              );
-                      });
+                  final colorTheme = color.value ?? kcPrimaryColor;
+                  return Theme(
+                    data: isDarkMode()
+                        ? darkTheme.copyWith(
+                            colorScheme: ColorScheme.fromSeed(
+                              seedColor: colorTheme,
+                              brightness: Brightness.dark,
+                            ).copyWith(
+                              brightness: Brightness.dark,
+                            ),
+                          )
+                        : lightTheme.copyWith(
+                            colorScheme: ColorScheme.fromSeed(
+                              seedColor: colorTheme,
+                              brightness: Brightness.light,
+                            ).copyWith(
+                              brightness: Brightness.light,
+                            ),
+                          ),
+                    child: LoaderOverlayWrapper(
+                        color: colorTheme,
+                        type: viewModel.busy(saveBusyKey)
+                            ? LoadingType.save
+                            : viewModel.busy(doneBusyKey)
+                                ? LoadingType.done
+                                : null,
+                        builder: (context) {
+                          return isMobile(context)
+                              ? const CardTabForm()
+                              : Row(
+                                  children: [
+                                    const SizedBox(
+                                        width: 600, child: CardTabForm()),
+                                    const VerticalDivider(
+                                      width: 1,
+                                      thickness: 1,
+                                    ),
+                                    Expanded(
+                                      child: ReactiveDigitalCardFormConsumer(
+                                          builder: (context, form, _) {
+                                        return CardPreview(
+                                            value: form.model.toJson());
+                                      }),
+                                    )
+                                  ],
+                                );
+                        }),
+                  );
                 }),
           );
         });

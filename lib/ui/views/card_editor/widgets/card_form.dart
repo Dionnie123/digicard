@@ -2,6 +2,8 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/ui/common/app_colors.dart';
+import 'package:digicard/ui/common/theme.dark.dart';
+import 'package:digicard/ui/common/theme.light.dart';
 import 'package:digicard/ui/views/card_editor/card_editor_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/flutter_ez_core.dart';
@@ -241,9 +243,10 @@ class _CardTabFormState extends State<CardTabForm>
           ],
           bottom: TabBar(
             tabs: _tabs,
-            labelColor: Colors.white,
             indicatorColor: colorTheme,
             indicatorSize: TabBarIndicatorSize.tab,
+            splashBorderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
             indicator: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),

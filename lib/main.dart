@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:digicard/app/env/env.dart';
 import 'package:digicard/ui/common/app_colors.dart';
+import 'package:digicard/ui/common/theme.dark.dart';
+import 'package:digicard/ui/common/theme.light.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -73,44 +75,8 @@ class MainApp extends StatelessWidget {
     return LifeCycleManager(
         child: ThemeBuilder(
             defaultThemeMode: ThemeMode.dark,
-            darkTheme: ThemeData(
-              fontFamily: GoogleFonts.varelaRound().fontFamily,
-              useMaterial3: true,
-              brightness: Brightness.dark,
-              drawerTheme: const DrawerThemeData(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(0)))),
-              inputDecorationTheme: const InputDecorationTheme(
-                  isDense: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  filled: true),
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: kcPrimaryColor,
-                brightness: Brightness.dark,
-              ).copyWith(
-                brightness: Brightness.dark,
-              ),
-            ),
-            lightTheme: ThemeData(
-              fontFamily: GoogleFonts.varelaRound().fontFamily,
-              useMaterial3: true,
-              brightness: Brightness.light,
-              drawerTheme: const DrawerThemeData(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(0)))),
-              inputDecorationTheme: const InputDecorationTheme(
-                  isDense: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  filled: true),
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: kcPrimaryColor,
-                brightness: Brightness.light,
-              ).copyWith(
-                brightness: Brightness.light,
-              ),
-            ),
+            darkTheme: darkTheme,
+            lightTheme: lightTheme,
             builder: (context, regularTheme, darkTheme, themeMode) {
               return GlobalLoaderOverlay(
                 duration: const Duration(milliseconds: 250),

@@ -18,14 +18,14 @@ class CardPreview extends StatelessWidget {
     final card = DigitalCard.fromJson(value);
 
     return Scaffold(
-      body: SizedBox(
-        width: 440,
-        child: Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-          margin: const EdgeInsets.all(12.0),
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: 440,
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0)),
+            margin: const EdgeInsets.all(12.0),
             child: Column(
               children: [
                 Container(
@@ -69,7 +69,7 @@ class CardPreview extends StatelessWidget {
                           Text(
                             card.fullName(),
                             style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             "${card.position}",
@@ -131,9 +131,16 @@ class CardPreview extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.email_rounded,
-                              size: 30,
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: card.color ?? kcPrimaryColor,
+                              ),
+                              child: const Icon(
+                                Icons.email_rounded,
+                                size: 25,
+                              ),
                             ),
                             hSpaceRegular,
                             Expanded(
