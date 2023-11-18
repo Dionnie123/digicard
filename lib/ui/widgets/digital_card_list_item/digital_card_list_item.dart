@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:digicard/app/env/env.dart';
+import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
@@ -22,7 +22,7 @@ class DigitalCardListItem extends StatelessWidget {
         color: card.color,
         child: Material(
             child: CachedNetworkImage(
-          imageUrl: "${Env.supabaseAvatarUrl}${card.avatarUrl}",
+          imageUrl: card.avatarHttpUrl,
           width: double.infinity,
           height: imageSize,
           fit: BoxFit.cover,

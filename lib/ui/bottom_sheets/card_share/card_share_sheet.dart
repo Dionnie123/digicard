@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/env/env.dart';
+import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/ui/bottom_sheets/bottom_sheet_wrapper.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
@@ -43,7 +43,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: QrImageView(
-          data: "${Env.cardUrl}${request.data.uuid}",
+          data: viewModel.card.cardHttpUrl,
           version: QrVersions.auto,
           errorCorrectionLevel: QrErrorCorrectLevel.M,
           size: 200,
@@ -64,7 +64,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
             child: Padding(
               padding: const EdgeInsets.all(3),
               child: CachedNetworkImage(
-                  imageUrl: "${Env.supabaseLogoUrl}${request.data.logoUrl}",
+                  imageUrl: viewModel.card.logoHttpUrl,
                   imageBuilder: (context, imageProvider) => Image(
                         image: imageProvider,
                         width: 45,
@@ -138,8 +138,8 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
               PanelButton(
                   color: viewModel.card.color,
                   onTap: () async {
-                    await Clipboard.setData(ClipboardData(
-                        text: "${Env.cardUrl}${request.data.uuid}"));
+                    await Clipboard.setData(
+                        ClipboardData(text: viewModel.card.cardHttpUrl));
                   },
                   icon: const Icon(FontAwesomeIcons.copy),
                   title: "Copy Link")
@@ -155,7 +155,6 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
   @override
   void onViewModelReady(CardShareSheetModel viewModel) {
     viewModel.card = request.data;
-
     super.onViewModelReady(viewModel);
   }
 }

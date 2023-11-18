@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
-import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card.dart';
 import 'package:digicard/ui/common/app_colors.dart';
@@ -162,7 +161,7 @@ class CardPreview extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: QrImageView(
-                      data: "${Env.cardUrl}${card?.uuid}",
+                      data: "${card?.cardHttpUrl}",
                       version: QrVersions.auto,
                       errorCorrectionLevel: QrErrorCorrectLevel.M,
                       size: 200,

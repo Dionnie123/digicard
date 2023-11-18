@@ -16,6 +16,10 @@ extension DigitalCardExtension on DigitalCard {
     return "${Env.supabaseLogoUrl}$logoUrl";
   }
 
+  String get cardHttpUrl {
+    return "${Env.cardUrl}$uuid";
+  }
+
   bool isOwnedBy(val) {
     return userId == val;
   }

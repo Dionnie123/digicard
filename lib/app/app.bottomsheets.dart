@@ -4,6 +4,7 @@
 // StackedBottomsheetGenerator
 // **************************************************************************
 
+import 'package:digicard/app/models/digital_card.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app.locator.dart';
