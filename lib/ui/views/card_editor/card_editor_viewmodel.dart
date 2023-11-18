@@ -5,7 +5,7 @@ import 'package:digicard/app/app.dialogs.dart';
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
 
 class CardEditorViewModel extends ReactiveViewModel {
@@ -33,9 +33,9 @@ class CardEditorViewModel extends ReactiveViewModel {
 
   bool editMode = false;
   late ActionType actionType;
-  late DigitalCard model;
+  late DigitalCardDTO model;
 
-  Future<void> initialize(DigitalCard m, ActionType action) async {
+  Future<void> initialize(DigitalCardDTO m, ActionType action) async {
     model = m;
     actionType = action;
     editMode = [
@@ -79,7 +79,7 @@ class CardEditorViewModel extends ReactiveViewModel {
         barrierDismissible: true);
   }
 
-  Future<void> save(DigitalCard formValue) async {
+  Future<void> save(DigitalCardDTO formValue) async {
     if (actionType == ActionType.create) {
       await runBusyFuture(_digitalCardsService.create(formValue),
           throwException: true, busyObject: saveBusyKey);

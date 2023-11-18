@@ -4,7 +4,7 @@ import 'package:digicard/app/app.dialogs.dart';
 import 'package:digicard/app/app.router.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/app.logger.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/services/contacts_service.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
@@ -28,7 +28,7 @@ class HomeViewModel extends ReactiveViewModel {
         _digitalCardService,
       ];
 
-  List<DigitalCard> get digitalCards => _digitalCardService.digitalCards;
+  List<DigitalCardDTO> get digitalCards => _digitalCardService.digitalCards;
 
   @override
   void onFutureError(error, Object? key) {
@@ -54,14 +54,14 @@ class HomeViewModel extends ReactiveViewModel {
     );
   }
 
-  view(DigitalCard card) {
+  view(DigitalCardDTO card) {
     _navigationService.navigateToCardEditorView(
       card: card,
       actionType: ActionType.view,
     );
   }
 
-  show(DigitalCard? digitalCard) async {
+  show(DigitalCardDTO? digitalCard) async {
     await _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.cardManager,
       data: digitalCard,
@@ -72,7 +72,7 @@ class HomeViewModel extends ReactiveViewModel {
 
   create() {
     _navigationService.navigateToCardEditorView(
-      card: DigitalCard.blank(),
+      card: DigitalCardDTO.blank(),
       actionType: ActionType.create,
     );
   }

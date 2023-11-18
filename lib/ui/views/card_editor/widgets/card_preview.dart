@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
@@ -15,7 +15,7 @@ class CardPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final card = DigitalCard.fromJson(value);
+    final card = DigitalCardDTO.fromJson(value);
 
     return Scaffold(
       body: SingleChildScrollView(

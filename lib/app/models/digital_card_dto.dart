@@ -1,18 +1,19 @@
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
-import 'uint8ListConverter.dart';
-part 'digital_card.freezed.dart';
-part 'digital_card.g.dart';
-part 'digital_card.gform.dart';
+part 'digital_card_dto.freezed.dart';
+part 'digital_card_dto.g.dart';
+part 'digital_card_dto.gform.dart';
 
 @freezed
 @ReactiveFormAnnotation()
-class DigitalCard with _$DigitalCard {
+class DigitalCardDTO with _$DigitalCardDTO {
   @JsonSerializable(
     fieldRename: FieldRename.snake,
   )
-  factory DigitalCard({
+  factory DigitalCardDTO({
     int? id,
     String? userId,
     String? uuid,
@@ -36,11 +37,37 @@ class DigitalCard with _$DigitalCard {
     List<Map<String, dynamic>>? customLinks,
     DateTime? createdAt,
     DateTime? updatedAt,
-    DateTime? addedAt,
-  }) = _DigitalCard;
+    DateTime? addedToContactsAt,
+  }) = _DigitalCardDTO;
 
-  factory DigitalCard.blank() => DigitalCard();
+  factory DigitalCardDTO.blank() => DigitalCardDTO(customLinks: []);
 
-  factory DigitalCard.fromJson(Map<String, dynamic> json) =>
-      _$DigitalCardFromJson(json);
+  factory DigitalCardDTO.fromJson(Map<String, dynamic> json) =>
+      _$DigitalCardDTOFromJson(json);
+}
+
+class ColorConverter implements JsonConverter<Color, int> {
+  const ColorConverter();
+
+  @override
+  Color fromJson(int? val) {
+    return val == null ? Color(val ?? 0xFFFFA500) : Color(val);
+  }
+
+  @override
+  int toJson(Color val) => val.value;
+}
+
+class Uint8ListConverter implements JsonConverter<Uint8List?, List<int>?> {
+  const Uint8ListConverter();
+
+  @override
+  Uint8List? fromJson(List<int>? json) {
+    return json == null ? null : Uint8List.fromList(json);
+  }
+
+  @override
+  List<int>? toJson(Uint8List? object) {
+    return object?.toList();
+  }
 }

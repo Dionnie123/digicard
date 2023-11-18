@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'digital_card.dart';
+part of 'digital_card_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-DigitalCard _$DigitalCardFromJson(Map<String, dynamic> json) {
-  return _DigitalCard.fromJson(json);
+DigitalCardDTO _$DigitalCardDTOFromJson(Map<String, dynamic> json) {
+  return _DigitalCardDTO.fromJson(json);
 }
 
 /// @nodoc
-mixin _$DigitalCard {
+mixin _$DigitalCardDTO {
   int? get id => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
   String? get uuid => throw _privateConstructorUsedError;
@@ -58,19 +58,19 @@ mixin _$DigitalCard {
       throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  DateTime? get addedAt => throw _privateConstructorUsedError;
+  DateTime? get addedToContactsAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DigitalCardCopyWith<DigitalCard> get copyWith =>
+  $DigitalCardDTOCopyWith<DigitalCardDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DigitalCardCopyWith<$Res> {
-  factory $DigitalCardCopyWith(
-          DigitalCard value, $Res Function(DigitalCard) then) =
-      _$DigitalCardCopyWithImpl<$Res, DigitalCard>;
+abstract class $DigitalCardDTOCopyWith<$Res> {
+  factory $DigitalCardDTOCopyWith(
+          DigitalCardDTO value, $Res Function(DigitalCardDTO) then) =
+      _$DigitalCardDTOCopyWithImpl<$Res, DigitalCardDTO>;
   @useResult
   $Res call(
       {int? id,
@@ -95,13 +95,13 @@ abstract class $DigitalCardCopyWith<$Res> {
       List<Map<String, dynamic>>? customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
-      DateTime? addedAt});
+      DateTime? addedToContactsAt});
 }
 
 /// @nodoc
-class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
-    implements $DigitalCardCopyWith<$Res> {
-  _$DigitalCardCopyWithImpl(this._value, this._then);
+class _$DigitalCardDTOCopyWithImpl<$Res, $Val extends DigitalCardDTO>
+    implements $DigitalCardDTOCopyWith<$Res> {
+  _$DigitalCardDTOCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -132,7 +132,7 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
     Object? customLinks = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
-    Object? addedAt = freezed,
+    Object? addedToContactsAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -219,20 +219,20 @@ class _$DigitalCardCopyWithImpl<$Res, $Val extends DigitalCard>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      addedAt: freezed == addedAt
-          ? _value.addedAt
-          : addedAt // ignore: cast_nullable_to_non_nullable
+      addedToContactsAt: freezed == addedToContactsAt
+          ? _value.addedToContactsAt
+          : addedToContactsAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$DigitalCardImplCopyWith<$Res>
-    implements $DigitalCardCopyWith<$Res> {
-  factory _$$DigitalCardImplCopyWith(
-          _$DigitalCardImpl value, $Res Function(_$DigitalCardImpl) then) =
-      __$$DigitalCardImplCopyWithImpl<$Res>;
+abstract class _$$DigitalCardDTOImplCopyWith<$Res>
+    implements $DigitalCardDTOCopyWith<$Res> {
+  factory _$$DigitalCardDTOImplCopyWith(_$DigitalCardDTOImpl value,
+          $Res Function(_$DigitalCardDTOImpl) then) =
+      __$$DigitalCardDTOImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -258,15 +258,15 @@ abstract class _$$DigitalCardImplCopyWith<$Res>
       List<Map<String, dynamic>>? customLinks,
       DateTime? createdAt,
       DateTime? updatedAt,
-      DateTime? addedAt});
+      DateTime? addedToContactsAt});
 }
 
 /// @nodoc
-class __$$DigitalCardImplCopyWithImpl<$Res>
-    extends _$DigitalCardCopyWithImpl<$Res, _$DigitalCardImpl>
-    implements _$$DigitalCardImplCopyWith<$Res> {
-  __$$DigitalCardImplCopyWithImpl(
-      _$DigitalCardImpl _value, $Res Function(_$DigitalCardImpl) _then)
+class __$$DigitalCardDTOImplCopyWithImpl<$Res>
+    extends _$DigitalCardDTOCopyWithImpl<$Res, _$DigitalCardDTOImpl>
+    implements _$$DigitalCardDTOImplCopyWith<$Res> {
+  __$$DigitalCardDTOImplCopyWithImpl(
+      _$DigitalCardDTOImpl _value, $Res Function(_$DigitalCardDTOImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -293,9 +293,9 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
     Object? customLinks = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
-    Object? addedAt = freezed,
+    Object? addedToContactsAt = freezed,
   }) {
-    return _then(_$DigitalCardImpl(
+    return _then(_$DigitalCardDTOImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -380,9 +380,9 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      addedAt: freezed == addedAt
-          ? _value.addedAt
-          : addedAt // ignore: cast_nullable_to_non_nullable
+      addedToContactsAt: freezed == addedToContactsAt
+          ? _value.addedToContactsAt
+          : addedToContactsAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
@@ -391,8 +391,8 @@ class __$$DigitalCardImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$DigitalCardImpl implements _DigitalCard {
-  _$DigitalCardImpl(
+class _$DigitalCardDTOImpl implements _DigitalCardDTO {
+  _$DigitalCardDTOImpl(
       {this.id,
       this.userId,
       this.uuid,
@@ -415,11 +415,11 @@ class _$DigitalCardImpl implements _DigitalCard {
       final List<Map<String, dynamic>>? customLinks = const [],
       this.createdAt,
       this.updatedAt,
-      this.addedAt})
+      this.addedToContactsAt})
       : _customLinks = customLinks;
 
-  factory _$DigitalCardImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DigitalCardImplFromJson(json);
+  factory _$DigitalCardDTOImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DigitalCardDTOImplFromJson(json);
 
   @override
   final int? id;
@@ -490,18 +490,18 @@ class _$DigitalCardImpl implements _DigitalCard {
   @override
   final DateTime? updatedAt;
   @override
-  final DateTime? addedAt;
+  final DateTime? addedToContactsAt;
 
   @override
   String toString() {
-    return 'DigitalCard(id: $id, userId: $userId, uuid: $uuid, logoUrl: $logoUrl, avatarUrl: $avatarUrl, title: $title, firstName: $firstName, prefix: $prefix, middleName: $middleName, lastName: $lastName, suffix: $suffix, avatarFile: $avatarFile, logoFile: $logoFile, color: $color, layout: $layout, position: $position, company: $company, headline: $headline, customLinks: $customLinks, createdAt: $createdAt, updatedAt: $updatedAt, addedAt: $addedAt)';
+    return 'DigitalCardDTO(id: $id, userId: $userId, uuid: $uuid, logoUrl: $logoUrl, avatarUrl: $avatarUrl, title: $title, firstName: $firstName, prefix: $prefix, middleName: $middleName, lastName: $lastName, suffix: $suffix, avatarFile: $avatarFile, logoFile: $logoFile, color: $color, layout: $layout, position: $position, company: $company, headline: $headline, customLinks: $customLinks, createdAt: $createdAt, updatedAt: $updatedAt, addedToContactsAt: $addedToContactsAt)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DigitalCardImpl &&
+            other is _$DigitalCardDTOImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
@@ -533,7 +533,8 @@ class _$DigitalCardImpl implements _DigitalCard {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.addedAt, addedAt) || other.addedAt == addedAt));
+            (identical(other.addedToContactsAt, addedToContactsAt) ||
+                other.addedToContactsAt == addedToContactsAt));
   }
 
   @JsonKey(ignore: true)
@@ -561,25 +562,26 @@ class _$DigitalCardImpl implements _DigitalCard {
         const DeepCollectionEquality().hash(_customLinks),
         createdAt,
         updatedAt,
-        addedAt
+        addedToContactsAt
       ]);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DigitalCardImplCopyWith<_$DigitalCardImpl> get copyWith =>
-      __$$DigitalCardImplCopyWithImpl<_$DigitalCardImpl>(this, _$identity);
+  _$$DigitalCardDTOImplCopyWith<_$DigitalCardDTOImpl> get copyWith =>
+      __$$DigitalCardDTOImplCopyWithImpl<_$DigitalCardDTOImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DigitalCardImplToJson(
+    return _$$DigitalCardDTOImplToJson(
       this,
     );
   }
 }
 
-abstract class _DigitalCard implements DigitalCard {
-  factory _DigitalCard(
+abstract class _DigitalCardDTO implements DigitalCardDTO {
+  factory _DigitalCardDTO(
       {final int? id,
       final String? userId,
       final String? uuid,
@@ -602,10 +604,10 @@ abstract class _DigitalCard implements DigitalCard {
       final List<Map<String, dynamic>>? customLinks,
       final DateTime? createdAt,
       final DateTime? updatedAt,
-      final DateTime? addedAt}) = _$DigitalCardImpl;
+      final DateTime? addedToContactsAt}) = _$DigitalCardDTOImpl;
 
-  factory _DigitalCard.fromJson(Map<String, dynamic> json) =
-      _$DigitalCardImpl.fromJson;
+  factory _DigitalCardDTO.fromJson(Map<String, dynamic> json) =
+      _$DigitalCardDTOImpl.fromJson;
 
   @override
   int? get id;
@@ -666,9 +668,9 @@ abstract class _DigitalCard implements DigitalCard {
   @override
   DateTime? get updatedAt;
   @override
-  DateTime? get addedAt;
+  DateTime? get addedToContactsAt;
   @override
   @JsonKey(ignore: true)
-  _$$DigitalCardImplCopyWith<_$DigitalCardImpl> get copyWith =>
+  _$$DigitalCardDTOImplCopyWith<_$DigitalCardDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

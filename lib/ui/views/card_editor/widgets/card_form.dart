@@ -1,6 +1,6 @@
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/env/env.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/common/theme.dark.dart';
 import 'package:digicard/ui/common/theme.light.dart';
@@ -32,7 +32,7 @@ class _CardTabFormState extends State<CardTabForm>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final formModel = ReactiveDigitalCardForm.of(context);
+    final formModel = ReactiveDigitalCardDTOForm.of(context);
     final viewModel = getParentViewModel<CardEditorViewModel>(
       context,
       listen: true,
@@ -216,7 +216,7 @@ class _CardTabFormState extends State<CardTabForm>
                   ? "Copy Card "
                   : "Create Card"),
           actions: [
-            ReactiveDigitalCardFormConsumer(builder: (context, f, w) {
+            ReactiveDigitalCardDTOFormConsumer(builder: (context, f, w) {
               return (viewModel.editMode && formModel?.form.pristine != true)
                   ? TextButton(
                       onPressed: () async {
@@ -226,7 +226,7 @@ class _CardTabFormState extends State<CardTabForm>
                               "${formModel?.form.errors.values}");
                         } else {
                           await viewModel
-                              .save(formModel?.model ?? DigitalCard.blank())
+                              .save(formModel?.model ?? DigitalCardDTO.blank())
                               .then((value) async {
                             formModel?.form.markAsPristine(updateParent: true);
                             await viewModel.exitEditor();

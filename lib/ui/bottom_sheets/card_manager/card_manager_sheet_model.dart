@@ -3,7 +3,7 @@ import 'package:digicard/app/app.dialogs.dart';
 import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/app.router.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:digicard/app/app.locator.dart';
@@ -38,7 +38,7 @@ class CardManagerSheetModel extends ReactiveViewModel {
   @override
   List<ListenableServiceMixin> get listenableServices => [_digitalCardsService];
 
-  late DigitalCard card;
+  late DigitalCardDTO card;
 
   share() {
     _bottomSheetService.completeSheet(SheetResponse());
@@ -50,7 +50,7 @@ class CardManagerSheetModel extends ReactiveViewModel {
     );
   }
 
-  view(DigitalCard card) async {
+  view(DigitalCardDTO card) async {
     _bottomSheetService.completeSheet(SheetResponse());
 
     await _navigationService.navigateToCardViewerView(
@@ -59,7 +59,7 @@ class CardManagerSheetModel extends ReactiveViewModel {
     );
   }
 
-  edit(DigitalCard card) async {
+  edit(DigitalCardDTO card) async {
     _bottomSheetService.completeSheet(SheetResponse());
 
     await _navigationService.navigateToCardEditorView(
@@ -69,7 +69,7 @@ class CardManagerSheetModel extends ReactiveViewModel {
     );
   }
 
-  duplicate(DigitalCard digitalCard) async {
+  duplicate(DigitalCardDTO digitalCard) async {
     _bottomSheetService.completeSheet(SheetResponse());
 
     await _navigationService.navigateToCardEditorView(
@@ -77,7 +77,7 @@ class CardManagerSheetModel extends ReactiveViewModel {
       card: digitalCard.copyWith(
         title: "${digitalCard.title} Copy",
         createdAt: null,
-        addedAt: null,
+        addedToContactsAt: null,
       ),
       actionType: ActionType.duplicate,
     );

@@ -3,7 +3,7 @@ import 'package:digicard/app/app.router.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/helpers/card_url_checker.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -79,7 +79,7 @@ class ScanViewModel extends ReactiveViewModel {
           }); */
           _navService
               .navigateToCardViewerView(
-                  card: DigitalCard.blank(),
+                  card: DigitalCardDTO.blank(),
                   displayType: DisplayType.private,
                   uuid: CardUrl("${result?.code}").uuid)
               .then((value) {

@@ -1,8 +1,8 @@
 import 'package:digicard/app/env/env.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:flutter_ez_core/extensions/string_extension.dart';
 
-extension DigitalCardExtension on DigitalCard {
+extension DigitalCardExtension on DigitalCardDTO {
   String fullName() {
     return "${prefix ?? ""}  ${firstName ?? ""} ${middleName ?? ""} ${lastName ?? ""}  ${suffix ?? ""}"
         .sanitize();
@@ -27,7 +27,7 @@ extension DigitalCardExtension on DigitalCard {
   static Map<String?, dynamic> toMapCreate(Map<String, dynamic> value) {
     value.remove("id");
     value.remove("uuid");
-    value.remove("added_at");
+    value.remove("added_to_contacts_at");
     value.remove("created_at");
     value.remove("updated_at");
     value.remove("custom_links");
@@ -41,7 +41,7 @@ extension DigitalCardExtension on DigitalCard {
     value.remove("id");
     value.remove("avatar_file");
     value.remove("logo_file");
-    value.remove("added_at");
+    value.remove("added_to_contacts_at");
     value.remove("created_at");
     value.remove("updated_at");
     return value;

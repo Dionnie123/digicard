@@ -4,7 +4,7 @@ import 'package:digicard/app/services/user_service.dart';
 import 'package:flutter_ez_core/extensions/string_extension.dart';
 import 'package:mime/mime.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -36,8 +36,8 @@ class DigitalCardService with ListenableServiceMixin {
     ]);
   }
 
-  final ReactiveValue<List<DigitalCard>> _digitalCards =
-      ReactiveValue<List<DigitalCard>>([]);
+  final ReactiveValue<List<DigitalCardDTO>> _digitalCards =
+      ReactiveValue<List<DigitalCardDTO>>([]);
 
   Future<String?> imageSave(Uint8List? image,
       {required String folderPath}) async {
@@ -104,14 +104,15 @@ class DigitalCardService with ListenableServiceMixin {
         ascending: true,
       );
       if (data is List && data.isNotEmpty) {
-        _digitalCards.value = data.map((e) => DigitalCard.fromJson(e)).toList();
+        _digitalCards.value =
+            data.map((e) => DigitalCardDTO.fromJson(e)).toList();
       }
     } catch (e) {
       return errorMessage(e.toString());
     }
   }
 
-  List<DigitalCard> get digitalCards {
+  List<DigitalCardDTO> get digitalCards {
     return _digitalCards.value.reversed.toList();
   }
 
@@ -119,7 +120,7 @@ class DigitalCardService with ListenableServiceMixin {
     _digitalCards.value = val;
   }
 
-  Future create(DigitalCard card) async {
+  Future create(DigitalCardDTO card) async {
     try {
       final data = DigitalCardExtension.toMapCreate(
           card.copyWith(userId: _userService.userId ?? "").toJson());
@@ -134,7 +135,7 @@ class DigitalCardService with ListenableServiceMixin {
       );
       final insertedCard = await _supabase.from('cards').insert(data).select();
       if (insertedCard is List<dynamic>) {
-        _digitalCards.value.add(DigitalCard.fromJson(insertedCard[0]));
+        _digitalCards.value.add(DigitalCardDTO.fromJson(insertedCard[0]));
         notifyListeners();
       }
     } catch (e) {
@@ -142,7 +143,7 @@ class DigitalCardService with ListenableServiceMixin {
     }
   }
 
-  Future update(DigitalCard card) async {
+  Future update(DigitalCardDTO card) async {
     try {
       final data = DigitalCardExtension.toMapUpdate(card.toJson());
       print(data["color"]);
@@ -180,7 +181,7 @@ class DigitalCardService with ListenableServiceMixin {
       if (updatedCard is List<dynamic>) {
         final index =
             _digitalCards.value.indexWhere((element) => element.id == card.id);
-        _digitalCards.value[index] = DigitalCard.fromJson(updatedCard[0]);
+        _digitalCards.value[index] = DigitalCardDTO.fromJson(updatedCard[0]);
         notifyListeners();
       }
     } catch (e) {
@@ -188,7 +189,7 @@ class DigitalCardService with ListenableServiceMixin {
     }
   }
 
-  Future delete(DigitalCard card) async {
+  Future delete(DigitalCardDTO card) async {
     try {
       if (card.avatarUrl.toString().isNotEmpty) {
         await imageDelete(folderPath: "avatars/${card.avatarUrl}");
@@ -204,7 +205,7 @@ class DigitalCardService with ListenableServiceMixin {
     }
   }
 
-  duplicate(DigitalCard card) async {
+  duplicate(DigitalCardDTO card) async {
     try {
       final data = DigitalCardExtension.toMapCreate(
           card.copyWith(userId: _userService.userId ?? "").toJson());
@@ -244,7 +245,7 @@ class DigitalCardService with ListenableServiceMixin {
       final insertedCard = await _supabase.from('cards').insert(data).select();
 
       if (insertedCard is List<dynamic>) {
-        DigitalCard? temp = DigitalCard.fromJson(insertedCard[0]);
+        DigitalCardDTO? temp = DigitalCardDTO.fromJson(insertedCard[0]);
         _digitalCards.value.add(temp);
         notifyListeners();
       }
@@ -253,10 +254,10 @@ class DigitalCardService with ListenableServiceMixin {
     }
   }
 
-  Future<DigitalCard?> findOne(String uuid) async {
+  Future<DigitalCardDTO?> findOne(String uuid) async {
     final data = await _supabase.from('cards').select().eq('uuid', uuid);
     if (data is List && data.isNotEmpty) {
-      return DigitalCard.fromJson(data[0]);
+      return DigitalCardDTO.fromJson(data[0]);
     }
     return null;
   }

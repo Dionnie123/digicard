@@ -20,7 +20,7 @@ import '../ui/views/scan/scan_view.dart' as _i9;
 import '../ui/views/settings/settings_view.dart' as _i5;
 import '../ui/views/startup/startup_view.dart' as _i1;
 import 'constants/stacked_keys.dart' as _i15;
-import 'models/digital_card.dart' as _i14;
+import 'models/digital_card_dto.dart' as _i14;
 
 final stackedRouter =
     StackedRouterWeb(navigatorKey: _i11.StackedService.navigatorKey);
@@ -234,7 +234,7 @@ class SettingsViewRoute extends _i12.PageRouteInfo<void> {
 class CardEditorViewRoute extends _i12.PageRouteInfo<CardEditorViewArgs> {
   CardEditorViewRoute({
     _i13.Key? key,
-    _i14.DigitalCard? card,
+    _i14.DigitalCardDTO? card,
     _i15.ActionType? actionType,
   }) : super(
           CardEditorViewRoute.name,
@@ -258,7 +258,7 @@ class CardEditorViewArgs {
 
   final _i13.Key? key;
 
-  final _i14.DigitalCard? card;
+  final _i14.DigitalCardDTO? card;
 
   final _i15.ActionType? actionType;
 
@@ -273,7 +273,7 @@ class CardEditorViewArgs {
 class CardViewerViewRoute extends _i12.PageRouteInfo<CardViewerViewArgs> {
   CardViewerViewRoute({
     String? uuid,
-    _i14.DigitalCard? card,
+    _i14.DigitalCardDTO? card,
     _i15.DisplayType? displayType,
     _i13.Key? key,
   }) : super(
@@ -301,7 +301,7 @@ class CardViewerViewArgs {
 
   final String? uuid;
 
-  final _i14.DigitalCard? card;
+  final _i14.DigitalCardDTO? card;
 
   final _i15.DisplayType? displayType;
 
@@ -415,7 +415,7 @@ extension RouterStateExtension on _i11.RouterService {
 
   Future<dynamic> navigateToCardEditorView({
     _i13.Key? key,
-    _i14.DigitalCard? card,
+    _i14.DigitalCardDTO? card,
     _i15.ActionType? actionType,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
@@ -431,7 +431,7 @@ extension RouterStateExtension on _i11.RouterService {
 
   Future<dynamic> navigateToCardViewerView({
     String? uuid,
-    _i14.DigitalCard? card,
+    _i14.DigitalCardDTO? card,
     _i15.DisplayType? displayType,
     _i13.Key? key,
     void Function(_i12.NavigationFailure)? onFailure,
@@ -519,7 +519,7 @@ extension RouterStateExtension on _i11.RouterService {
 
   Future<dynamic> replaceWithCardEditorView({
     _i13.Key? key,
-    _i14.DigitalCard? card,
+    _i14.DigitalCardDTO? card,
     _i15.ActionType? actionType,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
@@ -535,7 +535,7 @@ extension RouterStateExtension on _i11.RouterService {
 
   Future<dynamic> replaceWithCardViewerView({
     String? uuid,
-    _i14.DigitalCard? card,
+    _i14.DigitalCardDTO? card,
     _i15.DisplayType? displayType,
     _i13.Key? key,
     void Function(_i12.NavigationFailure)? onFailure,

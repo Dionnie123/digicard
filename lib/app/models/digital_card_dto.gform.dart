@@ -3,14 +3,14 @@
 // ignore_for_file: type=lint
 // ignore_for_file:
 
-part of 'digital_card.dart';
+part of 'digital_card_dto.dart';
 
 // **************************************************************************
 // ReactiveFormsGenerator
 // **************************************************************************
 
-class ReactiveDigitalCardFormConsumer extends StatelessWidget {
-  const ReactiveDigitalCardFormConsumer({
+class ReactiveDigitalCardDTOFormConsumer extends StatelessWidget {
+  const ReactiveDigitalCardDTOFormConsumer({
     Key? key,
     required this.builder,
     this.child,
@@ -19,21 +19,22 @@ class ReactiveDigitalCardFormConsumer extends StatelessWidget {
   final Widget? child;
 
   final Widget Function(
-      BuildContext context, DigitalCardForm formModel, Widget? child) builder;
+          BuildContext context, DigitalCardDTOForm formModel, Widget? child)
+      builder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveDigitalCardForm.of(context);
+    final formModel = ReactiveDigitalCardDTOForm.of(context);
 
-    if (formModel is! DigitalCardForm) {
+    if (formModel is! DigitalCardDTOForm) {
       throw FormControlParentNotFoundException(this);
     }
     return builder(context, formModel, child);
   }
 }
 
-class DigitalCardFormInheritedStreamer extends InheritedStreamer<dynamic> {
-  const DigitalCardFormInheritedStreamer({
+class DigitalCardDTOFormInheritedStreamer extends InheritedStreamer<dynamic> {
+  const DigitalCardDTOFormInheritedStreamer({
     Key? key,
     required this.form,
     required Stream<dynamic> stream,
@@ -44,11 +45,11 @@ class DigitalCardFormInheritedStreamer extends InheritedStreamer<dynamic> {
           key: key,
         );
 
-  final DigitalCardForm form;
+  final DigitalCardDTOForm form;
 }
 
-class ReactiveDigitalCardForm extends StatelessWidget {
-  const ReactiveDigitalCardForm({
+class ReactiveDigitalCardDTOForm extends StatelessWidget {
+  const ReactiveDigitalCardDTOForm({
     Key? key,
     required this.form,
     required this.child,
@@ -57,31 +58,31 @@ class ReactiveDigitalCardForm extends StatelessWidget {
 
   final Widget child;
 
-  final DigitalCardForm form;
+  final DigitalCardDTOForm form;
 
   final WillPopCallback? onWillPop;
 
-  static DigitalCardForm? of(
+  static DigitalCardDTOForm? of(
     BuildContext context, {
     bool listen = true,
   }) {
     if (listen) {
       return context
           .dependOnInheritedWidgetOfExactType<
-              DigitalCardFormInheritedStreamer>()
+              DigitalCardDTOFormInheritedStreamer>()
           ?.form;
     }
 
     final element = context.getElementForInheritedWidgetOfExactType<
-        DigitalCardFormInheritedStreamer>();
+        DigitalCardDTOFormInheritedStreamer>();
     return element == null
         ? null
-        : (element.widget as DigitalCardFormInheritedStreamer).form;
+        : (element.widget as DigitalCardDTOFormInheritedStreamer).form;
   }
 
   @override
   Widget build(BuildContext context) {
-    return DigitalCardFormInheritedStreamer(
+    return DigitalCardDTOFormInheritedStreamer(
       form: form,
       stream: form.form.statusChanged,
       child: WillPopScope(
@@ -92,8 +93,8 @@ class ReactiveDigitalCardForm extends StatelessWidget {
   }
 }
 
-class DigitalCardFormBuilder extends StatefulWidget {
-  const DigitalCardFormBuilder({
+class DigitalCardDTOFormBuilder extends StatefulWidget {
+  const DigitalCardDTOFormBuilder({
     Key? key,
     this.model,
     this.child,
@@ -102,29 +103,31 @@ class DigitalCardFormBuilder extends StatefulWidget {
     this.initState,
   }) : super(key: key);
 
-  final DigitalCard? model;
+  final DigitalCardDTO? model;
 
   final Widget? child;
 
   final WillPopCallback? onWillPop;
 
   final Widget Function(
-      BuildContext context, DigitalCardForm formModel, Widget? child) builder;
+          BuildContext context, DigitalCardDTOForm formModel, Widget? child)
+      builder;
 
-  final void Function(BuildContext context, DigitalCardForm formModel)?
+  final void Function(BuildContext context, DigitalCardDTOForm formModel)?
       initState;
 
   @override
-  _DigitalCardFormBuilderState createState() => _DigitalCardFormBuilderState();
+  _DigitalCardDTOFormBuilderState createState() =>
+      _DigitalCardDTOFormBuilderState();
 }
 
-class _DigitalCardFormBuilderState extends State<DigitalCardFormBuilder> {
-  late DigitalCardForm _formModel;
+class _DigitalCardDTOFormBuilderState extends State<DigitalCardDTOFormBuilder> {
+  late DigitalCardDTOForm _formModel;
 
   @override
   void initState() {
     _formModel =
-        DigitalCardForm(DigitalCardForm.formElements(widget.model), null);
+        DigitalCardDTOForm(DigitalCardDTOForm.formElements(widget.model), null);
 
     if (_formModel.form.disabled) {
       _formModel.form.markAsDisabled();
@@ -136,10 +139,10 @@ class _DigitalCardFormBuilderState extends State<DigitalCardFormBuilder> {
   }
 
   @override
-  void didUpdateWidget(covariant DigitalCardFormBuilder oldWidget) {
+  void didUpdateWidget(covariant DigitalCardDTOFormBuilder oldWidget) {
     if (widget.model != oldWidget.model) {
-      _formModel =
-          DigitalCardForm(DigitalCardForm.formElements(widget.model), null);
+      _formModel = DigitalCardDTOForm(
+          DigitalCardDTOForm.formElements(widget.model), null);
 
       if (_formModel.form.disabled) {
         _formModel.form.markAsDisabled();
@@ -159,7 +162,7 @@ class _DigitalCardFormBuilderState extends State<DigitalCardFormBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveDigitalCardForm(
+    return ReactiveDigitalCardDTOForm(
       key: ObjectKey(_formModel),
       form: _formModel,
       onWillPop: widget.onWillPop,
@@ -174,8 +177,8 @@ class _DigitalCardFormBuilderState extends State<DigitalCardFormBuilder> {
   }
 }
 
-class DigitalCardForm implements FormModel<DigitalCard> {
-  DigitalCardForm(
+class DigitalCardDTOForm implements FormModel<DigitalCardDTO> {
+  DigitalCardDTOForm(
     this.form,
     this.path,
   );
@@ -222,7 +225,7 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   static const String updatedAtControlName = "updatedAt";
 
-  static const String addedAtControlName = "addedAt";
+  static const String addedToContactsAtControlName = "addedToContactsAt";
 
   final FormGroup form;
 
@@ -270,7 +273,8 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   String updatedAtControlPath() => pathBuilder(updatedAtControlName);
 
-  String addedAtControlPath() => pathBuilder(addedAtControlName);
+  String addedToContactsAtControlPath() =>
+      pathBuilder(addedToContactsAtControlName);
 
   int? get _idValue => idControl?.value;
 
@@ -315,7 +319,7 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   DateTime? get _updatedAtValue => updatedAtControl?.value;
 
-  DateTime? get _addedAtValue => addedAtControl?.value;
+  DateTime? get _addedToContactsAtValue => addedToContactsAtControl?.value;
 
   bool get containsId {
     try {
@@ -506,9 +510,9 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     }
   }
 
-  bool get containsAddedAt {
+  bool get containsAddedToContactsAt {
     try {
-      form.control(addedAtControlPath());
+      form.control(addedToContactsAtControlPath());
       return true;
     } catch (e) {
       return false;
@@ -557,7 +561,7 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   Object? get updatedAtErrors => updatedAtControl?.errors;
 
-  Object? get addedAtErrors => addedAtControl?.errors;
+  Object? get addedToContactsAtErrors => addedToContactsAtControl?.errors;
 
   void get idFocus => form.focus(idControlPath());
 
@@ -601,7 +605,7 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   void get updatedAtFocus => form.focus(updatedAtControlPath());
 
-  void get addedAtFocus => form.focus(addedAtControlPath());
+  void get addedToContactsAtFocus => form.focus(addedToContactsAtControlPath());
 
   void idRemove({
     bool updateParent = true,
@@ -1097,15 +1101,15 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     }
   }
 
-  void addedAtRemove({
+  void addedToContactsAtRemove({
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    if (containsAddedAt) {
+    if (containsAddedToContactsAt) {
       final controlPath = path;
       if (controlPath == null) {
         form.removeControl(
-          addedAtControlName,
+          addedToContactsAtControlName,
           updateParent: updateParent,
           emitEvent: emitEvent,
         );
@@ -1114,7 +1118,7 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
         if (formGroup is FormGroup) {
           formGroup.removeControl(
-            addedAtControlName,
+            addedToContactsAtControlName,
             updateParent: updateParent,
             emitEvent: emitEvent,
           );
@@ -1312,12 +1316,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void addedAtValueUpdate(
+  void addedToContactsAtValueUpdate(
     DateTime? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    addedAtControl?.updateValue(value,
+    addedToContactsAtControl?.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1510,12 +1514,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void addedAtValuePatch(
+  void addedToContactsAtValuePatch(
     DateTime? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    addedAtControl?.patchValue(value,
+    addedToContactsAtControl?.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -1729,14 +1733,14 @@ class DigitalCardForm implements FormModel<DigitalCard> {
       updatedAtControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
-  void addedAtValueReset(
+  void addedToContactsAtValueReset(
     DateTime? value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      addedAtControl?.reset(
+      addedToContactsAtControl?.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   FormControl<int>? get idControl =>
@@ -1822,9 +1826,11 @@ class DigitalCardForm implements FormModel<DigitalCard> {
       ? form.control(updatedAtControlPath()) as FormControl<DateTime>?
       : null;
 
-  FormControl<DateTime>? get addedAtControl => containsAddedAt
-      ? form.control(addedAtControlPath()) as FormControl<DateTime>?
-      : null;
+  FormControl<DateTime>?
+      get addedToContactsAtControl => containsAddedToContactsAt
+          ? form.control(addedToContactsAtControlPath())
+              as FormControl<DateTime>?
+          : null;
 
   void idSetDisabled(
     bool disabled, {
@@ -2204,18 +2210,18 @@ class DigitalCardForm implements FormModel<DigitalCard> {
     }
   }
 
-  void addedAtSetDisabled(
+  void addedToContactsAtSetDisabled(
     bool disabled, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
     if (disabled) {
-      addedAtControl?.markAsDisabled(
+      addedToContactsAtControl?.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      addedAtControl?.markAsEnabled(
+      addedToContactsAtControl?.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -2223,12 +2229,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   }
 
   @override
-  DigitalCard get model {
+  DigitalCardDTO get model {
     if (!currentForm.valid) {
       debugPrint(
-          '[${path ?? 'DigitalCardForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
+          '[${path ?? 'DigitalCardDTOForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
     }
-    return DigitalCard(
+    return DigitalCardDTO(
         id: _idValue,
         userId: _userIdValue,
         uuid: _uuidValue,
@@ -2250,12 +2256,12 @@ class DigitalCardForm implements FormModel<DigitalCard> {
         customLinks: _customLinksValue,
         createdAt: _createdAtValue,
         updatedAt: _updatedAtValue,
-        addedAt: _addedAtValue);
+        addedToContactsAt: _addedToContactsAtValue);
   }
 
   @override
   void submit({
-    required void Function(DigitalCard model) onValid,
+    required void Function(DigitalCardDTO model) onValid,
     void Function()? onNotValid,
   }) {
     currentForm.markAllAsTouched();
@@ -2272,16 +2278,16 @@ class DigitalCardForm implements FormModel<DigitalCard> {
 
   @override
   void updateValue(
-    DigitalCard value, {
+    DigitalCardDTO value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
-      form.updateValue(DigitalCardForm.formElements(value).rawValue,
+      form.updateValue(DigitalCardDTOForm.formElements(value).rawValue,
           updateParent: updateParent, emitEvent: emitEvent);
 
   @override
   void reset({
-    DigitalCard? value,
+    DigitalCardDTO? value,
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
@@ -2293,156 +2299,156 @@ class DigitalCardForm implements FormModel<DigitalCard> {
   String pathBuilder(String? pathItem) =>
       [path, pathItem].whereType<String>().join(".");
 
-  static FormGroup formElements(DigitalCard? digitalCard) => FormGroup({
+  static FormGroup formElements(DigitalCardDTO? digitalCardDTO) => FormGroup({
         idControlName: FormControl<int>(
-            value: digitalCard?.id,
+            value: digitalCardDTO?.id,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         userIdControlName: FormControl<String>(
-            value: digitalCard?.userId,
+            value: digitalCardDTO?.userId,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         uuidControlName: FormControl<String>(
-            value: digitalCard?.uuid,
+            value: digitalCardDTO?.uuid,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         logoUrlControlName: FormControl<String>(
-            value: digitalCard?.logoUrl,
+            value: digitalCardDTO?.logoUrl,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         avatarUrlControlName: FormControl<String>(
-            value: digitalCard?.avatarUrl,
+            value: digitalCardDTO?.avatarUrl,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         titleControlName: FormControl<String>(
-            value: digitalCard?.title,
+            value: digitalCardDTO?.title,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         firstNameControlName: FormControl<String>(
-            value: digitalCard?.firstName,
+            value: digitalCardDTO?.firstName,
             validators: [RequiredValidator()],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         prefixControlName: FormControl<String>(
-            value: digitalCard?.prefix,
+            value: digitalCardDTO?.prefix,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         middleNameControlName: FormControl<String>(
-            value: digitalCard?.middleName,
+            value: digitalCardDTO?.middleName,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         lastNameControlName: FormControl<String>(
-            value: digitalCard?.lastName,
+            value: digitalCardDTO?.lastName,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         suffixControlName: FormControl<String>(
-            value: digitalCard?.suffix,
+            value: digitalCardDTO?.suffix,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         avatarFileControlName: FormControl<dynamic>(
-            value: digitalCard?.avatarFile,
+            value: digitalCardDTO?.avatarFile,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         logoFileControlName: FormControl<dynamic>(
-            value: digitalCard?.logoFile,
+            value: digitalCardDTO?.logoFile,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         colorControlName: FormControl<Color>(
-            value: digitalCard?.color,
+            value: digitalCardDTO?.color,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         layoutControlName: FormControl<int>(
-            value: digitalCard?.layout,
+            value: digitalCardDTO?.layout,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         positionControlName: FormControl<String>(
-            value: digitalCard?.position,
+            value: digitalCardDTO?.position,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         companyControlName: FormControl<String>(
-            value: digitalCard?.company,
+            value: digitalCardDTO?.company,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         headlineControlName: FormControl<String>(
-            value: digitalCard?.headline,
+            value: digitalCardDTO?.headline,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         customLinksControlName: FormControl<List<Map<String, dynamic>>>(
-            value: digitalCard?.customLinks,
+            value: digitalCardDTO?.customLinks,
             validators: [NotEmptyValidator()],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         createdAtControlName: FormControl<DateTime>(
-            value: digitalCard?.createdAt,
+            value: digitalCardDTO?.createdAt,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
         updatedAtControlName: FormControl<DateTime>(
-            value: digitalCard?.updatedAt,
+            value: digitalCardDTO?.updatedAt,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
-        addedAtControlName: FormControl<DateTime>(
-            value: digitalCard?.addedAt,
+        addedToContactsAtControlName: FormControl<DateTime>(
+            value: digitalCardDTO?.addedToContactsAt,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
@@ -2455,8 +2461,8 @@ class DigitalCardForm implements FormModel<DigitalCard> {
           disabled: false);
 }
 
-class ReactiveDigitalCardFormArrayBuilder<T> extends StatelessWidget {
-  const ReactiveDigitalCardFormArrayBuilder({
+class ReactiveDigitalCardDTOFormArrayBuilder<T> extends StatelessWidget {
+  const ReactiveDigitalCardDTOFormArrayBuilder({
     Key? key,
     this.control,
     this.formControl,
@@ -2468,18 +2474,18 @@ class ReactiveDigitalCardFormArrayBuilder<T> extends StatelessWidget {
 
   final FormArray<T>? formControl;
 
-  final FormArray<T>? Function(DigitalCardForm formModel)? control;
+  final FormArray<T>? Function(DigitalCardDTOForm formModel)? control;
 
   final Widget Function(BuildContext context, List<Widget> itemList,
-      DigitalCardForm formModel)? builder;
+      DigitalCardDTOForm formModel)? builder;
 
   final Widget Function(
-          BuildContext context, int i, T? item, DigitalCardForm formModel)
+          BuildContext context, int i, T? item, DigitalCardDTOForm formModel)
       itemBuilder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveDigitalCardForm.of(context);
+    final formModel = ReactiveDigitalCardDTOForm.of(context);
 
     if (formModel == null) {
       throw FormControlParentNotFoundException(this);
@@ -2515,8 +2521,9 @@ class ReactiveDigitalCardFormArrayBuilder<T> extends StatelessWidget {
   }
 }
 
-class ReactiveDigitalCardFormFormGroupArrayBuilder<T> extends StatelessWidget {
-  const ReactiveDigitalCardFormFormGroupArrayBuilder({
+class ReactiveDigitalCardDTOFormFormGroupArrayBuilder<T>
+    extends StatelessWidget {
+  const ReactiveDigitalCardDTOFormFormGroupArrayBuilder({
     Key? key,
     this.extended,
     this.getExtended,
@@ -2529,18 +2536,18 @@ class ReactiveDigitalCardFormFormGroupArrayBuilder<T> extends StatelessWidget {
   final ExtendedControl<List<Map<String, Object?>?>, List<T>>? extended;
 
   final ExtendedControl<List<Map<String, Object?>?>, List<T>> Function(
-      DigitalCardForm formModel)? getExtended;
+      DigitalCardDTOForm formModel)? getExtended;
 
   final Widget Function(BuildContext context, List<Widget> itemList,
-      DigitalCardForm formModel)? builder;
+      DigitalCardDTOForm formModel)? builder;
 
   final Widget Function(
-          BuildContext context, int i, T? item, DigitalCardForm formModel)
+          BuildContext context, int i, T? item, DigitalCardDTOForm formModel)
       itemBuilder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveDigitalCardForm.of(context);
+    final formModel = ReactiveDigitalCardDTOForm.of(context);
 
     if (formModel == null) {
       throw FormControlParentNotFoundException(this);

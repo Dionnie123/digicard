@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +11,7 @@ import 'package:universal_html/js.dart' as js;
 
 class NativeContactsService with ListenableServiceMixin {
   /// Saves Contact to native contact app of mobile
-  Future save(DigitalCard card) async {
+  Future save(DigitalCardDTO card) async {
     await _cardToContact(card).then((value) async {
       try {
         if (value != null) {
@@ -28,7 +28,7 @@ class NativeContactsService with ListenableServiceMixin {
   }
 
   /// Saves Contact as .vcf file
-  Future download(DigitalCard card) async {
+  Future download(DigitalCardDTO card) async {
     try {
       await _cardToContact(card).then((value) async {
         if (value != null) {
@@ -47,7 +47,7 @@ class NativeContactsService with ListenableServiceMixin {
     }
   }
 
-  Future<Contact?> _cardToContact(DigitalCard card) async {
+  Future<Contact?> _cardToContact(DigitalCardDTO card) async {
     try {
       final links = card.customLinks ?? [];
 

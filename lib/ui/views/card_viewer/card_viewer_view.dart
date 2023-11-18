@@ -5,7 +5,7 @@ import 'package:flutter_ez_core/widgets/scaffold_body_wrapper.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'card_viewer_viewmodel.dart';
 import 'layouts/body0.dart';
@@ -17,7 +17,7 @@ import 'widgets/bottom_sheet_card.dart';
 import 'widgets/card_holder.dart';
 
 class CardViewerView extends StackedView<CardViewerViewModel> {
-  final DigitalCard? card;
+  final DigitalCardDTO? card;
   final String? uuid;
   final DisplayType? displayType;
   const CardViewerView({

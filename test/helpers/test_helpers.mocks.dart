@@ -7,7 +7,7 @@ import 'dart:async' as _i6;
 import 'dart:typed_data' as _i10;
 import 'dart:ui' as _i7;
 
-import 'package:digicard/app/models/digital_card.dart' as _i9;
+import 'package:digicard/app/models/digital_card_dto.dart' as _i9;
 import 'package:digicard/app/models/user.dart' as _i14;
 import 'package:digicard/app/services/auth_service.dart' as _i17;
 import 'package:digicard/app/services/contacts_service.dart' as _i11;
@@ -726,11 +726,11 @@ class MockDigitalCardService extends _i1.Mock
       );
 
   @override
-  List<_i9.DigitalCard> get digitalCards => (super.noSuchMethod(
+  List<_i9.DigitalCardDTO> get digitalCards => (super.noSuchMethod(
         Invocation.getter(#digitalCards),
-        returnValue: <_i9.DigitalCard>[],
-        returnValueForMissingStub: <_i9.DigitalCard>[],
-      ) as List<_i9.DigitalCard>);
+        returnValue: <_i9.DigitalCardDTO>[],
+        returnValueForMissingStub: <_i9.DigitalCardDTO>[],
+      ) as List<_i9.DigitalCardDTO>);
 
   @override
   set digitalCards(dynamic val) => super.noSuchMethod(
@@ -804,7 +804,7 @@ class MockDigitalCardService extends _i1.Mock
       ) as _i6.Future<dynamic>);
 
   @override
-  _i6.Future<dynamic> create(_i9.DigitalCard? card) => (super.noSuchMethod(
+  _i6.Future<dynamic> create(_i9.DigitalCardDTO? card) => (super.noSuchMethod(
         Invocation.method(
           #create,
           [card],
@@ -814,7 +814,7 @@ class MockDigitalCardService extends _i1.Mock
       ) as _i6.Future<dynamic>);
 
   @override
-  _i6.Future<dynamic> update(_i9.DigitalCard? card) => (super.noSuchMethod(
+  _i6.Future<dynamic> update(_i9.DigitalCardDTO? card) => (super.noSuchMethod(
         Invocation.method(
           #update,
           [card],
@@ -824,7 +824,7 @@ class MockDigitalCardService extends _i1.Mock
       ) as _i6.Future<dynamic>);
 
   @override
-  _i6.Future<dynamic> delete(_i9.DigitalCard? card) => (super.noSuchMethod(
+  _i6.Future<dynamic> delete(_i9.DigitalCardDTO? card) => (super.noSuchMethod(
         Invocation.method(
           #delete,
           [card],
@@ -834,7 +834,7 @@ class MockDigitalCardService extends _i1.Mock
       ) as _i6.Future<dynamic>);
 
   @override
-  dynamic duplicate(_i9.DigitalCard? card) => super.noSuchMethod(
+  dynamic duplicate(_i9.DigitalCardDTO? card) => super.noSuchMethod(
         Invocation.method(
           #duplicate,
           [card],
@@ -843,14 +843,14 @@ class MockDigitalCardService extends _i1.Mock
       );
 
   @override
-  _i6.Future<_i9.DigitalCard?> findOne(String? uuid) => (super.noSuchMethod(
+  _i6.Future<_i9.DigitalCardDTO?> findOne(String? uuid) => (super.noSuchMethod(
         Invocation.method(
           #findOne,
           [uuid],
         ),
-        returnValue: _i6.Future<_i9.DigitalCard?>.value(),
-        returnValueForMissingStub: _i6.Future<_i9.DigitalCard?>.value(),
-      ) as _i6.Future<_i9.DigitalCard?>);
+        returnValue: _i6.Future<_i9.DigitalCardDTO?>.value(),
+        returnValueForMissingStub: _i6.Future<_i9.DigitalCardDTO?>.value(),
+      ) as _i6.Future<_i9.DigitalCardDTO?>);
 
   @override
   void listenToReactiveValues(List<dynamic>? reactiveValues) =>
@@ -895,11 +895,11 @@ class MockDigitalCardService extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockContactsService extends _i1.Mock implements _i11.ContactsService {
   @override
-  List<_i9.DigitalCard> get contacts => (super.noSuchMethod(
+  List<_i9.DigitalCardDTO> get contacts => (super.noSuchMethod(
         Invocation.getter(#contacts),
-        returnValue: <_i9.DigitalCard>[],
-        returnValueForMissingStub: <_i9.DigitalCard>[],
-      ) as List<_i9.DigitalCard>);
+        returnValue: <_i9.DigitalCardDTO>[],
+        returnValueForMissingStub: <_i9.DigitalCardDTO>[],
+      ) as List<_i9.DigitalCardDTO>);
 
   @override
   set contacts(dynamic val) => super.noSuchMethod(
@@ -928,7 +928,7 @@ class MockContactsService extends _i1.Mock implements _i11.ContactsService {
       ) as _i6.Future<dynamic>);
 
   @override
-  _i6.Future<dynamic> create(_i9.DigitalCard? card) => (super.noSuchMethod(
+  _i6.Future<dynamic> create(_i9.DigitalCardDTO? card) => (super.noSuchMethod(
         Invocation.method(
           #create,
           [card],
@@ -938,7 +938,7 @@ class MockContactsService extends _i1.Mock implements _i11.ContactsService {
       ) as _i6.Future<dynamic>);
 
   @override
-  _i6.Future<dynamic> delete(_i9.DigitalCard? card) => (super.noSuchMethod(
+  _i6.Future<dynamic> delete(_i9.DigitalCardDTO? card) => (super.noSuchMethod(
         Invocation.method(
           #delete,
           [card],
@@ -1112,7 +1112,7 @@ class MockNativeContactsService extends _i1.Mock
       ) as int);
 
   @override
-  _i6.Future<dynamic> save(_i9.DigitalCard? card) => (super.noSuchMethod(
+  _i6.Future<dynamic> save(_i9.DigitalCardDTO? card) => (super.noSuchMethod(
         Invocation.method(
           #save,
           [card],
@@ -1122,7 +1122,7 @@ class MockNativeContactsService extends _i1.Mock
       ) as _i6.Future<dynamic>);
 
   @override
-  _i6.Future<dynamic> download(_i9.DigitalCard? card) => (super.noSuchMethod(
+  _i6.Future<dynamic> download(_i9.DigitalCardDTO? card) => (super.noSuchMethod(
         Invocation.method(
           #download,
           [card],

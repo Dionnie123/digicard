@@ -27,7 +27,7 @@ class Body0 extends StatelessWidget {
             if (viewModel.isCardOwnedByUser())
               cardItems.dateCreated(viewModel.card.createdAt),
             if (viewModel.isCardInContacts())
-              cardItems.dateCreated(viewModel.card.addedAt)
+              cardItems.dateCreated(viewModel.card.addedToContactsAt)
           ],
         ),
       ),

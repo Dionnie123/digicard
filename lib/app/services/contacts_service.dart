@@ -1,5 +1,5 @@
 import 'package:digicard/app/app.locator.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -8,8 +8,8 @@ class ContactsService with ListenableServiceMixin {
   final _supabase = Supabase.instance.client;
   final _userService = locator<UserService>();
 
-  final ReactiveValue<List<DigitalCard>> _contacts =
-      ReactiveValue<List<DigitalCard>>([]);
+  final ReactiveValue<List<DigitalCardDTO>> _contacts =
+      ReactiveValue<List<DigitalCardDTO>>([]);
 
   ContactsService() {
     listenToReactiveValues([
@@ -18,7 +18,7 @@ class ContactsService with ListenableServiceMixin {
     ]);
   }
 
-  List<DigitalCard> get contacts {
+  List<DigitalCardDTO> get contacts {
     return _contacts.value.reversed.toList();
   }
 
@@ -36,8 +36,8 @@ class ContactsService with ListenableServiceMixin {
       if (data is List) {
         _contacts.value = data
             .map(
-              (e) => DigitalCard.fromJson(e["cards"])
-                  .copyWith(addedAt: DateTime.parse(e["created_at"])),
+              (e) => DigitalCardDTO.fromJson(e["cards"])
+                  .copyWith(addedToContactsAt: DateTime.parse(e["created_at"])),
             )
             .toList();
 
@@ -48,7 +48,7 @@ class ContactsService with ListenableServiceMixin {
     }
   }
 
-  Future create(DigitalCard card) async {
+  Future create(DigitalCardDTO card) async {
     try {
       await _supabase.from('contacts').insert(
         {
@@ -66,7 +66,7 @@ class ContactsService with ListenableServiceMixin {
     }
   }
 
-  Future delete(DigitalCard card) async {
+  Future delete(DigitalCardDTO card) async {
     try {
       await _supabase.from('contacts').delete().match({
         'card_id': card.id,

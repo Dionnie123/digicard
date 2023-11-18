@@ -6,7 +6,7 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/extensions/contacts_service_extension.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/services/contacts_service.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
 import 'package:digicard/app/services/native_contacts_service.dart';
@@ -39,18 +39,18 @@ class CardViewerViewModel extends ReactiveViewModel {
     super.onFutureError(error, key);
   }
 
-  late DigitalCard card;
+  late DigitalCardDTO card;
   DisplayType displayType = DisplayType.public;
   Color get color => card.color ?? kcPrimaryColor;
   bool isDarkMode = false;
 
   Future start({
-    DigitalCard? cardParam,
+    DigitalCardDTO? cardParam,
     DisplayType? displayTypeParam,
     String? uuid,
   }) async {
     setBusyForObject(loadingImagesBusyKey, true);
-    card = cardParam ?? DigitalCard.blank();
+    card = cardParam ?? DigitalCardDTO.blank();
     displayType = displayTypeParam ?? DisplayType.public;
 
     if (uuid != null) {
@@ -77,7 +77,7 @@ class CardViewerViewModel extends ReactiveViewModel {
   bool isCardInContacts() => _contactsService.isExist(id: card.id);
 
   Future loadCardbyUuid(String uuid) async {
-    card = await _digitalCardService.findOne(uuid) ?? DigitalCard.blank();
+    card = await _digitalCardService.findOne(uuid) ?? DigitalCardDTO.blank();
   }
 
   Future downloadVcf() async {

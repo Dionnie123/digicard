@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
 
 class DigitalCardListItem extends StatelessWidget {
-  final DigitalCard card;
+  final DigitalCardDTO card;
 
   final Function onTap;
   const DigitalCardListItem({

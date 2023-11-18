@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'digital_card.dart';
+part of 'digital_card_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DigitalCardImpl _$$DigitalCardImplFromJson(Map<String, dynamic> json) =>
-    _$DigitalCardImpl(
+_$DigitalCardDTOImpl _$$DigitalCardDTOImplFromJson(Map<String, dynamic> json) =>
+    _$DigitalCardDTOImpl(
       id: json['id'] as int?,
       userId: json['user_id'] as String?,
       uuid: json['uuid'] as String?,
@@ -21,7 +21,7 @@ _$DigitalCardImpl _$$DigitalCardImplFromJson(Map<String, dynamic> json) =>
       suffix: json['suffix'] as String?,
       avatarFile: json['avatar_file'],
       logoFile: json['logo_file'],
-      color: const ColorConverter().fromJson(json['color'] as int?),
+      color: const ColorConverter().fromJson(json['color']),
       layout: json['layout'] as int?,
       position: json['position'] as String?,
       company: json['company'] as String?,
@@ -36,12 +36,13 @@ _$DigitalCardImpl _$$DigitalCardImplFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
-      addedAt: json['added_at'] == null
+      addedToContactsAt: json['added_to_contacts_at'] == null
           ? null
-          : DateTime.parse(json['added_at'] as String),
+          : DateTime.parse(json['added_to_contacts_at'] as String),
     );
 
-Map<String, dynamic> _$$DigitalCardImplToJson(_$DigitalCardImpl instance) =>
+Map<String, dynamic> _$$DigitalCardDTOImplToJson(
+        _$DigitalCardDTOImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,
@@ -56,7 +57,8 @@ Map<String, dynamic> _$$DigitalCardImplToJson(_$DigitalCardImpl instance) =>
       'suffix': instance.suffix,
       'avatar_file': instance.avatarFile,
       'logo_file': instance.logoFile,
-      'color': const ColorConverter().toJson(instance.color),
+      'color': _$JsonConverterToJson<dynamic, Color>(
+          instance.color, const ColorConverter().toJson),
       'layout': instance.layout,
       'position': instance.position,
       'company': instance.company,
@@ -64,5 +66,11 @@ Map<String, dynamic> _$$DigitalCardImplToJson(_$DigitalCardImpl instance) =>
       'custom_links': instance.customLinks,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
-      'added_at': instance.addedAt?.toIso8601String(),
+      'added_to_contacts_at': instance.addedToContactsAt?.toIso8601String(),
     };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

@@ -1,38 +1,34 @@
 import 'dart:typed_data';
 
 import 'package:digicard/app/constants/stacked_keys.dart';
-import 'package:digicard/app/env/env.dart';
-import 'package:digicard/app/models/digital_card.dart';
+import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/common/theme.dark.dart';
 import 'package:digicard/ui/common/theme.light.dart';
 import 'package:digicard/ui/views/card_editor/widgets/card_preview.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ez_core/helpers/image_cache_downloader.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
-import 'package:path/path.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:stacked/stacked.dart';
 import 'card_editor_viewmodel.dart';
-import 'widgets/card_viewer_split_view.dart';
 import 'widgets/card_form.dart';
 
 class CardEditorView extends StackedView<CardEditorViewModel> {
-  final DigitalCard? card;
+  final DigitalCardDTO? card;
   final ActionType? actionType;
   const CardEditorView({Key? key, this.card, this.actionType})
       : super(key: key);
   @override
   Future<void> onViewModelReady(CardEditorViewModel viewModel) async {
     await viewModel.initialize(
-        card ?? DigitalCard.blank(), actionType ?? ActionType.create);
+        card ?? DigitalCardDTO.blank(), actionType ?? ActionType.create);
     super.onViewModelReady(viewModel);
   }
 
   @override
   void onDispose(CardEditorViewModel viewModel) {
-    viewModel.model = DigitalCard.blank();
+    viewModel.model = DigitalCardDTO.blank();
     super.onDispose(viewModel);
   }
 
@@ -42,7 +38,7 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
     CardEditorViewModel viewModel,
     Widget? child,
   ) {
-    return DigitalCardFormBuilder(
+    return DigitalCardDTOFormBuilder(
         model: card,
         builder: (context, form, _) {
           return WillPopScope(
@@ -91,7 +87,7 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                       thickness: 1,
                                     ),
                                     Expanded(
-                                      child: ReactiveDigitalCardFormConsumer(
+                                      child: ReactiveDigitalCardDTOFormConsumer(
                                           builder: (context, form, _) {
                                         return CardPreview(
                                             value: form.model.toJson());

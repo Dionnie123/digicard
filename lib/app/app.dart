@@ -1,4 +1,5 @@
 import 'package:digicard/ui/bottom_sheets/notice/notice_sheet.dart';
+import 'package:digicard/ui/views/card_viewer/card_viewer_view.dart';
 import 'package:digicard/ui/views/home/home_view.dart';
 import 'package:digicard/ui/views/home/home_viewmodel.dart';
 import 'package:digicard/ui/views/startup/startup_view.dart';
@@ -9,7 +10,6 @@ import 'package:digicard/ui/views/contacts/contacts_view.dart';
 import 'package:digicard/ui/views/settings/settings_view.dart';
 import 'package:digicard/ui/views/auth/auth_view.dart';
 import 'package:digicard/ui/views/card_editor/card_editor_view.dart';
-import 'package:digicard/ui/views/card_viewer/card_viewer_view.dart';
 import 'package:digicard/ui/bottom_sheets/card_manager/card_manager_sheet.dart';
 import 'package:digicard/ui/bottom_sheets/card_share/card_share_sheet.dart';
 import 'package:digicard/ui/bottom_sheets/delete/delete_sheet.dart';
