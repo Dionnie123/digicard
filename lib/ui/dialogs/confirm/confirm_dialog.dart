@@ -1,6 +1,4 @@
-import 'package:digicard/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ConfirmDialog extends StatelessWidget {
