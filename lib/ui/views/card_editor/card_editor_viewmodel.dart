@@ -63,7 +63,7 @@ class CardEditorViewModel extends ReactiveViewModel {
         variant: DialogType.confirm,
         title: "Unsaved Changes",
         description: "Are you sure you want to leave without saving?",
-        mainButtonTitle: "Yes",
+        mainButtonTitle: "Leave Editor",
         secondaryButtonTitle: "Cancel",
         barrierDismissible: true,
       );
