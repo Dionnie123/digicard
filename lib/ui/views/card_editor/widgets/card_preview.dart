@@ -88,31 +88,35 @@ class CardPreview extends StatelessWidget {
     }
 
     Widget position() {
-      return AutoSizeText(
-        "${card.position}",
-        maxFontSize: 15,
-        minFontSize: 13,
-        style: const TextStyle(
-          fontSize: 15,
-        ),
-        maxLines: 1,
-      );
+      return card.position == null
+          ? const SizedBox.shrink()
+          : AutoSizeText(
+              "${card.position}",
+              maxFontSize: 15,
+              minFontSize: 13,
+              style: const TextStyle(
+                fontSize: 15,
+              ),
+              maxLines: 1,
+            );
     }
 
     Widget company() {
-      return AutoSizeText(
-        "${card.company}",
-        maxFontSize: 16,
-        minFontSize: 12,
-        style: const TextStyle(
-          fontSize: 16,
-        ),
-        maxLines: 1,
-      );
+      return card.company == null
+          ? const SizedBox.shrink()
+          : AutoSizeText(
+              "${card.company}",
+              maxFontSize: 16,
+              minFontSize: 12,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+              maxLines: 1,
+            );
     }
 
     Widget headline() {
-      return card.headline.toString().isEmpty
+      return card.headline == null
           ? const SizedBox.shrink()
           : Padding(
               padding: const EdgeInsets.all(15.0),
@@ -184,6 +188,58 @@ class CardPreview extends StatelessWidget {
             );
     }
 
+    Widget customLinks() {
+      return (card.customLinks ?? []).isEmpty
+          ? const SizedBox.shrink()
+          : Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Column(
+                children: (card.customLinks ?? []).mapIndexed((index, element) {
+                  return InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 15,
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: card.color ?? kcPrimaryColor,
+                            ),
+                            child: const Icon(
+                              Icons.email_rounded,
+                              size: 25,
+                            ),
+                          ),
+                          hSpaceRegular,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${element['custom'] ?? element['label']}",
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                Text(
+                                  "${element['value']}",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -216,54 +272,7 @@ class CardPreview extends StatelessWidget {
                   ),
                 ),
                 headline(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Column(
-                    children:
-                        (card.customLinks ?? []).mapIndexed((index, element) {
-                      return InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 15,
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  color: card.color ?? kcPrimaryColor,
-                                ),
-                                child: const Icon(
-                                  Icons.email_rounded,
-                                  size: 25,
-                                ),
-                              ),
-                              hSpaceRegular,
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "${element['custom'] ?? element['label']}",
-                                      style: const TextStyle(fontSize: 14),
-                                    ),
-                                    Text(
-                                      "${element['value']}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
+                customLinks(),
                 qrCode(),
               ],
             ),
