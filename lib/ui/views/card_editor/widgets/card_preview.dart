@@ -257,13 +257,15 @@ class CardPreview extends StatelessWidget {
             margin: const EdgeInsets.all(15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 squareImage(),
                 Container(
                   color: colorTheme,
                   padding: const EdgeInsets.all(15),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
                           child: Column(
