@@ -187,7 +187,7 @@ class DigitalCardService with ListenableServiceMixin {
       }
       if (deleteExistingAvatarOnCloud) {
         await imageDelete(folderPath: "avatars/$oldAvatar");
-        data["avatar_url"] = "";
+        data["avatar_url"] = null;
       }
 
       if (saveNewLogo) {
@@ -204,7 +204,7 @@ class DigitalCardService with ListenableServiceMixin {
       }
       if (deleteExistingLogoOnCloud) {
         await imageDelete(folderPath: "logos/$oldLogo");
-        data["logo_url"] = "";
+        data["logo_url"] = null;
       }
 
       final updatedCard =
