@@ -61,10 +61,10 @@ class HomeViewModel extends ReactiveViewModel {
     );
   }
 
-  show(DigitalCardDTO? digitalCard) async {
+  show(DigitalCardDTO? card) async {
     await _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.cardManager,
-      data: digitalCard,
+      data: card,
       isScrollControlled: true,
       useRootNavigator: true,
     );

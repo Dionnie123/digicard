@@ -30,7 +30,6 @@ extension DigitalCardExtension on DigitalCardDTO {
     value.remove("added_to_contacts_at");
     value.remove("created_at");
     value.remove("updated_at");
-    value.remove("custom_links");
     value.remove("full_name");
     value.remove("avatar_file");
     value.remove("logo_file");

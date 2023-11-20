@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
@@ -16,6 +17,37 @@ class CardPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final card = DigitalCardDTO.fromJson(value);
+    final colorTheme = card.color ?? kcPrimaryColor;
+
+    Widget squareImage() {
+      return Container(
+        color: colorTheme.darken(),
+        child: AspectRatio(
+          aspectRatio: 1 / 1,
+          child: Stack(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            children: [
+              if (card.avatarUrl != null && card.avatarFile != false)
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(card.avatarHttpUrl),
+                  )),
+                ),
+              if (card.avatarFile != null && card.avatarFile is Uint8List)
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: MemoryImage(card.avatarFile ?? Uint8List(0)),
+                  )),
+                ),
+            ],
+          ),
+        ),
+      );
+    }
 
     Widget circleImage() {
       return (card.logoFile == false)
@@ -27,16 +59,127 @@ class CardPreview extends StatelessWidget {
                   if (card.logoUrl is String &&
                       card.logoUrl.toString().isNotEmpty)
                     CircleAvatar(
-                        backgroundColor: card.color?.darken() ?? kcPrimaryColor,
+                        backgroundColor: colorTheme.darken(),
                         backgroundImage: NetworkImage(card.logoHttpUrl),
-                        radius: 45.0),
+                        radius: 42.0),
                   if (card.logoFile is Uint8List && card.logoFile != null)
                     CircleAvatar(
-                        backgroundColor: card.color?.darken() ?? kcPrimaryColor,
-                        backgroundImage:
-                            MemoryImage(card.logoFile ?? Uint8List(0)),
-                        radius: 45.0),
+                        backgroundColor: colorTheme.darken(),
+                        backgroundImage: MemoryImage(
+                          card.logoFile ?? Uint8List(0),
+                        ),
+                        radius: 42.0),
                 ],
+              ),
+            );
+    }
+
+    Widget fullName() {
+      return AutoSizeText(
+        card.fullName(),
+        maxFontSize: 24,
+        minFontSize: 12,
+        style: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+        maxLines: 1,
+      );
+    }
+
+    Widget position() {
+      return AutoSizeText(
+        "${card.position}",
+        maxFontSize: 15,
+        minFontSize: 13,
+        style: const TextStyle(
+          fontSize: 15,
+        ),
+        maxLines: 1,
+      );
+    }
+
+    Widget company() {
+      return AutoSizeText(
+        "${card.company}",
+        maxFontSize: 16,
+        minFontSize: 12,
+        style: const TextStyle(
+          fontSize: 16,
+        ),
+        maxLines: 1,
+      );
+    }
+
+    Widget headline() {
+      return card.headline.toString().isEmpty
+          ? const SizedBox.shrink()
+          : Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(card.headline ?? ""),
+            );
+    }
+
+    Widget circleImageForQr() {
+      return (card.logoFile is bool && card.logoFile == false)
+          ? const SizedBox.shrink()
+          : Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Stack(
+                  children: [
+                    if (card.logoUrl is String &&
+                        card.logoUrl.toString().isNotEmpty)
+                      Image.network(
+                        card.logoHttpUrl,
+                        width: 45,
+                        height: 45,
+                        fit: BoxFit.contain,
+                      ),
+                    if (card.logoFile is Uint8List)
+                      Image.memory(
+                        card.logoFile ?? Uint8List(0),
+                        width: 45,
+                        height: 45,
+                        fit: BoxFit.contain,
+                      )
+                  ],
+                ),
+              ),
+            );
+    }
+
+    Widget qrCode() {
+      return (card.id ?? -1) >= 0
+          ? const SizedBox()
+          : Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: QrImageView(
+                        data: card.cardHttpUrl,
+                        version: QrVersions.auto,
+                        errorCorrectionLevel: QrErrorCorrectLevel.M,
+                        size: 200,
+                        eyeStyle: const QrEyeStyle(
+                          color: Colors.black,
+                        ),
+                        backgroundColor: Colors.white,
+                        gapless: true,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: circleImageForQr(),
+                    ),
+                  ],
+                ),
               ),
             );
     }
@@ -52,37 +195,9 @@ class CardPreview extends StatelessWidget {
             margin: const EdgeInsets.all(12.0),
             child: Column(
               children: [
+                squareImage(),
                 Container(
-                  color: card.color?.darken() ?? kcPrimaryColor.darken(),
-                  child: AspectRatio(
-                    aspectRatio: 1 / 1,
-                    child: Stack(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      children: [
-                        if (card.avatarUrl != null && card.avatarFile != false)
-                          Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(card.avatarHttpUrl ?? ""),
-                            )),
-                          ),
-                        if (card.avatarFile != null &&
-                            card.avatarFile is Uint8List)
-                          Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image:
-                                  MemoryImage(card.avatarFile ?? Uint8List(0)),
-                            )),
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  color: card.color ?? kcPrimaryColor,
+                  color: colorTheme,
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
@@ -90,107 +205,66 @@ class CardPreview extends StatelessWidget {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            card.fullName(),
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "${card.position}",
-                            style: const TextStyle(
-                              fontStyle: FontStyle.italic,
-                              fontSize: 15,
-                            ),
-                          ),
+                          fullName(),
+                          position(),
                           vSpaceSmall,
-                          Text(
-                            "${card.company}",
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
+                          company(),
                         ],
                       )),
                       circleImage()
                     ],
                   ),
                 ),
+                headline(),
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(card.headline ?? ""),
-                ),
-                Column(
-                  children:
-                      (card.customLinks ?? []).mapIndexed((index, element) {
-                    return InkWell(
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 15,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Column(
+                    children:
+                        (card.customLinks ?? []).mapIndexed((index, element) {
+                      return InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 15,
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: card.color ?? kcPrimaryColor,
+                                ),
+                                child: const Icon(
+                                  Icons.email_rounded,
+                                  size: 25,
+                                ),
+                              ),
+                              hSpaceRegular,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${element['custom'] ?? element['label']}",
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
+                                    Text(
+                                      "${element['value']}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: card.color ?? kcPrimaryColor,
-                              ),
-                              child: const Icon(
-                                Icons.email_rounded,
-                                size: 25,
-                              ),
-                            ),
-                            hSpaceRegular,
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${element['custom'] ?? element['label']}",
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                  Text(
-                                    "${element['value']}",
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: QrImageView(
-                      data: card.cardHttpUrl,
-                      version: QrVersions.auto,
-                      errorCorrectionLevel: QrErrorCorrectLevel.M,
-                      size: 200,
-                      eyeStyle: const QrEyeStyle(
-                        color: Colors.black,
-                      ),
-                      backgroundColor: Colors.white,
-                      gapless: true,
-                    ),
+                      );
+                    }).toList(),
                   ),
                 ),
-                /*   Stack(
-                  children: [
-                    Positioned(
-                      top: 20,
-                      child:
-                    )
-                  ],
-                ) */
-
-                /*  Text(card.toString()) */
+                qrCode(),
               ],
             ),
           ),
