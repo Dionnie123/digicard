@@ -268,42 +268,24 @@ class _CardTabFormState extends State<CardTabForm>
                   ),
                   builder: (context, size) {
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          children: [
-                            Column(
-                              children: [
-                                titleField(),
-                                /*   vSpaceSmall,
-                                Builder(builder: (context) {
-                                  final fullName =
-                                      "${formModel?.prefixControl?.value ?? ""} ${formModel?.firstNameControl?.value ?? ""} ${formModel?.middleNameControl?.value ?? ""} ${formModel?.lastNameControl?.value ?? ""} ${formModel?.suffixControl?.value ?? ""}"
-                                          .sanitize();
-                                  return Text(fullName.isNotEmpty
-                                      ? fullName
-                                      : "Full name");
-                                }), */
-                                vSpaceSmall,
-                                prefixField(),
-                                vSpaceSmall,
-                                firstNameField(),
-                                vSpaceSmall,
-                                middleNameField(),
-                                vSpaceSmall,
-                                lastNameField(),
-                                vSpaceSmall,
-                                suffixField(),
-                                vSpaceSmall,
-                                positionField(),
-                                vSpaceSmall,
-                                companyField(),
-                                vSpaceSmall,
-                                headlineField(),
-                              ],
-                            ),
-                          ],
-                        ),
+                        titleField(),
+                        vSpaceSmall,
+                        prefixField(),
+                        vSpaceSmall,
+                        firstNameField(),
+                        vSpaceSmall,
+                        middleNameField(),
+                        vSpaceSmall,
+                        lastNameField(),
+                        vSpaceSmall,
+                        suffixField(),
+                        vSpaceSmall,
+                        positionField(),
+                        vSpaceSmall,
+                        companyField(),
+                        vSpaceSmall,
+                        headlineField(),
                       ],
                     );
                   }),
@@ -350,21 +332,6 @@ class _CardTabFormState extends State<CardTabForm>
                 },
               ),
               SingleChildScrollView(child: linksField()),
-              /*     ScaffoldBodyWrapper(
-                isFullWidth: true,
-                padding: scaffoldBodyPadding(
-                  size: size,
-                  hPadding: 15,
-                  vPadding: 15,
-                ),
-                builder: (context, size) {
-                  return Column(
-                    children: [
-                
-                    ],
-                  );
-                },
-              ), */
             ],
           );
         }),
