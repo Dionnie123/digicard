@@ -40,7 +40,9 @@ class DigitalCardDTO with _$DigitalCardDTO {
     DateTime? addedToContactsAt,
   }) = _DigitalCardDTO;
 
-  factory DigitalCardDTO.blank() => DigitalCardDTO(customLinks: []);
+  factory DigitalCardDTO.blank() => DigitalCardDTO(
+        customLinks: [],
+      );
 
   factory DigitalCardDTO.fromJson(Map<String, dynamic> json) =>
       _$DigitalCardDTOFromJson(json);

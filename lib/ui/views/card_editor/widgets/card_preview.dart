@@ -17,6 +17,30 @@ class CardPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final card = DigitalCardDTO.fromJson(value);
 
+    Widget circleImage() {
+      return (card.logoFile == false)
+          ? const SizedBox.shrink()
+          : Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Stack(
+                children: [
+                  if (card.logoUrl is String &&
+                      card.logoUrl.toString().isNotEmpty)
+                    CircleAvatar(
+                        backgroundColor: card.color?.darken() ?? kcPrimaryColor,
+                        backgroundImage: NetworkImage(card.logoHttpUrl),
+                        radius: 45.0),
+                  if (card.logoFile is Uint8List && card.logoFile != null)
+                    CircleAvatar(
+                        backgroundColor: card.color?.darken() ?? kcPrimaryColor,
+                        backgroundImage:
+                            MemoryImage(card.logoFile ?? Uint8List(0)),
+                        radius: 45.0),
+                ],
+              ),
+            );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -87,31 +111,7 @@ class CardPreview extends StatelessWidget {
                           ),
                         ],
                       )),
-                      const SizedBox(width: 15),
-                      Stack(
-                        children: [
-                          if (card.logoFile == false)
-                            CircleAvatar(
-                                backgroundColor:
-                                    card.color?.darken() ?? kcPrimaryColor,
-                                radius: 45.0),
-                          if (card.logoUrl != null && card.logoFile != false)
-                            CircleAvatar(
-                                backgroundColor:
-                                    card.color?.darken() ?? kcPrimaryColor,
-                                backgroundImage:
-                                    NetworkImage(card.logoHttpUrl ?? ""),
-                                radius: 45.0),
-                          if (card.logoFile != null &&
-                              card.logoFile is Uint8List)
-                            CircleAvatar(
-                                backgroundColor:
-                                    card.color?.darken() ?? kcPrimaryColor,
-                                backgroundImage:
-                                    MemoryImage(card.logoFile ?? Uint8List(0)),
-                                radius: 45.0),
-                        ],
-                      )
+                      circleImage()
                     ],
                   ),
                 ),
