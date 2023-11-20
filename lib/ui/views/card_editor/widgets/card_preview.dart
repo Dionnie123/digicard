@@ -62,7 +62,7 @@ class CardPreview extends StatelessWidget {
                     CircleAvatar(
                         backgroundColor: colorTheme.darken(),
                         backgroundImage: NetworkImage(card.logoHttpUrl),
-                        radius: 42.0),
+                        radius: 42),
                   if (card.logoFile is Uint8List && card.logoFile != null)
                     CircleAvatar(
                         backgroundColor: colorTheme.darken(),
@@ -107,14 +107,18 @@ class CardPreview extends StatelessWidget {
     Widget company() {
       return isNullEmpty(card.company)
           ? const SizedBox.shrink()
-          : AutoSizeText(
-              "${card.company}",
-              maxFontSize: 16,
-              minFontSize: 12,
-              style: const TextStyle(
-                fontSize: 16,
+          : Padding(
+              padding:
+                  EdgeInsets.only(top: isNullEmpty(card.position) ? 0.0 : 8.0),
+              child: AutoSizeText(
+                "${card.company}",
+                maxFontSize: 16,
+                minFontSize: 12,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+                maxLines: 1,
               ),
-              maxLines: 1,
             );
     }
 
@@ -130,7 +134,7 @@ class CardPreview extends StatelessWidget {
             );
     }
 
-    Widget circleImageForQr() {
+    Widget imageForQr() {
       return (card.logoFile is bool && card.logoFile == false)
           ? const SizedBox.shrink()
           : Container(
@@ -186,7 +190,7 @@ class CardPreview extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.center,
-                      child: circleImageForQr(),
+                      child: imageForQr(),
                     ),
                   ],
                 ),
