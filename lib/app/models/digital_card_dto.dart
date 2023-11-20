@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:digicard/ui/common/app_colors.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
@@ -53,7 +54,7 @@ class ColorConverter implements JsonConverter<Color, int> {
 
   @override
   Color fromJson(int? val) {
-    return val == null ? Color(val ?? 0xFFFFA500) : Color(val);
+    return val == null ? Color(val ?? kcPrimaryColor.value) : Color(val);
   }
 
   @override

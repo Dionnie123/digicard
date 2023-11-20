@@ -161,7 +161,7 @@ class CardPreview extends StatelessWidget {
     }
 
     Widget qrCode() {
-      return (card.id ?? -1) >= 0
+      return (card.id == null)
           ? const SizedBox()
           : Padding(
               padding: const EdgeInsets.all(15.0),
