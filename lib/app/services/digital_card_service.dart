@@ -94,6 +94,7 @@ class DigitalCardService with ListenableServiceMixin {
   }
 
   Future getAll() async {
+    _digitalCards.value = [];
     try {
       final data = await _supabase
           .from('cards')
@@ -124,10 +125,27 @@ class DigitalCardService with ListenableServiceMixin {
       final data = DigitalCardExtension.toMapCreate(
           card.copyWith(userId: _userService.userId ?? "").toJson());
 
-      data["avatar_url"] = await imageSave(
-        card.avatarFile,
-        folderPath: 'avatars',
-      );
+      bool saveNewAvatar = card.avatarFile is Uint8List;
+      bool saveNewLogo = card.logoFile is Uint8List;
+
+      if (saveNewAvatar) {
+        await imageSave(
+          card.avatarFile,
+          folderPath: 'avatars',
+        ).then((value) async {
+          data["avatar_url"] = value;
+        });
+      }
+
+      if (saveNewLogo) {
+        await imageSave(
+          card.logoFile,
+          folderPath: 'logos',
+        ).then((value) async {
+          data["logo_url"] = value;
+        });
+      }
+
       data["logo_url"] = await imageSave(
         card.logoFile,
         folderPath: 'logos',
@@ -145,32 +163,46 @@ class DigitalCardService with ListenableServiceMixin {
   Future update(DigitalCardDTO card) async {
     try {
       final data = DigitalCardExtension.toMapUpdate(card.toJson());
-
       final oldAvatar = data["avatar_url"];
       final oldLogo = data["logo_url"];
 
-      if (card.avatarFile is Uint8List) {
+      bool saveNewAvatar = card.avatarFile is Uint8List;
+      bool saveNewLogo = card.logoFile is Uint8List;
+      bool deleteExistingAvatarOnCloud =
+          card.avatarFile is bool && card.avatarFile == false;
+      bool deleteExistingLogoOnCloud =
+          card.logoFile is bool && card.logoFile == false;
+
+      if (saveNewAvatar) {
         await imageSave(
           card.avatarFile,
           folderPath: 'avatars',
         ).then((value) async {
           data["avatar_url"] = value;
+          //Delete old image after saving new image
+          if (oldAvatar.toString().isFileNameWithExtension()) {
+            await imageDelete(folderPath: "avatars/$oldAvatar");
+          }
         });
       }
-      if (card.avatarFile is bool && card.avatarFile == false) {
+      if (deleteExistingAvatarOnCloud) {
         await imageDelete(folderPath: "avatars/$oldAvatar");
         data["avatar_url"] = "";
       }
 
-      if (card.logoFile is Uint8List) {
+      if (saveNewLogo) {
         await imageSave(
           card.logoFile,
           folderPath: 'logos',
         ).then((value) async {
           data["logo_url"] = value;
+          //Delete old image after saving new image
+          if (oldAvatar.toString().isFileNameWithExtension()) {
+            await imageDelete(folderPath: "logos/$oldLogo");
+          }
         });
       }
-      if (card.logoFile is bool && card.logoFile == false) {
+      if (deleteExistingLogoOnCloud) {
         await imageDelete(folderPath: "logos/$oldLogo");
         data["logo_url"] = "";
       }
@@ -190,10 +222,10 @@ class DigitalCardService with ListenableServiceMixin {
 
   Future delete(DigitalCardDTO card) async {
     try {
-      if (card.avatarUrl.toString().isNotEmpty) {
+      if (card.avatarUrl.toString().isFileNameWithExtension()) {
         await imageDelete(folderPath: "avatars/${card.avatarUrl}");
       }
-      if (card.logoUrl.toString().isNotEmpty) {
+      if (card.logoUrl.toString().isFileNameWithExtension()) {
         await imageDelete(folderPath: "logos/${card.logoUrl}");
       }
       await _supabase.from('cards').delete().eq('id', card.id);
@@ -206,24 +238,28 @@ class DigitalCardService with ListenableServiceMixin {
 
   duplicate(DigitalCardDTO card) async {
     try {
-      final originalCard =
-          _digitalCards.value.firstWhere((e) => e.id == card.id);
-
       final data = DigitalCardExtension.toMapCreate(
           card.copyWith(userId: _userService.userId ?? "").toJson());
 
       final oldAvatar = data["avatar_url"];
       final oldLogo = data["logo_url"];
 
-      if (card.avatarFile is Uint8List) {
+      bool saveNewAvatar = card.avatarFile is Uint8List;
+      bool copyExistingAvatar = card.avatarFile is! Uint8List &&
+          card.avatarUrl.toString().isFileNameWithExtension();
+      bool saveNewLogo = card.logoFile is Uint8List;
+      bool copyExistingLogo = card.logoFile is! Uint8List &&
+          card.logoUrl.toString().isFileNameWithExtension();
+
+      if (saveNewAvatar) {
         await imageSave(
           card.avatarFile,
           folderPath: 'avatars',
         ).then((value) async {
           data["avatar_url"] = value;
         });
-      } else if (card.logoFile is! Uint8List &&
-          oldAvatar.toString().isNotEmpty) {
+      }
+      if (copyExistingAvatar) {
         await imageCopy(
           sourceFileName: oldAvatar,
           folderPath: 'avatars',
@@ -232,14 +268,16 @@ class DigitalCardService with ListenableServiceMixin {
         });
       }
 
-      if (card.logoFile is Uint8List) {
+      if (saveNewLogo) {
         await imageSave(
           card.logoFile,
           folderPath: 'logos',
         ).then((value) async {
           data["logo_url"] = value;
         });
-      } else if (card.logoFile is! Uint8List && oldLogo.toString().isNotEmpty) {
+      }
+
+      if (copyExistingLogo) {
         await imageCopy(
           sourceFileName: oldLogo,
           folderPath: 'logos',

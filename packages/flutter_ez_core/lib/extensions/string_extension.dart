@@ -7,6 +7,17 @@ extension StringExtension on String {
     }
   }
 
+  ///Checks the string if its a filename with a filetype e.g "foo.mp4" = true
+  bool isFileNameWithExtension() {
+    List<String> parts = split('.');
+    if (parts.length > 1) {
+      if (parts.last.isNotEmpty) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   bool isValidUrl() {
     return Uri.parse(this).isAbsolute;
   }
