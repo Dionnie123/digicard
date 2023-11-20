@@ -39,3 +39,6 @@ extension StringExtension on String {
     return sanitizedString;
   }
 }
+
+bool isNullEmpty(Object? o) =>
+    null == o || o == '' || o.toString().trim().isEmpty;

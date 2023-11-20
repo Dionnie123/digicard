@@ -7,6 +7,7 @@ import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
+import 'package:flutter_ez_core/extensions/string_extension.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -75,20 +76,22 @@ class CardPreview extends StatelessWidget {
     }
 
     Widget fullName() {
-      return AutoSizeText(
-        card.fullName(),
-        maxFontSize: 24,
-        minFontSize: 12,
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        maxLines: 1,
-      );
+      return isNullEmpty(card.fullName())
+          ? const SizedBox.shrink()
+          : AutoSizeText(
+              card.fullName(),
+              maxFontSize: 24,
+              minFontSize: 12,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: 1,
+            );
     }
 
     Widget position() {
-      return card.position == null
+      return isNullEmpty(card.position)
           ? const SizedBox.shrink()
           : AutoSizeText(
               "${card.position}",
@@ -102,7 +105,7 @@ class CardPreview extends StatelessWidget {
     }
 
     Widget company() {
-      return card.company == null
+      return isNullEmpty(card.company)
           ? const SizedBox.shrink()
           : AutoSizeText(
               "${card.company}",
@@ -116,11 +119,14 @@ class CardPreview extends StatelessWidget {
     }
 
     Widget headline() {
-      return card.headline == null
+      return isNullEmpty(card.headline)
           ? const SizedBox.shrink()
           : Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text(card.headline ?? ""),
+              child: Text(
+                card.headline ?? "",
+                textAlign: TextAlign.left,
+              ),
             );
     }
 
@@ -250,12 +256,14 @@ class CardPreview extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24.0)),
             margin: const EdgeInsets.all(15.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 squareImage(),
                 Container(
                   color: colorTheme,
                   padding: const EdgeInsets.all(15),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                           child: Column(
@@ -263,7 +271,6 @@ class CardPreview extends StatelessWidget {
                         children: [
                           fullName(),
                           position(),
-                          vSpaceSmall,
                           company(),
                         ],
                       )),
