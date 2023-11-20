@@ -83,8 +83,8 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                     const SizedBox(
                                         width: 600, child: CardTabForm()),
                                     const VerticalDivider(
-                                      width: 1,
-                                      thickness: 1,
+                                      width: 2,
+                                      thickness: 2,
                                     ),
                                     Expanded(
                                       child: ReactiveDigitalCardDTOFormConsumer(

@@ -248,7 +248,7 @@ class CardPreview extends StatelessWidget {
             clipBehavior: Clip.antiAliasWithSaveLayer,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24.0)),
-            margin: const EdgeInsets.all(12.0),
+            margin: const EdgeInsets.all(15.0),
             child: Column(
               children: [
                 squareImage(),
