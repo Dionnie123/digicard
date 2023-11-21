@@ -38,7 +38,11 @@ class _LinksListState extends State<FieldsList> {
           index: i,
           orderKey: ValueKey(i),
           formGroup: formArray.controls[i] as FormGroup,
-          data: formArray.controls[i].value,
+          customLink: CustomLink.initialize(
+            label: formArray.controls[i].value['label'],
+          ).copyWith(
+              value: formArray.controls[i].value['value'],
+              custom: formArray.controls[i].value['custom']),
           isFirst: i == 0,
           isLast: i == formArray.controls.length - 1,
           draggingMode: DraggingMode.iOS,

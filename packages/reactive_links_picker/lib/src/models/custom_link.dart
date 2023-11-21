@@ -1,6 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:reactive_links_picker/src/icons_list/icons.dart';
 part 'custom_link.freezed.dart';
 part 'custom_link.g.dart';
 
@@ -23,6 +25,11 @@ class CustomLink with _$CustomLink {
 
   factory CustomLink.fromJson(Map<String, dynamic> json) =>
       _$CustomLinkFromJson(json);
+
+  static CustomLink initialize({required String label}) {
+    final temp = icons.firstWhereOrNull((element) => element.label == label);
+    return temp ?? CustomLink.empty;
+  }
 
   static CustomLink empty = CustomLink(
       label: "Info",

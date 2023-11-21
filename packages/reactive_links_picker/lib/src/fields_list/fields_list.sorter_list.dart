@@ -35,7 +35,7 @@ class _SorterListState extends State<SorterList> {
       debugPrint("Reordering finished for ${draggedItem.index}");
       List<Map<String, dynamic>> reorderedItems = [];
       for (var i = 0; i < widget.items.length; i++) {
-        reorderedItems.add(widget.items[i].data);
+        reorderedItems.add(widget.items[i].customLink.toJson());
       }
       widget.onReorder(reorderedItems);
     }

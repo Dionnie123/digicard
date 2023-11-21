@@ -19,13 +19,13 @@ class FieldItem extends StatelessWidget {
     required this.orderKey,
     required this.onRemove,
     required this.onUpdate,
-    required this.data,
+    required this.customLink,
     required this.formGroup,
   }) : super(key: key);
 
   final int index;
   final Key orderKey;
-  final Map<String, dynamic> data;
+  final CustomLink customLink;
   final bool isFirst;
   final bool isLast;
   final DraggingMode draggingMode;
@@ -44,18 +44,6 @@ class FieldItem extends StatelessWidget {
         : Container();
 
     const textDecoration = InputDecoration(
-      prefixIcon: Padding(
-        padding: EdgeInsets.only(left: 12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "www.",
-              style: TextStyle(fontSize: 15),
-            ),
-          ],
-        ),
-      ),
       isDense: true,
       filled: false,
       contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
@@ -78,8 +66,16 @@ class FieldItem extends StatelessWidget {
         alignment: WrapAlignment.center,
         crossAxisAlignment: WrapCrossAlignment.center,
         runAlignment: WrapAlignment.center,
-        spacing: 15,
-        children: [dragHandle, Text("${formGroup.control('label').value}")],
+        spacing: 0,
+        children: [
+          dragHandle,
+          const SizedBox(width: 12),
+          Transform.scale(
+              scale: 0.8,
+              child: customLink.icon ?? const Icon(Icons.info_rounded)),
+          const SizedBox(width: 7),
+          Text("${formGroup.control('label').value}")
+        ],
       );
     }
 
@@ -87,7 +83,20 @@ class FieldItem extends StatelessWidget {
       return ReactiveTextField(
         formControl: formGroup.control('value') as FormControl,
         showErrors: (control) => false,
-        decoration: textDecoration,
+        decoration: textDecoration.copyWith(
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  customLink.prefixLink.toString().replaceFirst("https://", ""),
+                  style: const TextStyle(fontSize: 15),
+                ),
+              ],
+            ),
+          ),
+        ),
         onChanged: (control) {
           onUpdate(
             index,
@@ -101,7 +110,7 @@ class FieldItem extends StatelessWidget {
       return ReactiveTextField(
         formControl: formGroup.control('custom') as FormControl,
         showErrors: (control) => false,
-        decoration: textDecoration,
+        decoration: textDecoration.copyWith(labelText: "Label"),
         onChanged: (control) {
           onUpdate(
             index,
