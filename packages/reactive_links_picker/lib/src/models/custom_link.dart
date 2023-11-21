@@ -1,26 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 part 'custom_link.freezed.dart';
 part 'custom_link.g.dart';
-part 'custom_link.gform.dart';
-
-enum CustomLinkType { link, email, address, phone, website, more }
 
 @freezed
-@Rf()
-@RfGroup()
 class CustomLink with _$CustomLink {
-  // ignore: invalid_annotation_target
   @JsonSerializable(
     fieldRename: FieldRename.snake,
   )
   factory CustomLink({
-    @Default("") @RfControl() String? value,
-    @Default("Link") String? label,
-    @Default("") @RfControl() String? custom,
-    // ignore: invalid_annotation_target
+    @Default("") String? value,
+    @Default("") String? custom,
+    @Default("Info") String? label,
+    @Default("") String? prefixLink,
     @JsonKey(
       includeFromJson: false,
+      includeToJson: false,
     )
     Widget? icon,
   }) = _CustomLink;
@@ -28,5 +24,11 @@ class CustomLink with _$CustomLink {
   factory CustomLink.fromJson(Map<String, dynamic> json) =>
       _$CustomLinkFromJson(json);
 
-  static CustomLink empty = CustomLink(value: "", label: "Link", custom: "");
+  static CustomLink empty = CustomLink(
+      label: "Info",
+      value: "",
+      prefixLink: "",
+      icon: const Icon(
+        Icons.link,
+      ));
 }

@@ -20,13 +20,11 @@ CustomLink _$CustomLinkFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CustomLink {
-  @RfControl()
   String? get value => throw _privateConstructorUsedError;
+  String? get custom => throw _privateConstructorUsedError;
   String? get label => throw _privateConstructorUsedError;
-  @RfControl()
-  String? get custom =>
-      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
-  @JsonKey(includeFromJson: false)
+  String? get prefixLink => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
   Widget? get icon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,10 +40,11 @@ abstract class $CustomLinkCopyWith<$Res> {
       _$CustomLinkCopyWithImpl<$Res, CustomLink>;
   @useResult
   $Res call(
-      {@RfControl() String? value,
+      {String? value,
+      String? custom,
       String? label,
-      @RfControl() String? custom,
-      @JsonKey(includeFromJson: false) Widget? icon});
+      String? prefixLink,
+      @JsonKey(includeFromJson: false, includeToJson: false) Widget? icon});
 }
 
 /// @nodoc
@@ -62,8 +61,9 @@ class _$CustomLinkCopyWithImpl<$Res, $Val extends CustomLink>
   @override
   $Res call({
     Object? value = freezed,
-    Object? label = freezed,
     Object? custom = freezed,
+    Object? label = freezed,
+    Object? prefixLink = freezed,
     Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
@@ -71,13 +71,17 @@ class _$CustomLinkCopyWithImpl<$Res, $Val extends CustomLink>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String?,
+      custom: freezed == custom
+          ? _value.custom
+          : custom // ignore: cast_nullable_to_non_nullable
+              as String?,
       label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String?,
-      custom: freezed == custom
-          ? _value.custom
-          : custom // ignore: cast_nullable_to_non_nullable
+      prefixLink: freezed == prefixLink
+          ? _value.prefixLink
+          : prefixLink // ignore: cast_nullable_to_non_nullable
               as String?,
       icon: freezed == icon
           ? _value.icon
@@ -96,10 +100,11 @@ abstract class _$$CustomLinkImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@RfControl() String? value,
+      {String? value,
+      String? custom,
       String? label,
-      @RfControl() String? custom,
-      @JsonKey(includeFromJson: false) Widget? icon});
+      String? prefixLink,
+      @JsonKey(includeFromJson: false, includeToJson: false) Widget? icon});
 }
 
 /// @nodoc
@@ -114,8 +119,9 @@ class __$$CustomLinkImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? value = freezed,
-    Object? label = freezed,
     Object? custom = freezed,
+    Object? label = freezed,
+    Object? prefixLink = freezed,
     Object? icon = freezed,
   }) {
     return _then(_$CustomLinkImpl(
@@ -123,13 +129,17 @@ class __$$CustomLinkImplCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String?,
+      custom: freezed == custom
+          ? _value.custom
+          : custom // ignore: cast_nullable_to_non_nullable
+              as String?,
       label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String?,
-      custom: freezed == custom
-          ? _value.custom
-          : custom // ignore: cast_nullable_to_non_nullable
+      prefixLink: freezed == prefixLink
+          ? _value.prefixLink
+          : prefixLink // ignore: cast_nullable_to_non_nullable
               as String?,
       icon: freezed == icon
           ? _value.icon
@@ -144,33 +154,34 @@ class __$$CustomLinkImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$CustomLinkImpl implements _CustomLink {
   _$CustomLinkImpl(
-      {@RfControl() this.value = "",
-      this.label = "Link",
-      @RfControl() this.custom = "",
-      @JsonKey(includeFromJson: false) this.icon});
+      {this.value = "",
+      this.custom = "",
+      this.label = "Info",
+      this.prefixLink = "",
+      @JsonKey(includeFromJson: false, includeToJson: false) this.icon});
 
   factory _$CustomLinkImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomLinkImplFromJson(json);
 
   @override
   @JsonKey()
-  @RfControl()
   final String? value;
+  @override
+  @JsonKey()
+  final String? custom;
   @override
   @JsonKey()
   final String? label;
   @override
   @JsonKey()
-  @RfControl()
-  final String? custom;
-// ignore: invalid_annotation_target
+  final String? prefixLink;
   @override
-  @JsonKey(includeFromJson: false)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final Widget? icon;
 
   @override
   String toString() {
-    return 'CustomLink(value: $value, label: $label, custom: $custom, icon: $icon)';
+    return 'CustomLink(value: $value, custom: $custom, label: $label, prefixLink: $prefixLink, icon: $icon)';
   }
 
   @override
@@ -179,14 +190,17 @@ class _$CustomLinkImpl implements _CustomLink {
         (other.runtimeType == runtimeType &&
             other is _$CustomLinkImpl &&
             (identical(other.value, value) || other.value == value) &&
-            (identical(other.label, label) || other.label == label) &&
             (identical(other.custom, custom) || other.custom == custom) &&
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.prefixLink, prefixLink) ||
+                other.prefixLink == prefixLink) &&
             (identical(other.icon, icon) || other.icon == icon));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, value, label, custom, icon);
+  int get hashCode =>
+      Object.hash(runtimeType, value, custom, label, prefixLink, icon);
 
   @JsonKey(ignore: true)
   @override
@@ -204,24 +218,26 @@ class _$CustomLinkImpl implements _CustomLink {
 
 abstract class _CustomLink implements CustomLink {
   factory _CustomLink(
-      {@RfControl() final String? value,
+      {final String? value,
+      final String? custom,
       final String? label,
-      @RfControl() final String? custom,
-      @JsonKey(includeFromJson: false) final Widget? icon}) = _$CustomLinkImpl;
+      final String? prefixLink,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final Widget? icon}) = _$CustomLinkImpl;
 
   factory _CustomLink.fromJson(Map<String, dynamic> json) =
       _$CustomLinkImpl.fromJson;
 
   @override
-  @RfControl()
   String? get value;
+  @override
+  String? get custom;
   @override
   String? get label;
   @override
-  @RfControl()
-  String? get custom;
-  @override // ignore: invalid_annotation_target
-  @JsonKey(includeFromJson: false)
+  String? get prefixLink;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   Widget? get icon;
   @override
   @JsonKey(ignore: true)

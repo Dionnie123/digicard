@@ -9,13 +9,15 @@ part of 'custom_link.dart';
 _$CustomLinkImpl _$$CustomLinkImplFromJson(Map<String, dynamic> json) =>
     _$CustomLinkImpl(
       value: json['value'] as String? ?? "",
-      label: json['label'] as String? ?? "Link",
       custom: json['custom'] as String? ?? "",
+      label: json['label'] as String? ?? "Info",
+      prefixLink: json['prefix_link'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$CustomLinkImplToJson(_$CustomLinkImpl instance) =>
     <String, dynamic>{
       'value': instance.value,
-      'label': instance.label,
       'custom': instance.custom,
+      'label': instance.label,
+      'prefix_link': instance.prefixLink,
     };

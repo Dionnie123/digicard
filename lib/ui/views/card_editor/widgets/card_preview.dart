@@ -200,7 +200,8 @@ class CardPreview extends StatelessWidget {
     }
 
     Widget customLinks() {
-      return LinksBuilder(color: colorTheme, links: card.customLinks ?? []);
+      return ReactiveLinksBuilder(
+          color: colorTheme, links: card.customLinks ?? []);
     }
 
     return Scaffold(

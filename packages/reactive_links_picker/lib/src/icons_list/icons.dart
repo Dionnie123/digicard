@@ -1,57 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'models/custom_link.dart';
+import '../models/custom_link.dart';
 
-final linkTypes = [
+final icons = [
   CustomLink(
     label: "Email",
     value: " Email",
     icon: const Icon(FontAwesomeIcons.envelope, color: Colors.white),
+    prefixLink: "mailto:",
   ),
   CustomLink(
     label: "Phone",
     value: "Phone",
     icon: const Icon(FontAwesomeIcons.phone, color: Colors.white),
+    prefixLink: "tel:",
   ),
   CustomLink(
     label: "SMS",
     value: "SMS",
-    icon: const Icon(FontAwesomeIcons.commentSms, color: Colors.white),
+    icon: const Icon(FontAwesomeIcons.message, color: Colors.white),
+    prefixLink: "sms:",
   ),
   CustomLink(
     label: "Website",
     value: "Website",
     icon: const Icon(FontAwesomeIcons.globe, color: Colors.white),
+    prefixLink: "https://www.",
   ),
   CustomLink(
     label: "LinkedIn",
     value: "LinkedIn",
     icon: const Icon(FontAwesomeIcons.linkedin, color: Colors.white),
+    prefixLink: "https://www.linkedin.com/in/",
   ),
   CustomLink(
     label: "Facebook",
     value: "Facebook",
     icon: const Icon(FontAwesomeIcons.facebook, color: Colors.white),
+    prefixLink: "https://www.facebook.com/",
   ),
   CustomLink(
     label: "Twitter",
     value: "Twitter",
     icon: const Icon(FontAwesomeIcons.twitter, color: Colors.white),
+    prefixLink: "https://www.twitter.com/",
   ),
   CustomLink(
-    label: "Instagram",
-    value: "Instagram",
-    icon: const Icon(FontAwesomeIcons.instagram, color: Colors.white),
-  ),
+      label: "Instagram",
+      value: "Instagram",
+      icon: const Icon(FontAwesomeIcons.instagram, color: Colors.white),
+      prefixLink: "https://www.instagram.com/_u/"),
   CustomLink(
     label: "Paypal",
     value: "Paypal",
     icon: const Icon(FontAwesomeIcons.paypal, color: Colors.white),
-  ),
-  CustomLink(
-    label: "Stripe",
-    value: "Stripe",
-    icon: const Icon(FontAwesomeIcons.stripe, color: Colors.white),
+    prefixLink: "https://www.paypal.me/",
   ),
 ];

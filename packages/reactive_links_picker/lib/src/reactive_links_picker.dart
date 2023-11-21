@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'fields_list/fields_list.dart';
 import 'icons_list/icons_list.dart';
-import 'link_types.dart';
+import 'icons_list/icons.dart';
 
 FormGroup formGroupBuilder(Map<String, dynamic>? data) {
   return FormGroup({
@@ -91,7 +91,7 @@ class _LinksPickerState extends State<LinksPicker> {
                 constraints: const BoxConstraints(minHeight: 150),
                 child: IconsList(
                   backgroundColor: widget.backgroundColor,
-                  customLinks: linkTypes,
+                  customLinks: icons,
                   onLinkCreated: (customLink) {
                     customLinks.add(formGroupBuilder(customLink.toJson()));
                     widget.onValueChanged(customLinks.value);

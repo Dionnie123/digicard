@@ -1,39 +1,43 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
-import 'package:reactive_links_picker/src/helpers/custom_link_extension.dart';
-import 'package:reactive_links_picker/src/link_types.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LinksBuilder extends StatelessWidget {
+import 'icons_list/icons.dart';
+
+class ReactiveLinksBuilder extends StatelessWidget {
   final Color? color;
   final List<Map<String, dynamic>> links;
-  const LinksBuilder({super.key, required this.links, this.color});
+  const ReactiveLinksBuilder({super.key, required this.links, this.color});
 
   @override
   Widget build(BuildContext context) {
+    final List<CustomLink> customLinks = (links).mapIndexed((i, element) {
+      return icons
+          .firstWhere(
+            (element) => element.label == links[i]['label'],
+            orElse: () => CustomLink.empty,
+          )
+          .copyWith(
+            custom: links[i]['custom'],
+            value: links[i]['value'],
+          );
+    }).toList();
+
     return links.isEmpty
         ? const SizedBox.shrink()
         : Padding(
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: Column(
-                children: (links).mapIndexed((i, element) {
-              final CustomLink customLink = linkTypes
-                  .firstWhere(
-                    (element) => element.label == links[i]['label'],
-                    orElse: () => CustomLink(
-                      label: "Link",
-                      icon: const Icon(Icons.link_rounded),
-                    ),
-                  )
-                  .copyWith(
-                    custom: links[i]['custom'],
-                    value: links[i]['value'],
-                  );
+                children: customLinks.mapIndexed((index, element) {
+              final customLink = customLinks[index];
+
               return InkWell(
                 onTap: () async {
-                  if (await canLaunchUrl(Uri.parse(customLink.link()))) {
-                    await launchUrl(Uri.parse(customLink.link()));
+                  if (await canLaunchUrl(Uri.parse(
+                      "${customLink.prefixLink}${customLink.value}"))) {
+                    await launchUrl(Uri.parse(
+                        "${customLink.prefixLink}${customLink.value}"));
                   }
                 },
                 child: Padding(
@@ -44,16 +48,12 @@ class LinksBuilder extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: color ?? Theme.of(context).primaryColor,
-                        ),
-                        child: const Icon(
-                          Icons.email_rounded,
-                          size: 25,
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: color ?? Theme.of(context).primaryColor,
+                          ),
+                          child: customLink.icon),
                       const SizedBox(width: 15),
                       Expanded(
                         child: Column(
@@ -82,7 +82,5 @@ class LinksBuilder extends StatelessWidget {
               );
             }).toList()),
           );
-
-////////////
   }
 }
