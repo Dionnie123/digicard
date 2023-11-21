@@ -44,6 +44,18 @@ class FieldItem extends StatelessWidget {
         : Container();
 
     const textDecoration = InputDecoration(
+      prefixIcon: Padding(
+        padding: EdgeInsets.only(left: 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "www.",
+              style: TextStyle(fontSize: 15),
+            ),
+          ],
+        ),
+      ),
       isDense: true,
       filled: false,
       contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
