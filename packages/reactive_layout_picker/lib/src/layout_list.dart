@@ -38,18 +38,18 @@ class __LayoutPickerState extends State<LayoutList> {
     _layout = [
       {
         'name': 'Classic',
-        'layout': WavePainter(
+        'layout': FlatPainter(
           primaryColor: widget.primaryColor,
           secondaryColor: widget.secondaryColor,
         ),
       },
       {
-        'name': 'Flat',
-        'layout': FlatPainter(
+        'name': 'Circle',
+        'layout': WavePainter(
           primaryColor: widget.primaryColor,
           secondaryColor: widget.secondaryColor,
         ),
-      }
+      },
     ];
     return SizedBox(
       width: double.infinity,

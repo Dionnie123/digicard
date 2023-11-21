@@ -42,7 +42,7 @@ class ReactiveLinksBuilder extends StatelessWidget {
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 4,
+                    vertical: 6,
                     horizontal: 15,
                   ),
                   child: Row(
