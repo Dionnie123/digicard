@@ -10,6 +10,7 @@ import 'package:flutter_ez_core/extensions/color_extension.dart';
 import 'package:flutter_ez_core/extensions/string_extension.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:reactive_links_picker/reactive_links_picker.dart';
 
 class CardPreview extends StatelessWidget {
   final Map<String, dynamic> value;
@@ -199,55 +200,7 @@ class CardPreview extends StatelessWidget {
     }
 
     Widget customLinks() {
-      return (card.customLinks ?? []).isEmpty
-          ? const SizedBox.shrink()
-          : Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Column(
-                children: (card.customLinks ?? []).mapIndexed((index, element) {
-                  return InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 4,
-                        horizontal: 15,
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: card.color ?? kcPrimaryColor,
-                            ),
-                            child: const Icon(
-                              Icons.email_rounded,
-                              size: 25,
-                            ),
-                          ),
-                          hSpaceRegular,
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${element['custom'] ?? element['label']}",
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                Text(
-                                  "${element['value']}",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            );
+      return LinksBuilder(color: colorTheme, links: card.customLinks ?? []);
     }
 
     return Scaffold(

@@ -21,7 +21,8 @@ _$DigitalCardDTOImpl _$$DigitalCardDTOImplFromJson(Map<String, dynamic> json) =>
       suffix: json['suffix'] as String?,
       avatarFile: json['avatar_file'],
       logoFile: json['logo_file'],
-      color: const ColorConverter().fromJson(json['color']),
+      color: _$JsonConverterFromJson<int, Color>(
+          json['color'], const ColorConverter().fromJson),
       layout: json['layout'] as int?,
       position: json['position'] as String?,
       company: json['company'] as String?,
@@ -57,7 +58,7 @@ Map<String, dynamic> _$$DigitalCardDTOImplToJson(
       'suffix': instance.suffix,
       'avatar_file': instance.avatarFile,
       'logo_file': instance.logoFile,
-      'color': _$JsonConverterToJson<dynamic, Color>(
+      'color': _$JsonConverterToJson<int, Color>(
           instance.color, const ColorConverter().toJson),
       'layout': instance.layout,
       'position': instance.position,
@@ -68,6 +69,12 @@ Map<String, dynamic> _$$DigitalCardDTOImplToJson(
       'updated_at': instance.updatedAt?.toIso8601String(),
       'added_to_contacts_at': instance.addedToContactsAt?.toIso8601String(),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
 
 Json? _$JsonConverterToJson<Json, Value>(
   Value? value,
