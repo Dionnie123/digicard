@@ -51,7 +51,9 @@ class CardDisplay extends StackedView<CardDisplayModel> {
                                   const MaterialStatePropertyAll(Colors.white),
                               backgroundColor:
                                   MaterialStatePropertyAll(colorTheme)),
-                          onPressed: () {},
+                          onPressed: () async {
+                            await viewModel.downloadVcf(card);
+                          },
                           child: const Text("Download VCF")),
                     ),
                     vSpaceRegular,

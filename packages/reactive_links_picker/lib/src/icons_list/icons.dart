@@ -17,16 +17,16 @@ final icons = [
     prefixLink: "tel:",
   ),
   CustomLink(
-    label: "SMS",
-    value: "SMS",
-    icon: const Icon(FontAwesomeIcons.message, color: Colors.white),
-    prefixLink: "sms:",
-  ),
-  CustomLink(
     label: "Website",
     value: "Website",
     icon: const Icon(FontAwesomeIcons.globe, color: Colors.white),
     prefixLink: "https://www.",
+  ),
+  CustomLink(
+    label: "Address",
+    value: "Address",
+    icon: const Icon(FontAwesomeIcons.addressBook, color: Colors.white),
+    prefixLink: "",
   ),
   CustomLink(
     label: "LinkedIn",

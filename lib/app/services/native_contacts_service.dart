@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'package:collection/collection.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:http/http.dart' as http;
 import 'package:stacked/stacked.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:universal_html/js.dart' as js;
@@ -12,98 +10,36 @@ import 'package:universal_html/js.dart' as js;
 class NativeContactsService with ListenableServiceMixin {
   /// Saves Contact to native contact app of mobile
   Future save(DigitalCardDTO card) async {
-    await _cardToContact(card).then((value) async {
-      try {
-        if (value != null) {
-          if (!kIsWeb) {
-            if (await FlutterContacts.requestPermission()) {
-              value.insert();
-            }
-          }
-        }
-      } catch (e) {
-        rethrow;
-      }
-    });
-  }
-
-  /// Saves Contact as .vcf file
-  Future download(DigitalCardDTO card) async {
     try {
-      await _cardToContact(card).then((value) async {
-        if (value != null) {
-          if (kIsWeb) {
-            final bytes =
-                utf8.encode(value.toVCard(withPhoto: true, includeDate: true));
-            await js.context.callMethod("saveAs", <Object>[
-              html.Blob(<Object>[bytes]),
-              '${card.uuid}.vcf'
-            ]);
+      final contact = await DigitalCardExtension.toContact(card);
+      if (contact != null) {
+        if (!kIsWeb) {
+          if (await FlutterContacts.requestPermission()) {
+            contact.insert();
           }
         }
-      });
+      }
     } catch (e) {
       Future.error(e.toString());
     }
   }
 
-  Future<Contact?> _cardToContact(DigitalCardDTO card) async {
+  /// Saves Contact as .vcf file
+  Future download(DigitalCardDTO card) async {
     try {
-      final links = card.customLinks ?? [];
-
-      Map<String, List<Map<String, dynamic>>> customLinks =
-          groupBy(links.map((e) => e).toList(), (e) {
-        return e['label'];
-      });
-      Uint8List? bytes;
-      if (card.avatarUrl.toString().isNotEmpty) {
-        bytes = await _urlToUint8List(card.avatarHttpUrl);
+      final contact = await DigitalCardExtension.toContact(card);
+      if (contact != null) {
+        if (kIsWeb) {
+          final bytes =
+              utf8.encode(contact.toVCard(withPhoto: true, includeDate: true));
+          await js.context.callMethod("save", <Object>[
+            html.Blob(<Object>[bytes]),
+            '${card.uuid}.vcf'
+          ]);
+        }
       }
-
-      return Contact(
-          photo: bytes,
-          displayName: "${card.firstName} ${card.lastName}",
-          name: Name(
-            first: card.firstName ?? "",
-            last: card.lastName ?? "",
-            middle: card.middleName ?? "",
-            prefix: card.prefix ?? "",
-            suffix: card.suffix ?? "",
-          ),
-          organizations: [
-            Organization(
-              title: card.position ?? "",
-              company: card.company ?? "",
-            )
-          ],
-          emails: customLinks["Email"]?.map((e) {
-                return Email(e['value']);
-              }).toList() ??
-              [],
-          phones: customLinks["Phone Number"]?.map((e) {
-                return Phone(e['value']);
-              }).toList() ??
-              [],
-          websites: customLinks["Website"]?.map((e) {
-                return Website(e['value']);
-              }).toList() ??
-              [],
-          addresses: customLinks["Address"]?.map((e) {
-                return Address(e['value']);
-              }).toList() ??
-              []);
     } catch (e) {
-      return Future.error(e.toString());
-    }
-  }
-
-  Future<Uint8List> _urlToUint8List(String url) async {
-    try {
-      final response = await http.get(Uri.parse(url));
-      final bytes = response.bodyBytes;
-      return bytes;
-    } catch (e) {
-      return Future.error(e.toString());
+      Future.error(e.toString());
     }
   }
 }
