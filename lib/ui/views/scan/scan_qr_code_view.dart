@@ -28,27 +28,20 @@ class ScanQRCodeView extends StackedView<ScanViewModel> {
                 backgroundColor: Colors.transparent,
                 automaticallyImplyLeading: true,
               ),
-              body: viewModel.status == PermissionStatus.granted ||
-                      viewModel.status == PermissionStatus.limited ||
-                      viewModel.status == PermissionStatus.provisional
-                  ? QRView(
-                      key: viewModel.qrKey,
-                      onQRViewCreated: (c) {
-                        viewModel.onQRViewCreated(c);
-                      },
-                      overlay: QrScannerOverlayShape(
+              body: QRView(
+                key: viewModel.qrKey,
+                onQRViewCreated: (c) {
+                  viewModel.onQRViewCreated(c);
+                },
+                overlay: QrScannerOverlayShape(
 
-                          //   overlayColor: Colors.transparent,
-                          borderColor: kcPrimaryColor,
-                          borderRadius: 10,
-                          borderLength: 30,
-                          borderWidth: 10,
-                          cutOutSize: 200),
-                    )
-                  : const Center(
-                      child: SizedBox(
-                      child: Text("No Camera Available."),
-                    )));
+                    //   overlayColor: Colors.transparent,
+                    borderColor: kcPrimaryColor,
+                    borderRadius: 10,
+                    borderLength: 30,
+                    borderWidth: 10,
+                    cutOutSize: 200),
+              ));
         });
   }
 

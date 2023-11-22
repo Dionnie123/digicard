@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:collection/collection.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
@@ -9,13 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
 import 'package:flutter_ez_core/extensions/string_extension.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
-import 'package:flutter_ez_core/widgets/ez_button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
 
-class CardPreview extends StatelessWidget {
+import 'columns_separated.dart';
+
+class ClassicCard extends StatelessWidget {
   final DigitalCardDTO card;
-  const CardPreview({super.key, required this.card});
+  const ClassicCard({super.key, required this.card});
 
   @override
   Widget build(BuildContext context) {
@@ -211,120 +211,44 @@ class CardPreview extends StatelessWidget {
               color: colorTheme, links: card.customLinks ?? []);
     }
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: 440,
-          child: Column(
-            children: [
-              Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24.0)),
-                margin: const EdgeInsets.all(15.0),
-                child: LayoutBuilder(builder: (context, size) {
-                  return Column(
+    return Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      margin: const EdgeInsets.all(15.0),
+      child: LayoutBuilder(builder: (context, size) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            squareImage(),
+            Container(
+              color: colorTheme,
+              padding: const EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                      child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      squareImage(),
-                      Container(
-                        color: colorTheme,
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                fullName(),
-                                position(),
-                                company(),
-                              ],
-                            )),
-                            circleImage(size)
-                          ],
-                        ),
-                      ),
-                      ColumnSeparated(children: [
-                        headline(),
-                        customLinks(),
-                        qrCode(),
-                      ])
+                      fullName(),
+                      position(),
+                      company(),
                     ],
-                  );
-                }),
+                  )),
+                  circleImage(size)
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 15),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: FilledButton(
-                          style: ButtonStyle(
-                              foregroundColor:
-                                  const MaterialStatePropertyAll(Colors.white),
-                              backgroundColor:
-                                  MaterialStatePropertyAll(colorTheme)),
-                          onPressed: () {},
-                          child: const Text("Download VCF")),
-                    ),
-                    vSpaceRegular,
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: FilledButton(
-                          style: ButtonStyle(
-                              foregroundColor:
-                                  const MaterialStatePropertyAll(Colors.white),
-                              backgroundColor:
-                                  MaterialStatePropertyAll(colorTheme)),
-                          onPressed: () {},
-                          child: const Text("Download QR")),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ColumnSeparated extends StatelessWidget {
-  final double spacing;
-  final List<Widget> children;
-  const ColumnSeparated(
-      {super.key, required this.children, this.spacing = 15.0});
-
-  @override
-  Widget build(BuildContext context) {
-    children.removeWhere((element) {
-      return element is SizedBox;
-    });
-    for (var i = 0; i < children.length; i++) {
-      if (i == 0) {}
-      if (i % 2 != 0) {
-        children.insert(
-          i,
-          SizedBox(
-            height: spacing,
-          ),
+            ),
+            ColumnSeparated(children: [
+              headline(),
+              customLinks(),
+              qrCode(),
+            ])
+          ],
         );
-      }
-    }
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: children.isEmpty ? 0 : spacing),
-      child: Column(
-        children: children,
-      ),
+      }),
     );
   }
 }

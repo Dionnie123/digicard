@@ -1,11 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/common/theme.dark.dart';
 import 'package:digicard/ui/common/theme.light.dart';
-import 'package:digicard/ui/views/card_editor/widgets/card_preview.dart';
+import 'package:digicard/ui/widgets/card_display/card_display.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
@@ -89,7 +87,7 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                     Expanded(
                                       child: ReactiveDigitalCardDTOFormConsumer(
                                           builder: (context, form, _) {
-                                        return CardPreview(card: form.model);
+                                        return CardDisplay(form.model);
                                       }),
                                     )
                                   ],
