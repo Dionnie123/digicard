@@ -205,9 +205,37 @@ class _CardTabFormState extends State<CardTabForm>
           decoration: inputStyle.copyWith(label: const Text("Headline")));
     }
 
+    save() async {
+      formModel?.form.unfocus();
+      if (formModel?.form.hasErrors == true) {
+        viewModel.showFormErrorsDialog("${formModel?.form.errors.values}");
+      } else {
+        await viewModel
+            .save(formModel?.model ?? DigitalCardDTO.blank())
+            .then((value) async {
+          formModel?.form.markAsPristine(updateParent: true);
+          await viewModel.exitEditor();
+        });
+      }
+    }
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        floatingActionButton: isMobile(context)
+            ? null
+            : ReactiveDigitalCardDTOFormConsumer(builder: (context, f, w) {
+                return (viewModel.editMode && formModel?.form.pristine != true)
+                    ? FloatingActionButton.large(
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Icon(Icons.save), Text("SAVE")],
+                        ),
+                        onPressed: () async {
+                          await save();
+                        })
+                    : const SizedBox.shrink();
+              }),
         appBar: AppBar(
           leading: const BackButton(),
           title: Text(viewModel.actionType == ActionType.edit
@@ -216,32 +244,22 @@ class _CardTabFormState extends State<CardTabForm>
                   ? "Copy Card "
                   : "Create Card"),
           actions: [
-            ReactiveDigitalCardDTOFormConsumer(builder: (context, f, w) {
-              return (viewModel.editMode && formModel?.form.pristine != true)
-                  ? TextButton(
-                      onPressed: () async {
-                        formModel?.form.unfocus();
-                        if (formModel?.form.hasErrors == true) {
-                          viewModel.showFormErrorsDialog(
-                              "${formModel?.form.errors.values}");
-                        } else {
-                          await viewModel
-                              .save(formModel?.model ?? DigitalCardDTO.blank())
-                              .then((value) async {
-                            formModel?.form.markAsPristine(updateParent: true);
-                            await viewModel.exitEditor();
-                          });
-                        }
-                      },
-                      child: Text(
-                        "Save",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).textTheme.bodyLarge?.color,
-                        ),
-                      ))
-                  : const SizedBox.shrink();
-            }),
+            if (isMobile(context))
+              ReactiveDigitalCardDTOFormConsumer(builder: (context, f, w) {
+                return (viewModel.editMode && formModel?.form.pristine != true)
+                    ? TextButton(
+                        onPressed: () async {
+                          await save();
+                        },
+                        child: Text(
+                          "Save",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
+                          ),
+                        ))
+                    : const SizedBox.shrink();
+              }),
           ],
           bottom: TabBar(
             tabs: _tabs,

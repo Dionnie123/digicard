@@ -47,7 +47,7 @@ Future showMyDialog(BuildContext context, customLink) async {
                   },
                   formControlName: 'custom',
                   decoration: const InputDecoration(
-                    label: Text("Custom Label"),
+                    label: Text("Label"),
                     isDense: true,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12))),

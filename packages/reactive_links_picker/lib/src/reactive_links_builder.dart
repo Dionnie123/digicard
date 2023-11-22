@@ -26,61 +26,55 @@ class ReactiveLinksBuilder extends StatelessWidget {
 
     return links.isEmpty
         ? const SizedBox.shrink()
-        : Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: Column(
-                children: customLinks.mapIndexed((index, element) {
-              final customLink = customLinks[index];
+        : Column(
+            children: customLinks.mapIndexed((index, element) {
+            final customLink = customLinks[index];
 
-              return InkWell(
-                onTap: () async {
-                  if (await canLaunchUrl(Uri.parse(
-                      "${customLink.prefixLink}${customLink.value}"))) {
-                    await launchUrl(Uri.parse(
-                        "${customLink.prefixLink}${customLink.value}"));
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 6,
-                    horizontal: 15,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: color ?? Theme.of(context).primaryColor,
-                          ),
-                          child: customLink.icon),
-                      const SizedBox(width: 15),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              customLink.custom == null ||
-                                      customLink.custom
-                                          .toString()
-                                          .trim()
-                                          .isEmpty
-                                  ? "${customLink.label}"
-                                  : "${customLink.custom}",
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              "${customLink.value}",
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+            return InkWell(
+              onTap: () async {
+                if (await canLaunchUrl(
+                    Uri.parse("${customLink.prefixLink}${customLink.value}"))) {
+                  await launchUrl(
+                      Uri.parse("${customLink.prefixLink}${customLink.value}"));
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: 15,
                 ),
-              );
-            }).toList()),
-          );
+                child: Row(
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: color ?? Theme.of(context).primaryColor,
+                        ),
+                        child: customLink.icon),
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            customLink.custom == null ||
+                                    customLink.custom.toString().trim().isEmpty
+                                ? "${customLink.label}"
+                                : "${customLink.custom}",
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                          Text(
+                            "${customLink.value}",
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList());
   }
 }

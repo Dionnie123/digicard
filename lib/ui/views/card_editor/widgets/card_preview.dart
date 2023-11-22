@@ -9,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
 import 'package:flutter_ez_core/extensions/string_extension.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
+import 'package:flutter_ez_core/widgets/ez_button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
 
 class CardPreview extends StatelessWidget {
-  final Map<String, dynamic> value;
-  const CardPreview({super.key, required this.value});
+  final DigitalCardDTO card;
+  const CardPreview({super.key, required this.card});
 
   @override
   Widget build(BuildContext context) {
-    final card = DigitalCardDTO.fromJson(value);
     final colorTheme = card.color ?? kcPrimaryColor;
 
     Widget squareImage() {
@@ -32,18 +32,20 @@ class CardPreview extends StatelessWidget {
               if (card.avatarUrl != null && card.avatarFile != false)
                 Container(
                   decoration: BoxDecoration(
+                      color: colorTheme.darken(),
                       image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(card.avatarHttpUrl),
-                  )),
+                        fit: BoxFit.cover,
+                        image: NetworkImage(card.avatarHttpUrl),
+                      )),
                 ),
               if (card.avatarFile != null && card.avatarFile is Uint8List)
                 Container(
                   decoration: BoxDecoration(
+                      color: colorTheme.darken(),
                       image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: MemoryImage(card.avatarFile ?? Uint8List(0)),
-                  )),
+                        fit: BoxFit.cover,
+                        image: MemoryImage(card.avatarFile ?? Uint8List(0)),
+                      )),
                 ),
             ],
           ),
@@ -51,7 +53,7 @@ class CardPreview extends StatelessWidget {
       );
     }
 
-    Widget circleImage() {
+    Widget circleImage(BoxConstraints size) {
       return (card.logoFile == false)
           ? const SizedBox.shrink()
           : Padding(
@@ -63,14 +65,14 @@ class CardPreview extends StatelessWidget {
                     CircleAvatar(
                         backgroundColor: colorTheme.darken(),
                         backgroundImage: NetworkImage(card.logoHttpUrl),
-                        radius: 42),
+                        radius: size.maxWidth * 0.11),
                   if (card.logoFile is Uint8List && card.logoFile != null)
                     CircleAvatar(
                         backgroundColor: colorTheme.darken(),
                         backgroundImage: MemoryImage(
                           card.logoFile ?? Uint8List(0),
                         ),
-                        radius: 42.0),
+                        radius: size.maxWidth * 0.11),
                 ],
               ),
             );
@@ -81,10 +83,10 @@ class CardPreview extends StatelessWidget {
           ? const SizedBox.shrink()
           : AutoSizeText(
               card.fullName(),
-              maxFontSize: 24,
+              maxFontSize: 26,
               minFontSize: 12,
               style: const TextStyle(
-                fontSize: 24,
+                fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
               maxLines: 1,
@@ -127,7 +129,7 @@ class CardPreview extends StatelessWidget {
       return isNullEmpty(card.headline)
           ? const SizedBox.shrink()
           : Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 card.headline ?? "",
                 textAlign: TextAlign.left,
@@ -167,84 +169,161 @@ class CardPreview extends StatelessWidget {
 
     Widget qrCode() {
       return (card.id == null)
-          ? const SizedBox()
-          : Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: QrImageView(
-                        data: card.cardHttpUrl,
-                        version: QrVersions.auto,
-                        errorCorrectionLevel: QrErrorCorrectLevel.M,
-                        size: 200,
-                        eyeStyle: const QrEyeStyle(
-                          color: Colors.black,
+          ? const SizedBox.shrink()
+          : Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: QrImageView(
+                          data: card.cardHttpUrl,
+                          version: QrVersions.auto,
+                          errorCorrectionLevel: QrErrorCorrectLevel.M,
+                          size: 200,
+                          eyeStyle: const QrEyeStyle(
+                            color: Colors.black,
+                          ),
+                          backgroundColor: Colors.white,
+                          gapless: true,
                         ),
-                        backgroundColor: Colors.white,
-                        gapless: true,
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: imageForQr(),
-                    ),
-                  ],
+                      Align(
+                        alignment: Alignment.center,
+                        child: imageForQr(),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                vSpaceSmall,
+                const Text("Scan or Click to View"),
+              ],
             );
     }
 
     Widget customLinks() {
-      return ReactiveLinksBuilder(
-          color: colorTheme, links: card.customLinks ?? []);
+      return (card.customLinks ?? []).isEmpty
+          ? const SizedBox.shrink()
+          : ReactiveLinksBuilder(
+              color: colorTheme, links: card.customLinks ?? []);
     }
 
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
           width: 440,
-          child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24.0)),
-            margin: const EdgeInsets.all(15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                squareImage(),
-                Container(
-                  color: colorTheme,
-                  padding: const EdgeInsets.all(15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
+            children: [
+              Card(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0)),
+                margin: const EdgeInsets.all(15.0),
+                child: LayoutBuilder(builder: (context, size) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Expanded(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          fullName(),
-                          position(),
-                          company(),
-                        ],
-                      )),
-                      circleImage()
+                      squareImage(),
+                      Container(
+                        color: colorTheme,
+                        padding: const EdgeInsets.all(15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                fullName(),
+                                position(),
+                                company(),
+                              ],
+                            )),
+                            circleImage(size)
+                          ],
+                        ),
+                      ),
+                      ColumnSeparated(children: [
+                        headline(),
+                        customLinks(),
+                        qrCode(),
+                      ])
                     ],
-                  ),
+                  );
+                }),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 15),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: FilledButton(
+                          style: ButtonStyle(
+                              foregroundColor:
+                                  const MaterialStatePropertyAll(Colors.white),
+                              backgroundColor:
+                                  MaterialStatePropertyAll(colorTheme)),
+                          onPressed: () {},
+                          child: const Text("Download VCF")),
+                    ),
+                    vSpaceRegular,
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: FilledButton(
+                          style: ButtonStyle(
+                              foregroundColor:
+                                  const MaterialStatePropertyAll(Colors.white),
+                              backgroundColor:
+                                  MaterialStatePropertyAll(colorTheme)),
+                          onPressed: () {},
+                          child: const Text("Download QR")),
+                    )
+                  ],
                 ),
-                headline(),
-                customLinks(),
-                qrCode(),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ColumnSeparated extends StatelessWidget {
+  final double spacing;
+  final List<Widget> children;
+  const ColumnSeparated(
+      {super.key, required this.children, this.spacing = 15.0});
+
+  @override
+  Widget build(BuildContext context) {
+    children.removeWhere((element) {
+      return element is SizedBox;
+    });
+    for (var i = 0; i < children.length; i++) {
+      if (i == 0) {}
+      if (i % 2 != 0) {
+        children.insert(
+          i,
+          SizedBox(
+            height: spacing,
+          ),
+        );
+      }
+    }
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: children.isEmpty ? 0 : spacing),
+      child: Column(
+        children: children,
       ),
     );
   }

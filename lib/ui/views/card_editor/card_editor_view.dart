@@ -89,8 +89,7 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                     Expanded(
                                       child: ReactiveDigitalCardDTOFormConsumer(
                                           builder: (context, form, _) {
-                                        return CardPreview(
-                                            value: form.model.toJson());
+                                        return CardPreview(card: form.model);
                                       }),
                                     )
                                   ],
