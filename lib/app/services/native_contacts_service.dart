@@ -30,9 +30,14 @@ class NativeContactsService with ListenableServiceMixin {
       final contact = await DigitalCardExtension.toContact(card);
       if (contact != null) {
         if (kIsWeb) {
-          final bytes =
-              utf8.encode(contact.toVCard(withPhoto: true, includeDate: true));
-          await js.context.callMethod("save", <Object>[
+          final bytes = utf8.encode(
+            contact.toVCard(
+              withPhoto: true,
+              includeDate: true,
+            ),
+          );
+
+          js.context.callMethod("saveAs", <Object>[
             html.Blob(<Object>[bytes]),
             '${card.uuid}.vcf'
           ]);

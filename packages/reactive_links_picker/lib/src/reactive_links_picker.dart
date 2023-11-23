@@ -50,8 +50,8 @@ class _LinksPickerState extends State<LinksPicker> {
   @override
   void dispose() {
     super.dispose();
-    customLinks.dispose();
-    form.dispose();
+    //  customLinks.dispose();
+    //  form.dispose();
   }
 
   @override
@@ -68,8 +68,8 @@ class _LinksPickerState extends State<LinksPicker> {
                 constraints: const BoxConstraints(minHeight: 150),
                 child: FieldsList(
                   onUpdateAt: (index, link) {
-                    customLinks.removeAt(index);
                     customLinks.insert(index, formGroupBuilder(link.toJson()));
+                    customLinks.removeAt(index);
                     widget.onValueChanged(customLinks.value);
                   },
                   onReorder: (value) async {
@@ -77,11 +77,16 @@ class _LinksPickerState extends State<LinksPicker> {
                     for (var i = 0; i < value.length; i++) {
                       customLinks.add(formGroupBuilder(value[i]));
                     }
-                    debugPrint(customLinks.value.toString());
+
                     widget.onValueChanged(customLinks.value);
                   },
                   onRemoveAt: (value) {
-                    customLinks.removeAt(value);
+                    customLinks.clear();
+
+                    for (var i = 0; i < value.length; i++) {
+                      customLinks.add(formGroupBuilder(value[i]));
+                    }
+
                     widget.onValueChanged(customLinks.value);
                   },
                 ),

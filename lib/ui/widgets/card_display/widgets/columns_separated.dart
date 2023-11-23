@@ -26,6 +26,8 @@ class ColumnSeparated extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: children.isEmpty ? 0 : spacing),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: children,
       ),
     );

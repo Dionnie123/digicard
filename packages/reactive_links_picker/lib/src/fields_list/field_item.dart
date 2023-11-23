@@ -25,7 +25,7 @@ class FieldItem extends StatelessWidget {
 
   final int index;
   final Key orderKey;
-  final CustomLink customLink;
+  final Map<String, dynamic> customLink;
   final bool isFirst;
   final bool isLast;
   final DraggingMode draggingMode;
@@ -70,28 +70,28 @@ class FieldItem extends StatelessWidget {
         children: [
           dragHandle,
           const SizedBox(width: 12),
-          Transform.scale(
-              scale: 0.8,
-              child: customLink.icon ?? const Icon(Icons.info_rounded)),
+          Transform.scale(scale: 0.8, child: const Icon(Icons.info_rounded)),
           const SizedBox(width: 7),
-          Text("${formGroup.control('label').value}")
+          Text("${customLink['label']}")
         ],
       );
     }
 
     Widget value() {
       return ReactiveTextField(
+        key: ValueKey("value-${formGroup.control('id').value}"),
         formControl: formGroup.control('value') as FormControl,
         showErrors: (control) => false,
         decoration: textDecoration.copyWith(
-          prefixIcon: Padding(
-            padding: const EdgeInsets.only(left: 12),
+          prefixIcon: const Padding(
+            padding: EdgeInsets.only(left: 12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  customLink.prefixLink.toString().replaceFirst("https://", ""),
-                  style: const TextStyle(fontSize: 15),
+                  "",
+                  // customLink.prefixLink.toString().replaceFirst("https://", ""),
+                  style: TextStyle(fontSize: 15),
                 ),
               ],
             ),
@@ -108,6 +108,7 @@ class FieldItem extends StatelessWidget {
 
     Widget custom() {
       return ReactiveTextField(
+        key: ValueKey("custom-${formGroup.control('id').value}"),
         formControl: formGroup.control('custom') as FormControl,
         showErrors: (control) => false,
         decoration: textDecoration.copyWith(labelText: "Label"),

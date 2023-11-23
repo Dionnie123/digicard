@@ -9,7 +9,7 @@ import 'fields_list.sorter_list.dart';
 class FieldsList extends StatefulWidget {
   final Function(int index, CustomLink link) onUpdateAt;
   final Function(List<Map<String, dynamic>> value) onReorder;
-  final Function(int index) onRemoveAt;
+  final Function(List<Map<String, dynamic>> value) onRemoveAt;
   const FieldsList({
     super.key,
     required this.onReorder,
@@ -31,30 +31,6 @@ class _LinksListState extends State<FieldsList> {
   Widget build(BuildContext context) {
     form = ReactiveForm.of(context) as FormGroup;
     formArray = form.control('customLinks') as FormArray<Map<String, dynamic>>;
-    List<FieldItem> items = [];
-    for (var i = 0; i < formArray.controls.length; i++) {
-      items.add(
-        FieldItem(
-          index: i,
-          orderKey: ValueKey(i),
-          formGroup: formArray.controls[i] as FormGroup,
-          customLink: CustomLink.initialize(
-            label: formArray.controls[i].value['label'],
-          ).copyWith(
-              value: formArray.controls[i].value['value'],
-              custom: formArray.controls[i].value['custom']),
-          isFirst: i == 0,
-          isLast: i == formArray.controls.length - 1,
-          draggingMode: DraggingMode.iOS,
-          onRemove: (index) {
-            widget.onRemoveAt(index);
-          },
-          onUpdate: (index, value) {
-            widget.onUpdateAt(index, value);
-          },
-        ),
-      );
-    }
 
     Widget emptyPlaceholder() {
       return const SizedBox(
@@ -65,21 +41,50 @@ class _LinksListState extends State<FieldsList> {
       );
     }
 
-    return DottedBorder(
-      color: Theme.of(context).primaryColorLight,
-      dashPattern: const [9, 3],
-      borderPadding: const EdgeInsets.all(8.0),
-      strokeCap: StrokeCap.butt,
-      radius: const Radius.circular(12.0),
-      strokeWidth: 1,
-      child: items.isEmpty
-          ? emptyPlaceholder()
-          : SorterList(
-              items: items,
-              onReorder: (value) {
-                widget.onReorder(value);
-              },
-            ),
-    );
+    return ReactiveFormArray(
+        formArray: formArray,
+        builder: (context, forms, _) {
+          List<FieldItem> items = [];
+          for (var i = 0; i < forms.controls.length; i++) {
+            items.add(
+              FieldItem(
+                index: i,
+                orderKey: ValueKey(i),
+                formGroup: forms.controls[i] as FormGroup,
+                customLink: forms.controls[i].value,
+                isFirst: i == 0,
+                isLast: i == forms.controls.length - 1,
+                draggingMode: DraggingMode.iOS,
+                onRemove: (index) {
+                  List<Map<String, dynamic>> reorderedItems =
+                      items.map((e) => e.customLink).toList();
+                  reorderedItems.removeAt(index);
+
+                  widget.onRemoveAt(reorderedItems.map((e) => e).toList());
+                },
+                onUpdate: (index, value) {
+                  widget.onUpdateAt(index, value);
+                },
+              ),
+            );
+          }
+
+          return DottedBorder(
+            color: Theme.of(context).primaryColorLight,
+            dashPattern: const [9, 3],
+            borderPadding: const EdgeInsets.all(8.0),
+            strokeCap: StrokeCap.butt,
+            radius: const Radius.circular(12.0),
+            strokeWidth: 1,
+            child: items.isEmpty
+                ? emptyPlaceholder()
+                : SorterList(
+                    items: items,
+                    onReorder: (value) {
+                      widget.onReorder(value);
+                    },
+                  ),
+          );
+        });
   }
 }
