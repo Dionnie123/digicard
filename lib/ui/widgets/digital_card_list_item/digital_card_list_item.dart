@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
+import 'package:digicard/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
@@ -16,31 +17,34 @@ class DigitalCardListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = card.color ?? kcPrimaryColor;
+
     Widget image() {
       const imageSize = 140.0;
       return Container(
-        color: card.color,
+        color: colorTheme,
         child: Material(
             child: CachedNetworkImage(
           imageUrl: card.avatarHttpUrl,
           width: double.infinity,
           height: imageSize,
           fit: BoxFit.cover,
+          color: colorTheme.darken(),
           imageBuilder: (context, imageProvider) {
             return Container(
                 decoration: BoxDecoration(
-                    color: card.color?.darken(),
+                    color: colorTheme.darken(),
                     image: DecorationImage(
                         fit: BoxFit.cover, image: imageProvider)));
           },
           placeholder: (context, url) {
-            return Container(color: card.color?.darken());
+            return Container(color: colorTheme.darken());
           },
           errorWidget: (context, url, error) {
             return Container(
               width: double.infinity,
               height: imageSize,
-              color: card.color?.darken(),
+              color: colorTheme.darken(),
             );
           },
         )),
