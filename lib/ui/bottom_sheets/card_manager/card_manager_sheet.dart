@@ -25,6 +25,8 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
     CardManagerSheetModel viewModel,
     Widget? child,
   ) {
+    final colorTheme = viewModel.card.color ?? kcPrimaryColor;
+
     LoadingType? loadingType;
     if (viewModel.busy(duplicateBusyKey)) {
       loadingType = LoadingType.duplicate;
@@ -38,7 +40,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
         type: loadingType,
         builder: (context) {
           return BottomSheetWrapper(
-              notchColor: viewModel.card.color ?? kcPrimaryColor,
+              notchColor: colorTheme ?? kcPrimaryColor,
               children: [
                 Text(
                   viewModel.card.title.toString(),
@@ -53,7 +55,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
                   children: [
                     Expanded(
                       child: PanelButton.big(
-                        color: viewModel.card.color,
+                        color: colorTheme,
                         onTap: () {
                           viewModel.share();
                         },
@@ -68,7 +70,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
                     hSpaceSmall,
                     Expanded(
                       child: PanelButton.big(
-                        color: viewModel.card.color,
+                        color: colorTheme,
                         onTap: () {
                           viewModel.view(request.data);
                         },
@@ -87,7 +89,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
                   children: [
                     Expanded(
                       child: PanelButton(
-                          color: viewModel.card.color,
+                          color: colorTheme,
                           onTap: () async {
                             viewModel.edit(request.data);
                           },
@@ -101,7 +103,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
                   children: [
                     Expanded(
                       child: PanelButton(
-                          color: viewModel.card.color,
+                          color: colorTheme,
                           onTap: () async {
                             await viewModel.duplicate(request.data);
                           },
@@ -115,7 +117,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
                   children: [
                     Expanded(
                       child: PanelButton(
-                          color: viewModel.card.color,
+                          color: colorTheme,
                           onTap: () async {
                             await viewModel.delete(request.data.id);
                           },

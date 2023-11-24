@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
@@ -12,6 +13,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'columns_separated.dart';
 
@@ -236,19 +238,32 @@ class ClassicCard extends StatelessWidget {
     }
 
     Widget ad() {
-      return Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
+      return Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: ClipRRect(
+          clipBehavior: Clip.none,
+          borderRadius: const BorderRadius.only(
               topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
-        ),
-        width: double.infinity,
-        padding: const EdgeInsets.all(10),
-        child: const Text(
-          "Create your own digital business card for FREE",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.white,
+          child: InkWell(
+            onTap: () async {
+              final Uri url = Uri.parse(Env.siteUrl);
+              if (await canLaunchUrl(url)) launchUrl(url);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: colorTheme,
+              ),
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              child: const Text(
+                "Create your own digital business card for FREE",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
         ),
       );

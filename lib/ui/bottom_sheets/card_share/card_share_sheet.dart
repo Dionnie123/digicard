@@ -30,6 +30,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
     CardShareSheetModel viewModel,
     Widget? child,
   ) {
+    final colorTheme = viewModel.card.color ?? kcPrimaryColor;
     LoadingType? loadingType;
     if (viewModel.busy(saveToContactsBusyKey)) {
       loadingType = LoadingType.save;
@@ -42,17 +43,21 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
     Widget qrCode() {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: QrImageView(
-          data: DigitalCardDTOExtension.convertToContact(viewModel.card)!
-              .toVCard(withPhoto: false),
-          version: QrVersions.auto,
-          errorCorrectionLevel: QrErrorCorrectLevel.M,
-          size: 200,
-          eyeStyle: const QrEyeStyle(
-            color: Colors.black,
-          ),
-          backgroundColor: Colors.white,
-          gapless: true,
+        child: Column(
+          children: [
+            QrImageView(
+              data: DigitalCardDTOExtension.convertToContact(viewModel.card)!
+                  .toVCard(withPhoto: false),
+              version: QrVersions.auto,
+              errorCorrectionLevel: QrErrorCorrectLevel.M,
+              size: 200,
+              eyeStyle: const QrEyeStyle(
+                color: Colors.black,
+              ),
+              backgroundColor: Colors.white,
+              gapless: true,
+            ),
+          ],
         ),
       );
     }
@@ -86,7 +91,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
         type: loadingType,
         builder: (context) {
           return BottomSheetWrapper(
-            notchColor: viewModel.card.color ?? kcPrimaryColor,
+            notchColor: colorTheme ?? kcPrimaryColor,
             children: [
               Screenshot(
                 key: UniqueKey(),
@@ -109,7 +114,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
                 PanelButton(
                   icon: const Icon(FontAwesomeIcons.share),
                   title: "Share",
-                  color: viewModel.card.color,
+                  color: colorTheme,
                   onTap: (kIsWeb)
                       ? null
                       : () async {
@@ -118,7 +123,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
                 ),
               vSpaceSmall,
               PanelButton(
-                  color: viewModel.card.color,
+                  color: colorTheme,
                   onTap: () async {
                     await viewModel.downloadWithLogo(context);
                   },
@@ -126,7 +131,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
                   title: "Download QR"),
               vSpaceSmall,
               PanelButton(
-                  color: viewModel.card.color,
+                  color: colorTheme,
                   onTap: () async {
                     await viewModel.downloadVcf();
                   },
@@ -134,7 +139,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
                   title: "Download VCF"),
               vSpaceSmall,
               PanelButton(
-                  color: viewModel.card.color,
+                  color: colorTheme,
                   onTap: () async {
                     await Clipboard.setData(
                         ClipboardData(text: viewModel.card.cardHttpUrl));

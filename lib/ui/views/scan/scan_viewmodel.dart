@@ -4,6 +4,7 @@ import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/helpers/card_url_checker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:stacked/stacked.dart';
@@ -63,14 +64,13 @@ class ScanViewModel extends ReactiveViewModel {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) async {
       try {
-        controller.pauseCamera();
         result = scanData;
-        if (CardUrl("${result?.code}").isValid()) {
-          await _navigationService.navigateToCardViewerWebView(
-              uuid: CardUrl("${result?.code}").uuid);
-        } else {
-          log.w("Invalid Digicard QR Code Link");
-        }
+
+        controller.pauseCamera();
+        final newContact = Contact.fromVCard("${result?.code}");
+
+        await _navigationService.navigateToCardViewerWebView(
+            uuid: newContact.toVCard());
       } catch (e) {
         rethrow;
       } finally {

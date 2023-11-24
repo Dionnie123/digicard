@@ -24,9 +24,21 @@ class CardViewerWebViewModel extends ReactiveViewModel {
 
   DigitalCardDTO? card;
 
+  String? extractUuidV4(String input) {
+    RegExp regex = RegExp(
+        r'([a-f\d]{8}-[a-f\d]{4}-4[a-f\d]{3}-[89aAbB][a-f\d]{3}-[a-f\d]{12})',
+        caseSensitive: false);
+
+    RegExpMatch? match = regex.firstMatch(input);
+
+    return match?.group(0); // Returns the matched UUID v4 or null if not found
+  }
+
   Future loadCardbyUuid(String uuid) async {
     await runBusyFuture(
-      _digitalCardService.findOne(uuid).then((value) => card = value),
+      _digitalCardService
+          .findOne(extractUuidV4(uuid).toString())
+          .then((value) => card = value),
       throwException: true,
     );
     FlutterNativeSplash.remove();

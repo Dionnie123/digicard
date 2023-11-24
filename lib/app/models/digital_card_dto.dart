@@ -57,7 +57,7 @@ class ColorConverter implements JsonConverter<Color, int> {
 
   @override
   Color fromJson(int? val) {
-    return val == null ? Color(val ?? kcPrimaryColor.value) : Color(val);
+    return val == null ? kcPrimaryColor : Color(val);
   }
 
   @override

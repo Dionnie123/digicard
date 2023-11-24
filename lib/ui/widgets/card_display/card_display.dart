@@ -62,7 +62,7 @@ class CardDisplay extends StackedView<CardDisplayModel> {
                     if (allowDownloadVCF)
                       SizedBox(
                         width: double.infinity,
-                        height: 40,
+                        height: 50,
                         child: FilledButton(
                             style: ButtonStyle(
                                 foregroundColor: const MaterialStatePropertyAll(
@@ -78,7 +78,7 @@ class CardDisplay extends StackedView<CardDisplayModel> {
                     if (allowDownloadQRCode)
                       SizedBox(
                         width: double.infinity,
-                        height: 40,
+                        height: 50,
                         child: FilledButton(
                             style: ButtonStyle(
                                 foregroundColor: const MaterialStatePropertyAll(

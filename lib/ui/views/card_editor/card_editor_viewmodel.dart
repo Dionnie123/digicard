@@ -1,3 +1,4 @@
+import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/views/card_viewer/card_viewer_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -85,14 +86,15 @@ class CardEditorViewModel extends ReactiveViewModel {
   }
 
   Future<void> save(DigitalCardDTO formValue) async {
+    final v = formValue.copyWith(color: formValue.color ?? kcPrimaryColor);
     if (actionType == ActionType.create) {
-      await runBusyFuture(_digitalCardsService.create(formValue),
+      await runBusyFuture(_digitalCardsService.create(v),
           throwException: true, busyObject: saveBusyKey);
     } else if (actionType == ActionType.edit) {
-      await runBusyFuture(_digitalCardsService.update(formValue),
+      await runBusyFuture(_digitalCardsService.update(v),
           throwException: true, busyObject: saveBusyKey);
     } else if (actionType == ActionType.duplicate) {
-      await runBusyFuture(_digitalCardsService.duplicate(formValue),
+      await runBusyFuture(_digitalCardsService.duplicate(v),
           throwException: true, busyObject: saveBusyKey);
     }
     setBusyForObject(saveBusyKey, false);

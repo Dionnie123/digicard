@@ -29,10 +29,13 @@ class CardViewerWebView extends StackedView<CardViewerWebViewModel> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
+      extendBodyBehindAppBar: true,
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator())
           : viewModel.card == null || uuid == null
-              ? const SizedBox.shrink()
+              ? const Center(
+                  child: Text("Card not Found"),
+                )
               : SingleChildScrollView(
                   child: CardDisplay(
                     viewModel.card ?? DigitalCardDTO.blank(),

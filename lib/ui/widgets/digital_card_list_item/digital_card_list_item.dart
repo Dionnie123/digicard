@@ -77,7 +77,7 @@ class DigitalCardListItem extends StatelessWidget {
               children: [
                 image(),
                 Container(
-                  color: card.color,
+                  color: colorTheme,
                   height: 5,
                 ),
                 Expanded(
