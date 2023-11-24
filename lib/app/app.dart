@@ -30,12 +30,21 @@ import 'services/permission_handler_service.dart';
 import 'services/user_service.dart';
 import 'package:digicard/ui/views/scan/scan_view.dart';
 import 'package:digicard/ui/views/dashboard/dashboard_view.dart';
+import 'package:digicard/ui/views/card_viewer_web/card_viewer_web_view.dart';
 // @stacked-import
 
 @StackedApp(
   logger: StackedLogger(),
   routes: [
-    MaterialRoute(initial: true, page: StartupView),
+    MaterialRoute(
+      initial: true,
+      page: StartupView,
+    ),
+    MaterialRoute(
+      fullMatch: true,
+      path: "/p/:uuid",
+      page: CardViewerWebView,
+    ),
     MaterialRoute(page: AuthView),
     CustomRoute(
       page: HomeView,
@@ -49,12 +58,16 @@ import 'package:digicard/ui/views/dashboard/dashboard_view.dart';
       page: SettingsView,
       transitionsBuilder: TransitionsBuilders.noTransition,
     ),
-    MaterialRoute(page: CardEditorView),
-    MaterialRoute(path: "/p/:uuid", page: CardViewerView),
-    MaterialRoute(page: ForgotPasswordView),
     CustomRoute(
-        page: ScanView, transitionsBuilder: TransitionsBuilders.noTransition),
+      page: ScanView,
+      maintainState: false,
+      transitionsBuilder: TransitionsBuilders.noTransition,
+    ),
+    MaterialRoute(page: CardEditorView),
+    MaterialRoute(page: CardViewerView),
+    MaterialRoute(page: ForgotPasswordView),
     MaterialRoute(page: DashboardView),
+
 // @stacked-route
   ],
   dependencies: [

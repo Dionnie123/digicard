@@ -54,12 +54,7 @@ class HomeViewModel extends ReactiveViewModel {
     );
   }
 
-  view(DigitalCardDTO card) {
-    _navigationService.navigateToCardEditorView(
-      card: card,
-      actionType: ActionType.view,
-    );
-  }
+  view(DigitalCardDTO card) {}
 
   show(DigitalCardDTO? card) async {
     await _bottomSheetService.showCustomSheet(

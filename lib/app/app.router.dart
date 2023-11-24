@@ -5,67 +5,91 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i13;
-import 'package:stacked/stacked.dart' as _i12;
-import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:flutter/material.dart' as _i14;
+import 'package:stacked/stacked.dart' as _i13;
+import 'package:stacked_services/stacked_services.dart' as _i12;
 
-import '../ui/views/auth/auth_view.dart' as _i2;
-import '../ui/views/card_editor/card_editor_view.dart' as _i6;
-import '../ui/views/card_viewer/card_viewer_view.dart' as _i7;
-import '../ui/views/contacts/contacts_view.dart' as _i4;
-import '../ui/views/dashboard/dashboard_view.dart' as _i10;
-import '../ui/views/forgot_password/forgot_password_view.dart' as _i8;
-import '../ui/views/home/home_view.dart' as _i3;
-import '../ui/views/scan/scan_view.dart' as _i9;
-import '../ui/views/settings/settings_view.dart' as _i5;
+import '../ui/views/auth/auth_view.dart' as _i3;
+import '../ui/views/card_editor/card_editor_view.dart' as _i8;
+import '../ui/views/card_viewer/card_viewer_view.dart' as _i9;
+import '../ui/views/card_viewer_web/card_viewer_web_view.dart' as _i2;
+import '../ui/views/contacts/contacts_view.dart' as _i5;
+import '../ui/views/dashboard/dashboard_view.dart' as _i11;
+import '../ui/views/forgot_password/forgot_password_view.dart' as _i10;
+import '../ui/views/home/home_view.dart' as _i4;
+import '../ui/views/scan/scan_view.dart' as _i7;
+import '../ui/views/settings/settings_view.dart' as _i6;
 import '../ui/views/startup/startup_view.dart' as _i1;
-import 'constants/stacked_keys.dart' as _i15;
-import 'models/digital_card_dto.dart' as _i14;
+import 'constants/stacked_keys.dart' as _i16;
+import 'models/digital_card_dto.dart' as _i15;
 
 final stackedRouter =
-    StackedRouterWeb(navigatorKey: _i11.StackedService.navigatorKey);
+    StackedRouterWeb(navigatorKey: _i12.StackedService.navigatorKey);
 
-class StackedRouterWeb extends _i12.RootStackRouter {
-  StackedRouterWeb({_i13.GlobalKey<_i13.NavigatorState>? navigatorKey})
+class StackedRouterWeb extends _i13.RootStackRouter {
+  StackedRouterWeb({_i14.GlobalKey<_i14.NavigatorState>? navigatorKey})
       : super(navigatorKey);
 
   @override
-  final Map<String, _i12.PageFactory> pagesMap = {
+  final Map<String, _i13.PageFactory> pagesMap = {
     StartupViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.StartupView(),
       );
     },
-    AuthViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+    CardViewerWebViewRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<CardViewerWebViewArgs>(
+          orElse: () =>
+              CardViewerWebViewArgs(uuid: pathParams.optString('uuid')));
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.AuthView(),
+        child: _i2.CardViewerWebView(
+          uuid: args.uuid,
+          key: args.key,
+        ),
+      );
+    },
+    AuthViewRoute.name: (routeData) {
+      return _i13.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i3.AuthView(),
       );
     },
     HomeViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i3.HomeView(),
-        transitionsBuilder: _i12.TransitionsBuilders.noTransition,
+        child: const _i4.HomeView(),
+        transitionsBuilder: _i13.TransitionsBuilders.noTransition,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ContactsViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i4.ContactsView(),
-        transitionsBuilder: _i12.TransitionsBuilders.noTransition,
+        child: const _i5.ContactsView(),
+        transitionsBuilder: _i13.TransitionsBuilders.noTransition,
         opaque: true,
         barrierDismissible: false,
       );
     },
     SettingsViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i5.SettingsView(),
-        transitionsBuilder: _i12.TransitionsBuilders.noTransition,
+        child: const _i6.SettingsView(),
+        transitionsBuilder: _i13.TransitionsBuilders.noTransition,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ScanViewRoute.name: (routeData) {
+      return _i13.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i7.ScanView(),
+        maintainState: false,
+        transitionsBuilder: _i13.TransitionsBuilders.noTransition,
         opaque: true,
         barrierDismissible: false,
       );
@@ -73,9 +97,9 @@ class StackedRouterWeb extends _i12.RootStackRouter {
     CardEditorViewRoute.name: (routeData) {
       final args = routeData.argsAs<CardEditorViewArgs>(
           orElse: () => const CardEditorViewArgs());
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i6.CardEditorView(
+        child: _i8.CardEditorView(
           key: args.key,
           card: args.card,
           actionType: args.actionType,
@@ -83,13 +107,11 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     CardViewerViewRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<CardViewerViewArgs>(
-          orElse: () => CardViewerViewArgs(uuid: pathParams.optString('uuid')));
-      return _i12.MaterialPageX<dynamic>(
+      final args = routeData.argsAs<CardViewerViewArgs>();
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i7.CardViewerView(
-          uuid: args.uuid,
+        child: _i9.CardViewerView(
+          card: args.card,
           key: args.key,
         ),
       );
@@ -97,70 +119,66 @@ class StackedRouterWeb extends _i12.RootStackRouter {
     ForgotPasswordViewRoute.name: (routeData) {
       final args = routeData.argsAs<ForgotPasswordViewArgs>(
           orElse: () => const ForgotPasswordViewArgs());
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i8.ForgotPasswordView(
+        child: _i10.ForgotPasswordView(
           key: args.key,
           fromLink: args.fromLink,
         ),
       );
     },
-    ScanViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
-        routeData: routeData,
-        child: const _i9.ScanView(),
-        transitionsBuilder: _i12.TransitionsBuilders.noTransition,
-        opaque: true,
-        barrierDismissible: false,
-      );
-    },
     DashboardViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.DashboardView(),
+        child: const _i11.DashboardView(),
       );
     },
   };
 
   @override
-  List<_i12.RouteConfig> get routes => [
-        _i12.RouteConfig(
+  List<_i13.RouteConfig> get routes => [
+        _i13.RouteConfig(
           StartupViewRoute.name,
           path: '/',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
+          CardViewerWebViewRoute.name,
+          path: '/p/:uuid',
+          fullMatch: true,
+        ),
+        _i13.RouteConfig(
           AuthViewRoute.name,
           path: '/auth-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           HomeViewRoute.name,
           path: '/home-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           ContactsViewRoute.name,
           path: '/contacts-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           SettingsViewRoute.name,
           path: '/settings-view',
         ),
-        _i12.RouteConfig(
-          CardEditorViewRoute.name,
-          path: '/card-editor-view',
-        ),
-        _i12.RouteConfig(
-          CardViewerViewRoute.name,
-          path: '/p/:uuid',
-        ),
-        _i12.RouteConfig(
-          ForgotPasswordViewRoute.name,
-          path: '/forgot-password-view',
-        ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           ScanViewRoute.name,
           path: '/scan-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
+          CardEditorViewRoute.name,
+          path: '/card-editor-view',
+        ),
+        _i13.RouteConfig(
+          CardViewerViewRoute.name,
+          path: '/card-viewer-view',
+        ),
+        _i13.RouteConfig(
+          ForgotPasswordViewRoute.name,
+          path: '/forgot-password-view',
+        ),
+        _i13.RouteConfig(
           DashboardViewRoute.name,
           path: '/dashboard-view',
         ),
@@ -169,7 +187,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
 
 /// generated route for
 /// [_i1.StartupView]
-class StartupViewRoute extends _i12.PageRouteInfo<void> {
+class StartupViewRoute extends _i13.PageRouteInfo<void> {
   const StartupViewRoute()
       : super(
           StartupViewRoute.name,
@@ -180,8 +198,43 @@ class StartupViewRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.AuthView]
-class AuthViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i2.CardViewerWebView]
+class CardViewerWebViewRoute extends _i13.PageRouteInfo<CardViewerWebViewArgs> {
+  CardViewerWebViewRoute({
+    String? uuid,
+    _i14.Key? key,
+  }) : super(
+          CardViewerWebViewRoute.name,
+          path: '/p/:uuid',
+          args: CardViewerWebViewArgs(
+            uuid: uuid,
+            key: key,
+          ),
+          rawPathParams: {'uuid': uuid},
+        );
+
+  static const String name = 'CardViewerWebView';
+}
+
+class CardViewerWebViewArgs {
+  const CardViewerWebViewArgs({
+    this.uuid,
+    this.key,
+  });
+
+  final String? uuid;
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'CardViewerWebViewArgs{uuid: $uuid, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i3.AuthView]
+class AuthViewRoute extends _i13.PageRouteInfo<void> {
   const AuthViewRoute()
       : super(
           AuthViewRoute.name,
@@ -192,8 +245,8 @@ class AuthViewRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.HomeView]
-class HomeViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i4.HomeView]
+class HomeViewRoute extends _i13.PageRouteInfo<void> {
   const HomeViewRoute()
       : super(
           HomeViewRoute.name,
@@ -204,8 +257,8 @@ class HomeViewRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.ContactsView]
-class ContactsViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i5.ContactsView]
+class ContactsViewRoute extends _i13.PageRouteInfo<void> {
   const ContactsViewRoute()
       : super(
           ContactsViewRoute.name,
@@ -216,8 +269,8 @@ class ContactsViewRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.SettingsView]
-class SettingsViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i6.SettingsView]
+class SettingsViewRoute extends _i13.PageRouteInfo<void> {
   const SettingsViewRoute()
       : super(
           SettingsViewRoute.name,
@@ -228,12 +281,24 @@ class SettingsViewRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.CardEditorView]
-class CardEditorViewRoute extends _i12.PageRouteInfo<CardEditorViewArgs> {
+/// [_i7.ScanView]
+class ScanViewRoute extends _i13.PageRouteInfo<void> {
+  const ScanViewRoute()
+      : super(
+          ScanViewRoute.name,
+          path: '/scan-view',
+        );
+
+  static const String name = 'ScanView';
+}
+
+/// generated route for
+/// [_i8.CardEditorView]
+class CardEditorViewRoute extends _i13.PageRouteInfo<CardEditorViewArgs> {
   CardEditorViewRoute({
-    _i13.Key? key,
-    _i14.DigitalCardDTO? card,
-    _i15.ActionType? actionType,
+    _i14.Key? key,
+    _i15.DigitalCardDTO? card,
+    _i16.ActionType? actionType,
   }) : super(
           CardEditorViewRoute.name,
           path: '/card-editor-view',
@@ -254,11 +319,11 @@ class CardEditorViewArgs {
     this.actionType,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
-  final _i14.DigitalCardDTO? card;
+  final _i15.DigitalCardDTO? card;
 
-  final _i15.ActionType? actionType;
+  final _i16.ActionType? actionType;
 
   @override
   String toString() {
@@ -267,19 +332,18 @@ class CardEditorViewArgs {
 }
 
 /// generated route for
-/// [_i7.CardViewerView]
-class CardViewerViewRoute extends _i12.PageRouteInfo<CardViewerViewArgs> {
+/// [_i9.CardViewerView]
+class CardViewerViewRoute extends _i13.PageRouteInfo<CardViewerViewArgs> {
   CardViewerViewRoute({
-    String? uuid,
-    _i13.Key? key,
+    required _i15.DigitalCardDTO card,
+    _i14.Key? key,
   }) : super(
           CardViewerViewRoute.name,
-          path: '/p/:uuid',
+          path: '/card-viewer-view',
           args: CardViewerViewArgs(
-            uuid: uuid,
+            card: card,
             key: key,
           ),
-          rawPathParams: {'uuid': uuid},
         );
 
   static const String name = 'CardViewerView';
@@ -287,26 +351,26 @@ class CardViewerViewRoute extends _i12.PageRouteInfo<CardViewerViewArgs> {
 
 class CardViewerViewArgs {
   const CardViewerViewArgs({
-    this.uuid,
+    required this.card,
     this.key,
   });
 
-  final String? uuid;
+  final _i15.DigitalCardDTO card;
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
-    return 'CardViewerViewArgs{uuid: $uuid, key: $key}';
+    return 'CardViewerViewArgs{card: $card, key: $key}';
   }
 }
 
 /// generated route for
-/// [_i8.ForgotPasswordView]
+/// [_i10.ForgotPasswordView]
 class ForgotPasswordViewRoute
-    extends _i12.PageRouteInfo<ForgotPasswordViewArgs> {
+    extends _i13.PageRouteInfo<ForgotPasswordViewArgs> {
   ForgotPasswordViewRoute({
-    _i13.Key? key,
+    _i14.Key? key,
     bool fromLink = false,
   }) : super(
           ForgotPasswordViewRoute.name,
@@ -326,7 +390,7 @@ class ForgotPasswordViewArgs {
     this.fromLink = false,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   final bool fromLink;
 
@@ -337,20 +401,8 @@ class ForgotPasswordViewArgs {
 }
 
 /// generated route for
-/// [_i9.ScanView]
-class ScanViewRoute extends _i12.PageRouteInfo<void> {
-  const ScanViewRoute()
-      : super(
-          ScanViewRoute.name,
-          path: '/scan-view',
-        );
-
-  static const String name = 'ScanView';
-}
-
-/// generated route for
-/// [_i10.DashboardView]
-class DashboardViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i11.DashboardView]
+class DashboardViewRoute extends _i13.PageRouteInfo<void> {
   const DashboardViewRoute()
       : super(
           DashboardViewRoute.name,
@@ -360,17 +412,31 @@ class DashboardViewRoute extends _i12.PageRouteInfo<void> {
   static const String name = 'DashboardView';
 }
 
-extension RouterStateExtension on _i11.RouterService {
+extension RouterStateExtension on _i12.RouterService {
   Future<dynamic> navigateToStartupView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const StartupViewRoute(),
       onFailure: onFailure,
     );
   }
 
+  Future<dynamic> navigateToCardViewerWebView({
+    String? uuid,
+    _i14.Key? key,
+    void Function(_i13.NavigationFailure)? onFailure,
+  }) async {
+    return navigateTo(
+      CardViewerWebViewRoute(
+        uuid: uuid,
+        key: key,
+      ),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> navigateToAuthView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const AuthViewRoute(),
       onFailure: onFailure,
@@ -378,7 +444,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const HomeViewRoute(),
       onFailure: onFailure,
@@ -386,7 +452,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToContactsView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const ContactsViewRoute(),
       onFailure: onFailure,
@@ -394,18 +460,26 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToSettingsView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const SettingsViewRoute(),
       onFailure: onFailure,
     );
   }
 
+  Future<dynamic> navigateToScanView(
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const ScanViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> navigateToCardEditorView({
-    _i13.Key? key,
-    _i14.DigitalCardDTO? card,
-    _i15.ActionType? actionType,
-    void Function(_i12.NavigationFailure)? onFailure,
+    _i14.Key? key,
+    _i15.DigitalCardDTO? card,
+    _i16.ActionType? actionType,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       CardEditorViewRoute(
@@ -418,13 +492,13 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToCardViewerView({
-    String? uuid,
-    _i13.Key? key,
-    void Function(_i12.NavigationFailure)? onFailure,
+    required _i15.DigitalCardDTO card,
+    _i14.Key? key,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       CardViewerViewRoute(
-        uuid: uuid,
+        card: card,
         key: key,
       ),
       onFailure: onFailure,
@@ -432,9 +506,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToForgotPasswordView({
-    _i13.Key? key,
+    _i14.Key? key,
     bool fromLink = false,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       ForgotPasswordViewRoute(
@@ -445,16 +519,8 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> navigateToScanView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return navigateTo(
-      const ScanViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
   Future<dynamic> navigateToDashboardView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const DashboardViewRoute(),
       onFailure: onFailure,
@@ -462,15 +528,29 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithStartupView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const StartupViewRoute(),
       onFailure: onFailure,
     );
   }
 
+  Future<dynamic> replaceWithCardViewerWebView({
+    String? uuid,
+    _i14.Key? key,
+    void Function(_i13.NavigationFailure)? onFailure,
+  }) async {
+    return replaceWith(
+      CardViewerWebViewRoute(
+        uuid: uuid,
+        key: key,
+      ),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> replaceWithAuthView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const AuthViewRoute(),
       onFailure: onFailure,
@@ -478,7 +558,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const HomeViewRoute(),
       onFailure: onFailure,
@@ -486,7 +566,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithContactsView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const ContactsViewRoute(),
       onFailure: onFailure,
@@ -494,18 +574,26 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithSettingsView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const SettingsViewRoute(),
       onFailure: onFailure,
     );
   }
 
+  Future<dynamic> replaceWithScanView(
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const ScanViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> replaceWithCardEditorView({
-    _i13.Key? key,
-    _i14.DigitalCardDTO? card,
-    _i15.ActionType? actionType,
-    void Function(_i12.NavigationFailure)? onFailure,
+    _i14.Key? key,
+    _i15.DigitalCardDTO? card,
+    _i16.ActionType? actionType,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       CardEditorViewRoute(
@@ -518,13 +606,13 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithCardViewerView({
-    String? uuid,
-    _i13.Key? key,
-    void Function(_i12.NavigationFailure)? onFailure,
+    required _i15.DigitalCardDTO card,
+    _i14.Key? key,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       CardViewerViewRoute(
-        uuid: uuid,
+        card: card,
         key: key,
       ),
       onFailure: onFailure,
@@ -532,9 +620,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithForgotPasswordView({
-    _i13.Key? key,
+    _i14.Key? key,
     bool fromLink = false,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       ForgotPasswordViewRoute(
@@ -545,16 +633,8 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> replaceWithScanView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
-    return replaceWith(
-      const ScanViewRoute(),
-      onFailure: onFailure,
-    );
-  }
-
   Future<dynamic> replaceWithDashboardView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const DashboardViewRoute(),
       onFailure: onFailure,

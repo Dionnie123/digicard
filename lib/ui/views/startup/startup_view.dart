@@ -36,6 +36,12 @@ class StartupView extends StackedView<StartupViewModel> {
   }
 
   @override
+  void onDispose(StartupViewModel viewModel) {
+    viewModel.streamSubscription?.cancel();
+    super.onDispose(viewModel);
+  }
+
+  @override
   StartupViewModel viewModelBuilder(
     BuildContext context,
   ) =>

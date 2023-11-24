@@ -5,7 +5,6 @@ import 'package:digicard/app/app.router.dart';
 import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
-import 'package:digicard/ui/views/card_viewer/card_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:digicard/app/app.locator.dart';
 import 'package:flutter/material.dart';
@@ -62,8 +61,7 @@ class CardManagerSheetModel extends ReactiveViewModel {
 
   view(DigitalCardDTO card) async {
     _bottomSheetService.completeSheet(SheetResponse());
-
-    await _navigationService.navigateWithTransition(CardView(card: card));
+    await _navigationService.navigateToCardViewerView(card: card);
   }
 
   edit(DigitalCardDTO card) async {
