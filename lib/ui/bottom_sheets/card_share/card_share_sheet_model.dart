@@ -85,7 +85,7 @@ class CardShareSheetModel extends ReactiveViewModel {
           );
         } else {
           await WebImageDownloader.downloadImageFromUInt8List(
-              name: '${card.uuid}.png', uInt8List: image);
+              name: '${card.uuid}.jpg', uInt8List: image);
 
           result = {"isSuccess": true};
         }
@@ -111,7 +111,7 @@ class CardShareSheetModel extends ReactiveViewModel {
 
   Future downloadVcf() async {
     try {
-      await _nativeContactsService.download(card).then((value) {
+      await _nativeContactsService.downloadVCF(card).then((value) {
         //Show Success Prompt
       });
     } catch (e) {

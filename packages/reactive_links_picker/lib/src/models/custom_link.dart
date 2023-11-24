@@ -26,15 +26,8 @@ class CustomLink with _$CustomLink {
   factory CustomLink.fromJson(Map<String, dynamic> json) =>
       _$CustomLinkFromJson(json);
 
-  static CustomLink initialize({required String label}) {
-    final temp = icons.firstWhereOrNull((element) => element.label == label);
-    return temp ?? CustomLink.empty;
-  }
-
   static CustomLink empty = CustomLink(
       label: "Info",
-      value: "",
-      prefixLink: "",
       icon: const Icon(
         Icons.link,
       ));

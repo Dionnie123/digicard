@@ -1,15 +1,11 @@
-import 'dart:typed_data';
-
 import 'package:collection/collection.dart';
 import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
-import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_ez_core/extensions/string_extension.dart';
+import 'package:reactive_links_picker/reactive_links_picker.dart';
 
-import 'package:flutter_ez_core/helpers/image_cache_downloader.dart';
-
-extension DigitalCardExtension on DigitalCardDTO {
+extension DigitalCardDTOExtension on DigitalCardDTO {
   String fullName() {
     return "${prefix ?? ""}  ${firstName ?? ""} ${middleName ?? ""} ${lastName ?? ""}  ${suffix ?? ""}"
         .sanitize();
@@ -53,7 +49,7 @@ extension DigitalCardExtension on DigitalCardDTO {
     return value;
   }
 
-  static Future<Contact?> toContact(DigitalCardDTO card) async {
+  static Contact? convertToContact(DigitalCardDTO card) {
     try {
       final links = card.customLinks ?? [];
       //Group custom links by label
@@ -61,8 +57,6 @@ extension DigitalCardExtension on DigitalCardDTO {
           groupBy(links.map((e) => e).toList(), (e) {
         return e['label'];
       });
-      //Downlod existing image
-      Uint8List? bytes = await imageCacheDownload(card.avatarHttpUrl);
 
       List<Map<String, dynamic>> groupGet(String groupName) {
         return (customLinks[groupName] ?? []).map((e) {
@@ -70,9 +64,8 @@ extension DigitalCardExtension on DigitalCardDTO {
         }).toList();
       }
 
-      return Future.value(Contact(
+      return Contact(
         id: card.uuid ?? "",
-        //  photo: bytes,
         displayName: "${card.firstName ?? ""} ${card.lastName ?? ""}",
         name: Name(
           prefix: card.prefix ?? "",
@@ -84,47 +77,39 @@ extension DigitalCardExtension on DigitalCardDTO {
         organizations: [
           Organization(title: card.position ?? "", company: card.company ?? "")
         ],
-        /*     socialMedias: [
-          ...groupGet("LinkedIn").map((e) {
-            return SocialMedia(
-              "${e['prefix']}${e['value']}",
-              customLabel: e['custom'] ?? e['label'],
-            );
-          }).toList(),
-          ...groupGet("Facebook").map((e) {
-            return SocialMedia(
-              "${e['prefix']}${e['value']}",
-              customLabel: e['custom'] ?? e['label'],
-            );
-          }).toList(),
-          ...groupGet("Twitter").map((e) {
-            return SocialMedia(
-              "${e['prefix']}${e['value']}",
-              customLabel: e['custom'] ?? e['label'],
-            );
-          }).toList(),
-          ...groupGet("Instagram").map((e) {
-            return SocialMedia(
-              "${e['prefix']}${e['value']}",
-              customLabel: e['custom'] ?? e['label'],
-            );
-          }).toList(),
-          ...groupGet("Paypal").map((e) {
-            return SocialMedia(
-              "${e['prefix']}${e['value']}",
-              customLabel: e['custom'] ?? e['label'],
-            );
-          }).toList()
-        ], */
         notes: [Note(card.headline ?? "")],
         emails: groupGet("Email").map((e) => Email(e['value'])).toList(),
         phones: groupGet("Phone").map((e) => Phone(e['value'])).toList(),
-        websites: groupGet("Website").map((e) => Website(e['value'])).toList(),
+        websites: [
+          ...groupGet("Website")
+              .map((e) => Website("https://www.${e['value']}"))
+              .toList(),
+          ...groupGet("LinkedIn").map((e) {
+            final temp = reactiveLinksFind(e['label']);
+            return Website("${temp['prefix_link']}${e['value']}");
+          }).toList(),
+          ...groupGet("Facebook").map((e) {
+            final temp = reactiveLinksFind(e['label']);
+            return Website("${temp['prefix_link']}${e['value']}");
+          }).toList(),
+          ...groupGet("Twitter").map((e) {
+            final temp = reactiveLinksFind(e['label']);
+            return Website("${temp['prefix_link']}${e['value']}");
+          }).toList(),
+          ...groupGet("Instagram").map((e) {
+            final temp = reactiveLinksFind(e['label']);
+            return Website("${temp['prefix_link']}${e['value']}");
+          }).toList(),
+          ...groupGet("Paypal").map((e) {
+            final temp = reactiveLinksFind(e['label']);
+            return Website("${temp['prefix_link']}${e['value']}");
+          }).toList(),
+          Website(card.cardHttpUrl),
+        ],
         addresses: groupGet("Address").map((e) => Address(e['value'])).toList(),
-        accounts: [],
-      ));
+      );
     } catch (e) {
-      return Future.value();
+      return null;
     }
   }
 }

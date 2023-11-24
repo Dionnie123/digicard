@@ -11,6 +11,12 @@ class CardDisplay extends StackedView<CardDisplayModel> {
   const CardDisplay(this.card, {super.key});
 
   @override
+  void onViewModelReady(CardDisplayModel viewModel) {
+    viewModel.card = card;
+    super.onViewModelReady(viewModel);
+  }
+
+  @override
   Widget builder(
     BuildContext context,
     CardDisplayModel viewModel,
@@ -18,70 +24,54 @@ class CardDisplay extends StackedView<CardDisplayModel> {
   ) {
     final colorTheme = card.color ?? kcPrimaryColor;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: 440,
-          child: Column(
-            children: [
-              ClassicCard(card: card),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 15),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: FilledButton(
-                          style: ButtonStyle(
-                              foregroundColor:
-                                  const MaterialStatePropertyAll(Colors.white),
-                              backgroundColor:
-                                  MaterialStatePropertyAll(colorTheme)),
-                          onPressed: () {},
-                          child: const Text("Add to Contacts")),
-                    ),
-                    vSpaceRegular,
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: FilledButton(
-                          style: ButtonStyle(
-                              foregroundColor:
-                                  const MaterialStatePropertyAll(Colors.white),
-                              backgroundColor:
-                                  MaterialStatePropertyAll(colorTheme)),
-                          onPressed: () async {
-                            await viewModel.downloadVcf(card);
-                          },
-                          child: const Text("Download VCF")),
-                    ),
-                    vSpaceRegular,
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: FilledButton(
-                          style: ButtonStyle(
-                              foregroundColor:
-                                  const MaterialStatePropertyAll(Colors.white),
-                              backgroundColor:
-                                  MaterialStatePropertyAll(colorTheme)),
-                          onPressed: () {},
-                          child: const Text("Download QR")),
-                    )
-                  ],
-                ),
+    return Center(
+      child: SizedBox(
+        width: 440,
+        child: Column(
+          children: [
+            ClassicCard(card: card),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 15),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: FilledButton(
+                        style: ButtonStyle(
+                            foregroundColor:
+                                const MaterialStatePropertyAll(Colors.white),
+                            backgroundColor:
+                                MaterialStatePropertyAll(colorTheme)),
+                        onPressed: () async {
+                          await viewModel.downloadVCF();
+                        },
+                        child: const Text("Download VCF")),
+                  ),
+                  vSpaceRegular,
+                  SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: FilledButton(
+                        style: ButtonStyle(
+                            foregroundColor:
+                                const MaterialStatePropertyAll(Colors.white),
+                            backgroundColor:
+                                MaterialStatePropertyAll(colorTheme)),
+                        onPressed: () {
+                          viewModel.downloadQRCode(context);
+                        },
+                        child: const Text("Download QR")),
+                  )
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   @override
-  CardDisplayModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      CardDisplayModel();
+  CardDisplayModel viewModelBuilder(BuildContext context) => CardDisplayModel();
 }

@@ -1,16 +1,17 @@
 import 'dart:typed_data';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
+import 'package:digicard/ui/widgets/card_display/card_display_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
 import 'package:flutter_ez_core/extensions/string_extension.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:stacked/stacked.dart';
 
 import 'columns_separated.dart';
 
@@ -20,6 +21,7 @@ class ClassicCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = getParentViewModel<CardDisplayModel>(context);
     final colorTheme = card.color ?? kcPrimaryColor;
 
     Widget squareImage() {
@@ -138,80 +140,82 @@ class ClassicCard extends StatelessWidget {
             );
     }
 
-    Widget imageForQr() {
-      return (card.logoFile is bool && card.logoFile == false)
-          ? const SizedBox.shrink()
-          : Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Stack(
-                  children: [
-                    if (card.logoUrl is String &&
-                        card.logoUrl.toString().isNotEmpty)
-                      Image.network(
-                        card.logoHttpUrl,
-                        width: 45,
-                        height: 45,
-                        fit: BoxFit.contain,
-                      ),
-                    if (card.logoFile is Uint8List)
-                      Image.memory(
-                        card.logoFile ?? Uint8List(0),
-                        width: 45,
-                        height: 45,
-                        fit: BoxFit.contain,
-                      )
-                  ],
-                ),
-              ),
-            );
-    }
-
-    Widget qrCode() {
-      return (card.id == null)
-          ? const SizedBox.shrink()
-          : Builder(builder: (context) {
-              return Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: QrImageView(
-                            data: card.cardHttpUrl,
-                            version: QrVersions.auto,
-                            errorCorrectionLevel: QrErrorCorrectLevel.M,
-                            size: 200,
-                            eyeStyle: const QrEyeStyle(
-                              color: Colors.black,
-                            ),
-                            backgroundColor: Colors.white,
-                            gapless: true,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: imageForQr(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  vSpaceSmall,
-                  const Text("Scan or Click to View"),
-                ],
-              );
-            });
-    }
-
     Widget customLinks() {
       return (card.customLinks ?? []).isEmpty
           ? const SizedBox.shrink()
           : ReactiveLinksBuilder(
               color: colorTheme, links: card.customLinks ?? []);
+    }
+
+    Widget qrCodeLogo() {
+      return (card.logoFile is bool && card.logoFile == false)
+          ? const SizedBox.shrink()
+          : Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  if (card.logoUrl is String &&
+                      card.logoUrl.toString().isNotEmpty &&
+                      card.logoFile is! Uint8List)
+                    Container(
+                      padding: const EdgeInsets.all(3.0),
+                      color: Colors.white,
+                      child: Image.network(
+                        card.logoHttpUrl,
+                        width: 37,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  if (card.logoFile is Uint8List)
+                    Container(
+                      padding: const EdgeInsets.all(3.0),
+                      color: Colors.white,
+                      child: Image.memory(
+                        card.logoFile ?? Uint8List(0),
+                        width: 38,
+                        fit: BoxFit.contain,
+                      ),
+                    )
+                ],
+              ),
+            );
+    }
+
+    Widget qrCode() {
+      return Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Screenshot(
+              key: UniqueKey(),
+              controller: viewModel.screenshotControllerDownload,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: QrImageView(
+                      data: DigitalCardDTOExtension.convertToContact(card)!
+                          .toVCard(withPhoto: false),
+                      version: QrVersions.auto,
+                      errorCorrectionLevel: QrErrorCorrectLevel.M,
+                      size: 250,
+                      eyeStyle: const QrEyeStyle(
+                        color: Colors.black,
+                      ),
+                      backgroundColor: Colors.white,
+                      gapless: true,
+                    ),
+                  ),
+                  Align(alignment: Alignment.center, child: qrCodeLogo()),
+                ],
+              ),
+            ),
+          ),
+          vSpaceSmall,
+          const Text("Scan or Click to View"),
+        ],
+      );
     }
 
     return Card(
@@ -247,74 +251,11 @@ class ClassicCard extends StatelessWidget {
             ColumnSeparated(children: [
               headline(),
               customLinks(),
-              QRCodeGen(
-                logo: const SizedBox.shrink(),
-                card: card,
-              )
+              qrCode(),
             ])
           ],
         );
       }),
     );
-  }
-}
-
-class QRCodeGen extends StatefulWidget {
-  final Widget logo;
-  final DigitalCardDTO card;
-  const QRCodeGen({super.key, required this.logo, required this.card});
-
-  @override
-  State<QRCodeGen> createState() => _QRCodeGenState();
-}
-
-class _QRCodeGenState extends State<QRCodeGen> {
-  Future<Contact?> load() async {
-    return await DigitalCardExtension.toContact(widget.card);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: load(),
-        builder: (BuildContext ctx, AsyncSnapshot<Contact?> snapshot) {
-          return (snapshot.hasData == false)
-              ? const SizedBox.shrink()
-              : Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: QrImageView(
-                              data: snapshot.data?.toVCard(
-                                    withPhoto: false,
-                                  ) ??
-                                  "",
-                              version: QrVersions.auto,
-                              errorCorrectionLevel: QrErrorCorrectLevel.M,
-                              size: 200,
-                              eyeStyle: const QrEyeStyle(
-                                color: Colors.black,
-                              ),
-                              backgroundColor: Colors.white,
-                              gapless: true,
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: widget.logo,
-                          ),
-                        ],
-                      ),
-                    ),
-                    vSpaceSmall,
-                    const Text("Scan or Click to View"),
-                  ],
-                );
-        });
   }
 }

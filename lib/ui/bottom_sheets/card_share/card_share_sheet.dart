@@ -43,7 +43,8 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: QrImageView(
-          data: viewModel.card.cardHttpUrl,
+          data: DigitalCardDTOExtension.convertToContact(viewModel.card)!
+              .toVCard(withPhoto: false),
           version: QrVersions.auto,
           errorCorrectionLevel: QrErrorCorrectLevel.M,
           size: 200,

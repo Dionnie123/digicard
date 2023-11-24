@@ -21,7 +21,6 @@ class CardViewerViewModel extends ReactiveViewModel {
   final log = getLogger('CardViewerViewModel');
   final _supabase = Supabase.instance.client;
   User? get user => _supabase.auth.currentUser;
-
   final _contactsService = locator<ContactsService>();
   final _nativeContactsService = locator<NativeContactsService>();
   final _digitalCardService = locator<DigitalCardService>();
@@ -81,7 +80,7 @@ class CardViewerViewModel extends ReactiveViewModel {
   }
 
   Future downloadVcf() async {
-    await runBusyFuture(_nativeContactsService.download(card),
+    await runBusyFuture(_nativeContactsService.downloadVCF(card),
         throwException: true, busyObject: saveBusyKey);
   }
 

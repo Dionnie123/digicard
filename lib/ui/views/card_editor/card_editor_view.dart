@@ -78,18 +78,21 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                               ? const CardTabForm()
                               : Row(
                                   children: [
-                                    const SizedBox(
-                                        width: 600, child: CardTabForm()),
+                                    const Expanded(child: CardTabForm()),
                                     const VerticalDivider(
                                       width: 2,
                                       thickness: 2,
                                     ),
                                     Expanded(
                                       child: ReactiveDigitalCardDTOFormConsumer(
+                                          key: UniqueKey(),
                                           builder: (context, form, _) {
-                                        return CardDisplay(form.model);
-                                      }),
-                                    )
+                                            return Scaffold(
+                                                body: SingleChildScrollView(
+                                                    child: CardDisplay(
+                                                        form.model)));
+                                          }),
+                                    ),
                                   ],
                                 );
                         }),

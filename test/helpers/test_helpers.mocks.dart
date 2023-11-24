@@ -1122,9 +1122,10 @@ class MockNativeContactsService extends _i1.Mock
       ) as _i6.Future<dynamic>);
 
   @override
-  _i6.Future<dynamic> download(_i9.DigitalCardDTO? card) => (super.noSuchMethod(
+  _i6.Future<dynamic> downloadVCF(_i9.DigitalCardDTO? card) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #download,
+          #downloadVCF,
           [card],
         ),
         returnValue: _i6.Future<dynamic>.value(),
