@@ -162,7 +162,7 @@ class ClassicCard extends StatelessWidget {
                       color: Colors.white,
                       child: Image.network(
                         card.logoHttpUrl,
-                        width: 37,
+                        width: 250 * 0.16,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -172,7 +172,7 @@ class ClassicCard extends StatelessWidget {
                       color: Colors.white,
                       child: Image.memory(
                         card.logoFile ?? Uint8List(0),
-                        width: 38,
+                        width: 250 * 0.16,
                         fit: BoxFit.contain,
                       ),
                     )

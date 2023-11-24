@@ -68,8 +68,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
                   imageUrl: viewModel.card.logoHttpUrl,
                   imageBuilder: (context, imageProvider) => Image(
                         image: imageProvider,
-                        width: 45,
-                        height: 45,
+                        width: 200 * 0.16,
                       ),
                   placeholder: (context, url) {
                     return const SizedBox.shrink();
