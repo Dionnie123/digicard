@@ -18,6 +18,7 @@ class CardViewerView extends StackedView<CardViewerViewModel> {
     return LayoutBuilder(builder: (context, size) {
       return Scaffold(
           appBar: AppBar(
+            forceMaterialTransparency: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),

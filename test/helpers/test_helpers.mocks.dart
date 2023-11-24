@@ -8,15 +8,14 @@ import 'dart:typed_data' as _i10;
 import 'dart:ui' as _i7;
 
 import 'package:digicard/app/models/digital_card_dto.dart' as _i9;
-import 'package:digicard/app/models/user.dart' as _i14;
-import 'package:digicard/app/services/auth_service.dart' as _i17;
+import 'package:digicard/app/models/user.dart' as _i13;
+import 'package:digicard/app/services/auth_service.dart' as _i16;
 import 'package:digicard/app/services/contacts_service.dart' as _i11;
-import 'package:digicard/app/services/deeplink_service.dart' as _i12;
 import 'package:digicard/app/services/digital_card_service.dart' as _i8;
-import 'package:digicard/app/services/local_storage_service.dart' as _i13;
-import 'package:digicard/app/services/native_contacts_service.dart' as _i15;
-import 'package:digicard/app/services/permission_handler_service.dart' as _i16;
-import 'package:digicard/app/services/user_service.dart' as _i18;
+import 'package:digicard/app/services/local_storage_service.dart' as _i12;
+import 'package:digicard/app/services/native_contacts_service.dart' as _i14;
+import 'package:digicard/app/services/permission_handler_service.dart' as _i15;
+import 'package:digicard/app/services/user_service.dart' as _i17;
 import 'package:flutter/material.dart' as _i5;
 import 'package:logger/src/logger.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -985,103 +984,13 @@ class MockContactsService extends _i1.Mock implements _i11.ContactsService {
       );
 }
 
-/// A class which mocks [DeeplinkService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockDeeplinkService extends _i1.Mock implements _i12.DeeplinkService {
-  @override
-  _i2.Logger get log => (super.noSuchMethod(
-        Invocation.getter(#log),
-        returnValue: _FakeLogger_0(
-          this,
-          Invocation.getter(#log),
-        ),
-        returnValueForMissingStub: _FakeLogger_0(
-          this,
-          Invocation.getter(#log),
-        ),
-      ) as _i2.Logger);
-
-  @override
-  int get listenersCount => (super.noSuchMethod(
-        Invocation.getter(#listenersCount),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
-
-  @override
-  _i6.Future<void> initURIHandler() => (super.noSuchMethod(
-        Invocation.method(
-          #initURIHandler,
-          [],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-
-  @override
-  void incomingLinkHandler() => super.noSuchMethod(
-        Invocation.method(
-          #incomingLinkHandler,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #listenToReactiveValues,
-          [reactiveValues],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void addListener(void Function()? listener) => super.noSuchMethod(
-        Invocation.method(
-          #addListener,
-          [listener],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void removeListener(void Function()? listener) => super.noSuchMethod(
-        Invocation.method(
-          #removeListener,
-          [listener],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void notifyListeners() => super.noSuchMethod(
-        Invocation.method(
-          #notifyListeners,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-}
-
 /// A class which mocks [LocalStorageService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLocalStorageService extends _i1.Mock
-    implements _i13.LocalStorageService {
+    implements _i12.LocalStorageService {
   @override
-  set user(_i14.User? userToSave) => super.noSuchMethod(
+  set user(_i13.User? userToSave) => super.noSuchMethod(
         Invocation.setter(
           #user,
           userToSave,
@@ -1103,7 +1012,7 @@ class MockLocalStorageService extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNativeContactsService extends _i1.Mock
-    implements _i15.NativeContactsService {
+    implements _i14.NativeContactsService {
   @override
   int get listenersCount => (super.noSuchMethod(
         Invocation.getter(#listenersCount),
@@ -1174,12 +1083,12 @@ class MockNativeContactsService extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPermissionHandlerService extends _i1.Mock
-    implements _i16.PermissionHandlerService {}
+    implements _i15.PermissionHandlerService {}
 
 /// A class which mocks [AuthService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthService extends _i1.Mock implements _i17.AuthService {
+class MockAuthService extends _i1.Mock implements _i16.AuthService {
   @override
   _i6.Future<dynamic> signInWithEmail({
     required String? email,
@@ -1264,7 +1173,7 @@ class MockAuthService extends _i1.Mock implements _i17.AuthService {
 /// A class which mocks [UserService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserService extends _i1.Mock implements _i18.UserService {
+class MockUserService extends _i1.Mock implements _i17.UserService {
   @override
   set user(dynamic value) => super.noSuchMethod(
         Invocation.setter(

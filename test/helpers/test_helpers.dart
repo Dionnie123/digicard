@@ -1,6 +1,6 @@
 import 'package:digicard/app/services/auth_service.dart';
 import 'package:digicard/app/services/contacts_service.dart';
-import 'package:digicard/app/services/deeplink_service.dart';
+
 import 'package:digicard/app/services/digital_card_service.dart';
 import 'package:digicard/app/services/local_storage_service.dart';
 import 'package:digicard/app/services/native_contacts_service.dart';
@@ -21,7 +21,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DigitalCardService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ContactsService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<DeeplinkService>(onMissingStub: OnMissingStub.returnDefault),
+
   MockSpec<LocalStorageService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<NativeContactsService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<PermissionHandlerService>(
@@ -36,7 +36,6 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterDigitalCardService();
   getAndRegisterContactsService();
-  getAndRegisterDeeplinkService();
   getAndRegisterLocalStorageService();
   getAndRegisterNativeContactsService();
   getAndRegisterPermissionHandlerService();
@@ -106,13 +105,6 @@ MockContactsService getAndRegisterContactsService() {
   _removeRegistrationIfExists<ContactsService>();
   final service = MockContactsService();
   locator.registerSingleton<ContactsService>(service);
-  return service;
-}
-
-MockDeeplinkService getAndRegisterDeeplinkService() {
-  _removeRegistrationIfExists<DeeplinkService>();
-  final service = MockDeeplinkService();
-  locator.registerSingleton<DeeplinkService>(service);
   return service;
 }
 

@@ -21,7 +21,6 @@ import 'package:digicard/ui/views/forgot_password/forgot_password_view.dart';
 import 'services/auth_service.dart';
 import 'services/authentication_service.supabase.dart';
 import 'services/contacts_service.dart';
-import 'services/deeplink_service.dart';
 import 'services/digital_card_service.dart';
 import 'services/local_storage_service.dart';
 import 'services/native_contacts_service.dart';
@@ -81,7 +80,7 @@ import 'package:digicard/ui/views/card_viewer_web/card_viewer_web_view.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: DigitalCardService),
     LazySingleton(classType: ContactsService),
-    LazySingleton(classType: DeeplinkService),
+
     LazySingleton(classType: LocalStorageService),
     LazySingleton(classType: NativeContactsService),
     LazySingleton(classType: PermissionHandlerService),

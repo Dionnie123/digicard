@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/app.router.dart';
 import 'package:digicard/app/helpers/card_url_checker.dart';
-import 'package:digicard/app/services/deeplink_service.dart';
 import 'package:digicard/app/services/user_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -45,7 +44,6 @@ class StartupViewModel extends BaseViewModel {
     if (!kIsWeb) {
       streamSubscription = uriLinkStream.listen((Uri? uri) async {
         if (uri != null) {
-          log.i("Stream Deep Link $uri");
           if (CardUrl(uri.toString()).isValid()) {
             await _navigationService.navigateToCardViewerWebView(
                 uuid: CardUrl(uri.toString()).uuid);

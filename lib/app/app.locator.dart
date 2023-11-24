@@ -16,7 +16,6 @@ import '../ui/widgets/card_display/card_display_model.dart';
 import 'services/auth_service.dart';
 import 'services/authentication_service.supabase.dart';
 import 'services/contacts_service.dart';
-import 'services/deeplink_service.dart';
 import 'services/digital_card_service.dart';
 import 'services/local_storage_service.dart';
 import 'services/native_contacts_service.dart';
@@ -46,7 +45,6 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => DigitalCardService());
   locator.registerLazySingleton(() => ContactsService());
-  locator.registerLazySingleton(() => DeeplinkService());
   locator.registerLazySingleton(() => LocalStorageService());
   locator.registerLazySingleton(() => NativeContactsService());
   locator.registerLazySingleton(() => PermissionHandlerService());

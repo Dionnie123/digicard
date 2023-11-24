@@ -24,6 +24,11 @@ class CardViewerWebView extends StackedView<CardViewerWebViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator())
           : viewModel.card == null || uuid == null
