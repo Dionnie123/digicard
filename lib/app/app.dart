@@ -1,9 +1,11 @@
 import 'package:digicard/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:digicard/ui/views/card_viewer/card_viewer_view.dart';
+import 'package:digicard/ui/views/contacts/contacts_viewmodel.dart';
 import 'package:digicard/ui/views/home/home_view.dart';
 import 'package:digicard/ui/views/home/home_viewmodel.dart';
+import 'package:digicard/ui/views/scan/scan_viewmodel.dart';
+import 'package:digicard/ui/views/settings/settings_viewmodel.dart';
 import 'package:digicard/ui/views/startup/startup_view.dart';
-import 'package:digicard/ui/widgets/card_display/card_display_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -85,7 +87,9 @@ import 'package:digicard/ui/views/card_viewer_web/card_viewer_web_view.dart';
     LazySingleton(classType: NativeContactsService),
     LazySingleton(classType: PermissionHandlerService),
 
-    Singleton(classType: HomeViewModel), Singleton(classType: CardDisplayModel),
+    Singleton(classType: HomeViewModel), Singleton(classType: ScanViewModel),
+    Singleton(classType: ContactsViewModel),
+    Singleton(classType: SettingsViewModel),
 
 // @stacked-service
   ],

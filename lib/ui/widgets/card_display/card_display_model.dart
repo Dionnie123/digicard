@@ -1,7 +1,6 @@
-import 'dart:typed_data';
-
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/app.logger.dart';
+import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/services/native_contacts_service.dart';
 import 'package:flutter/foundation.dart';
@@ -28,6 +27,11 @@ class CardDisplayModel extends BaseViewModel {
   }
 
   ScreenshotController screenshotControllerDownload = ScreenshotController();
+
+  Future addToContacts() async {
+    final newContact = DigitalCardDTOExtension.convertToContact(card);
+    await newContact?.insert();
+  }
 
   Future downloadVCF() async {
     try {

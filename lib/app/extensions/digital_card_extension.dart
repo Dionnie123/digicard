@@ -65,7 +65,6 @@ extension DigitalCardDTOExtension on DigitalCardDTO {
       }
 
       return Contact(
-        id: card.uuid ?? "",
         displayName: "${card.firstName ?? ""} ${card.lastName ?? ""}",
         name: Name(
           prefix: card.prefix ?? "",

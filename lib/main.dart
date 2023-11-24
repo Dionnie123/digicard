@@ -3,7 +3,6 @@ import 'package:digicard/app/env/env.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/common/theme.dark.dart';
 import 'package:digicard/ui/common/theme.light.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:digicard/app/app.bottomsheets.dart';
@@ -20,15 +19,13 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'firebase_options.dart';
-
 Future<void> main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(
     widgetsBinding: widgetsBinding,
   );
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Supabase.initialize(
     url: Env.supabaseUrl,
     anonKey: Env.supabaseAnonKey,

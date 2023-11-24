@@ -10,10 +10,12 @@ import 'card_display_model.dart';
 
 class CardDisplay extends StackedView<CardDisplayModel> {
   final DigitalCardDTO card;
+  final bool allowAddToContacts;
   final bool allowDownloadQRCode;
   final bool allowDownloadVCF;
   const CardDisplay(this.card,
-      {required this.allowDownloadQRCode,
+      {required this.allowAddToContacts,
+      required this.allowDownloadQRCode,
       required this.allowDownloadVCF,
       super.key});
 
@@ -59,6 +61,22 @@ class CardDisplay extends StackedView<CardDisplayModel> {
                 padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 15),
                 child: Column(
                   children: [
+                    if (allowAddToContacts)
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: FilledButton(
+                            style: ButtonStyle(
+                                foregroundColor: const MaterialStatePropertyAll(
+                                    Colors.white),
+                                backgroundColor:
+                                    MaterialStatePropertyAll(colorTheme)),
+                            onPressed: () async {
+                              await viewModel.addToContacts();
+                            },
+                            child: const Text("Add to Contacts")),
+                      ),
+                    vSpaceRegular,
                     if (allowDownloadVCF)
                       SizedBox(
                         width: double.infinity,

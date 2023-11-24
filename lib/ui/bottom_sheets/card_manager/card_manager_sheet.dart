@@ -39,94 +39,92 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
     return LoaderOverlayWrapper(
         type: loadingType,
         builder: (context) {
-          return BottomSheetWrapper(
-              notchColor: colorTheme ?? kcPrimaryColor,
+          return BottomSheetWrapper(notchColor: colorTheme, children: [
+            Text(
+              viewModel.card.title.toString(),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 22,
+              ),
+            ),
+            vSpaceRegular,
+            Row(
               children: [
-                Text(
-                  viewModel.card.title.toString(),
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 22,
+                Expanded(
+                  child: PanelButton.big(
+                    color: colorTheme,
+                    onTap: () {
+                      viewModel.share();
+                    },
+                    icon: const Icon(
+                      FontAwesomeIcons.paperPlane,
+                      size: 36,
+                    ),
+                    title: "SHARE",
+                    subtitle: "Send via QR, Email, Text and more.",
                   ),
                 ),
-                vSpaceRegular,
-                Row(
-                  children: [
-                    Expanded(
-                      child: PanelButton.big(
-                        color: colorTheme,
-                        onTap: () {
-                          viewModel.share();
-                        },
-                        icon: const Icon(
-                          FontAwesomeIcons.paperPlane,
-                          size: 36,
-                        ),
-                        title: "SHARE",
-                        subtitle: "Send via QR, Email, Text and more.",
-                      ),
+                hSpaceSmall,
+                Expanded(
+                  child: PanelButton.big(
+                    color: colorTheme,
+                    onTap: () {
+                      viewModel.view(request.data);
+                    },
+                    icon: const Icon(
+                      FontAwesomeIcons.eye,
+                      size: 36,
                     ),
-                    hSpaceSmall,
-                    Expanded(
-                      child: PanelButton.big(
-                        color: colorTheme,
-                        onTap: () {
-                          viewModel.view(request.data);
-                        },
-                        icon: const Icon(
-                          FontAwesomeIcons.eye,
-                          size: 36,
-                        ),
-                        title: "VIEW",
-                        subtitle: "Open your card in Digicard.",
-                      ),
-                    ),
-                  ],
+                    title: "VIEW",
+                    subtitle: "Open your card in Digicard.",
+                  ),
                 ),
-                vSpaceSmall,
-                Row(
-                  children: [
-                    Expanded(
-                      child: PanelButton(
-                          color: colorTheme,
-                          onTap: () async {
-                            viewModel.edit(request.data);
-                          },
-                          icon: const Icon(FontAwesomeIcons.penToSquare),
-                          title: "Edit"),
-                    ),
-                  ],
+              ],
+            ),
+            vSpaceSmall,
+            Row(
+              children: [
+                Expanded(
+                  child: PanelButton(
+                      color: colorTheme,
+                      onTap: () async {
+                        viewModel.edit(request.data);
+                      },
+                      icon: const Icon(FontAwesomeIcons.penToSquare),
+                      title: "Edit"),
                 ),
-                vSpaceSmall,
-                Row(
-                  children: [
-                    Expanded(
-                      child: PanelButton(
-                          color: colorTheme,
-                          onTap: () async {
-                            await viewModel.duplicate(request.data);
-                          },
-                          icon: const Icon(FontAwesomeIcons.copy),
-                          title: "Duplicate"),
-                    ),
-                  ],
+              ],
+            ),
+            vSpaceSmall,
+            Row(
+              children: [
+                Expanded(
+                  child: PanelButton(
+                      color: colorTheme,
+                      onTap: () async {
+                        await viewModel.duplicate(request.data);
+                      },
+                      icon: const Icon(FontAwesomeIcons.copy),
+                      title: "Duplicate"),
                 ),
-                vSpaceSmall,
-                Row(
-                  children: [
-                    Expanded(
-                      child: PanelButton(
-                          color: colorTheme,
-                          onTap: () async {
-                            await viewModel.delete(request.data.id);
-                          },
-                          icon: const Icon(FontAwesomeIcons.trash),
-                          title: "Delete"),
-                    ),
-                  ],
+              ],
+            ),
+            vSpaceSmall,
+            Row(
+              children: [
+                Expanded(
+                  child: PanelButton(
+                      color: colorTheme,
+                      onTap: () async {
+                        await viewModel.delete(request.data.id);
+                      },
+                      icon: const Icon(FontAwesomeIcons.trash),
+                      title: "Delete"),
                 ),
-              ]);
+              ],
+            ),
+          ]);
         });
   }
 

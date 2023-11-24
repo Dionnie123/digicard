@@ -1,5 +1,6 @@
 import 'package:digicard/ui/views/card_viewer_web/card_viewer_web_viewmodel.dart';
 import 'package:digicard/ui/widgets/card_display/card_display.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -39,6 +40,7 @@ class CardViewerWebView extends StackedView<CardViewerWebViewModel> {
               : SingleChildScrollView(
                   child: CardDisplay(
                     viewModel.card ?? DigitalCardDTO.blank(),
+                    allowAddToContacts: !kIsWeb,
                     allowDownloadQRCode: true,
                     allowDownloadVCF: true,
                   ),

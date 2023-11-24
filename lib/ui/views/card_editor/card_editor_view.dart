@@ -90,6 +90,7 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                             body: SingleChildScrollView(
                                                 child: CardDisplay(
                                           form.model,
+                                          allowAddToContacts: false,
                                           allowDownloadQRCode: false,
                                           allowDownloadVCF: false,
                                         )));

@@ -1,14 +1,20 @@
+import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/widgets/settings_ui.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_themes/stacked_themes.dart';
 
 import 'settings_viewmodel.dart';
 
 class SettingsView extends StackedView<SettingsViewModel> {
   const SettingsView({Key? key}) : super(key: key);
+
+  @override
+  bool get disposeViewModel => false;
+
+  @override
+  bool get fireOnViewModelReadyOnce => true;
 
   @override
   Widget builder(
@@ -71,5 +77,5 @@ class SettingsView extends StackedView<SettingsViewModel> {
   SettingsViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      SettingsViewModel();
+      locator<SettingsViewModel>();
 }

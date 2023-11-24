@@ -1,15 +1,21 @@
+import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/flutter_ez_core.dart';
-import 'package:flutter_ez_core/widgets/ez_button.dart';
 import 'package:stacked/stacked.dart';
 
 import 'scan_viewmodel.dart';
 
 class ScanView extends StackedView<ScanViewModel> {
   const ScanView({Key? key}) : super(key: key);
+
+  @override
+  bool get disposeViewModel => false;
+
+  @override
+  bool get fireOnViewModelReadyOnce => true;
 
   @override
   Widget builder(
@@ -44,5 +50,5 @@ class ScanView extends StackedView<ScanViewModel> {
   ScanViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ScanViewModel();
+      locator<ScanViewModel>();
 }

@@ -9,7 +9,7 @@ class ShowUp extends StatefulWidget {
   const ShowUp({super.key, required this.child, this.delay = 0});
 
   @override
-  _ShowUpState createState() => _ShowUpState();
+  State<ShowUp> createState() => _ShowUpState();
 }
 
 class _ShowUpState extends State<ShowUp> with TickerProviderStateMixin {

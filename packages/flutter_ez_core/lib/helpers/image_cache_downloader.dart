@@ -11,7 +11,6 @@ Future<Uint8List?> imageCacheDownload(String url) async {
     return Uint8List.fromList(bytes);
   } catch (e) {
     // Handle specific exceptions if needed
-    print('Error downloading image: $e');
     return null;
   }
 }

@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  print("FORM VALUE: ${form.value}");
+                  debugPrint("FORM VALUE: ${form.value}");
                 },
                 icon: const Icon(Icons.send))
           ],

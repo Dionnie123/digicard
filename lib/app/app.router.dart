@@ -107,7 +107,8 @@ class StackedRouterWeb extends _i13.RootStackRouter {
       );
     },
     CardViewerViewRoute.name: (routeData) {
-      final args = routeData.argsAs<CardViewerViewArgs>();
+      final args = routeData.argsAs<CardViewerViewArgs>(
+          orElse: () => const CardViewerViewArgs());
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i9.CardViewerView(
@@ -335,7 +336,7 @@ class CardEditorViewArgs {
 /// [_i9.CardViewerView]
 class CardViewerViewRoute extends _i13.PageRouteInfo<CardViewerViewArgs> {
   CardViewerViewRoute({
-    required _i15.DigitalCardDTO card,
+    _i15.DigitalCardDTO? card,
     _i14.Key? key,
   }) : super(
           CardViewerViewRoute.name,
@@ -351,11 +352,11 @@ class CardViewerViewRoute extends _i13.PageRouteInfo<CardViewerViewArgs> {
 
 class CardViewerViewArgs {
   const CardViewerViewArgs({
-    required this.card,
+    this.card,
     this.key,
   });
 
-  final _i15.DigitalCardDTO card;
+  final _i15.DigitalCardDTO? card;
 
   final _i14.Key? key;
 
@@ -492,7 +493,7 @@ extension RouterStateExtension on _i12.RouterService {
   }
 
   Future<dynamic> navigateToCardViewerView({
-    required _i15.DigitalCardDTO card,
+    _i15.DigitalCardDTO? card,
     _i14.Key? key,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
@@ -606,7 +607,7 @@ extension RouterStateExtension on _i12.RouterService {
   }
 
   Future<dynamic> replaceWithCardViewerView({
-    required _i15.DigitalCardDTO card,
+    _i15.DigitalCardDTO? card,
     _i14.Key? key,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {

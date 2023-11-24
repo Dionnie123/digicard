@@ -20,45 +20,44 @@ class StartupViewModel extends BaseViewModel {
   StreamSubscription? streamSubscription;
   // Place anything here that needs to happen before we get into the application
   Future runStartupLogic() async {
-    if (!kIsWeb) {
-      await [
-        Permission.camera,
-        Permission.mediaLibrary,
-        Permission.contacts,
-      ].request();
-    }
+    try {
+      if (!kIsWeb) {
+        await [
+          Permission.camera,
+          Permission.mediaLibrary,
+          Permission.contacts,
+        ].request();
+      }
 
-    final Uri? uri = await getInitialUri();
-    // This is where you can make decisions on where your app should navigate when
-    // you have custom startup logic
-    FlutterNativeSplash.remove();
+      final Uri? uri = await getInitialUri();
 
-    log.i("Incoming Deep Link $uri");
+      if (_userService.userId != null) {
+        await _navigationService.clearStackAndShow(
+          const HomeViewRoute(),
+        );
+      } else {
+        await _navigationService.clearStackAndShow(
+          const AuthViewRoute(),
+        );
+      }
 
-    if (_userService.userId != null) {
-      await _navigationService.clearStackAndShow(
-        const HomeViewRoute(),
-      );
-    } else {
-      await _navigationService.clearStackAndShow(
-        const AuthViewRoute(),
-      );
-    }
+      if (CardUrl(uri.toString()).isValid()) {
+        await _navigationService.navigateToCardViewerWebView(
+            uuid: CardUrl(uri.toString()).uuid);
+      }
 
-    if (CardUrl(uri.toString()).isValid()) {
-      await _navigationService.navigateToCardViewerWebView(
-          uuid: CardUrl(uri.toString()).uuid);
-    }
-
-    if (!kIsWeb) {
-      streamSubscription = uriLinkStream.listen((Uri? uri) async {
-        if (uri != null) {
-          if (CardUrl(uri.toString()).isValid()) {
-            await _navigationService.navigateToCardViewerWebView(
-                uuid: CardUrl(uri.toString()).uuid);
+      if (!kIsWeb) {
+        streamSubscription = uriLinkStream.listen((Uri? uri) async {
+          if (uri != null) {
+            if (CardUrl(uri.toString()).isValid()) {
+              await _navigationService.navigateToCardViewerWebView(
+                  uuid: CardUrl(uri.toString()).uuid);
+            }
           }
-        }
-      }, onError: (Object err) {});
+        }, onError: (Object err) {});
+      }
+    } finally {
+      FlutterNativeSplash.remove();
     }
   }
 }

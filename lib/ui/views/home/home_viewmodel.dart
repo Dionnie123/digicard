@@ -6,7 +6,6 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/app.locator.dart';
-import 'package:digicard/app/services/contacts_service.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -21,7 +20,6 @@ class HomeViewModel extends ReactiveViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<RouterService>();
   final _digitalCardService = locator<DigitalCardService>();
-  final _contactsService = locator<ContactsService>();
 
   @override
   List<ListenableServiceMixin> get listenableServices => [

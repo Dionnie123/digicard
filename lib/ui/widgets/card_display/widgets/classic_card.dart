@@ -123,11 +123,12 @@ class ClassicCard extends StatelessWidget {
           ? const SizedBox.shrink()
           : AutoSizeText(
               "${card.position}",
-              maxFontSize: 15,
-              minFontSize: 13,
+              maxFontSize: 18,
+              minFontSize: 14,
               style: const TextStyle(
-                fontSize: 15,
-              ),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic),
               maxLines: 1,
             );
     }
@@ -238,31 +239,23 @@ class ClassicCard extends StatelessWidget {
     }
 
     Widget ad() {
-      return Padding(
-        padding: const EdgeInsets.only(top: 15),
-        child: ClipRRect(
-          clipBehavior: Clip.none,
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
-          child: InkWell(
-            onTap: () async {
-              final Uri url = Uri.parse(Env.siteUrl);
-              if (await canLaunchUrl(url)) launchUrl(url);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: colorTheme,
-              ),
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              child: const Text(
-                "Create your own digital business card for FREE",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
-              ),
+      return InkWell(
+        onTap: () async {
+          final Uri url = Uri.parse(Env.siteUrl);
+          if (await canLaunchUrl(url)) launchUrl(url);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: colorTheme.darken(),
+          ),
+          width: double.infinity,
+          padding: const EdgeInsets.all(12),
+          child: const Text(
+            "Create your own digital business card for FREE",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
             ),
           ),
         ),
@@ -271,8 +264,7 @@ class ClassicCard extends StatelessWidget {
 
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(isMobile(context) ? 0 : 24.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       margin: isMobile(context)
           ? const EdgeInsets.only(bottom: 15)
           : const EdgeInsets.all(15.0),

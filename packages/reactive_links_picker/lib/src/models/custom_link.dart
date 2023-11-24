@@ -1,8 +1,7 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:reactive_links_picker/src/icons_list/icons.dart';
+
 part 'custom_link.freezed.dart';
 part 'custom_link.g.dart';
 

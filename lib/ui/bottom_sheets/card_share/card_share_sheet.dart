@@ -91,7 +91,7 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
         type: loadingType,
         builder: (context) {
           return BottomSheetWrapper(
-            notchColor: colorTheme ?? kcPrimaryColor,
+            notchColor: colorTheme,
             children: [
               Screenshot(
                 key: UniqueKey(),

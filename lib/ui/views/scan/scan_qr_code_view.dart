@@ -2,7 +2,6 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/widgets/overlays/loader_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:stacked/stacked.dart';
 

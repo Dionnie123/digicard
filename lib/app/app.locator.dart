@@ -11,8 +11,10 @@ import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/router_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../ui/views/contacts/contacts_viewmodel.dart';
 import '../ui/views/home/home_viewmodel.dart';
-import '../ui/widgets/card_display/card_display_model.dart';
+import '../ui/views/scan/scan_viewmodel.dart';
+import '../ui/views/settings/settings_viewmodel.dart';
 import 'services/auth_service.dart';
 import 'services/authentication_service.supabase.dart';
 import 'services/contacts_service.dart';
@@ -49,7 +51,9 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => NativeContactsService());
   locator.registerLazySingleton(() => PermissionHandlerService());
   locator.registerSingleton(HomeViewModel());
-  locator.registerSingleton(CardDisplayModel());
+  locator.registerSingleton(ScanViewModel());
+  locator.registerSingleton(ContactsViewModel());
+  locator.registerSingleton(SettingsViewModel());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');
