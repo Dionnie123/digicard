@@ -225,6 +225,7 @@ class _CardTabFormState extends State<CardTabForm>
             : ReactiveDigitalCardDTOFormConsumer(builder: (context, f, w) {
                 return (viewModel.editMode && formModel?.form.pristine != true)
                     ? FloatingActionButton.large(
+                        heroTag: "save",
                         child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [Icon(Icons.save), Text("SAVE")],

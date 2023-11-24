@@ -5,7 +5,6 @@ import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
 import 'package:digicard/ui/widgets/digital_card_list_item/digital_card_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/flutter_ez_core.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 
@@ -15,8 +14,18 @@ class HomeView extends StackedView<HomeViewModel> {
   @override
   Future<void> onViewModelReady(HomeViewModel viewModel) async {
     await viewModel.init();
+
     super.onViewModelReady(viewModel);
   }
+
+  @override
+  void onDispose(HomeViewModel viewModel) {
+    viewModel.refetchData = true;
+    super.onDispose(viewModel);
+  }
+
+  @override
+  bool get createNewViewModelOnInsert => true;
 
   @override
   bool get disposeViewModel => false;
@@ -32,6 +41,7 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     Widget floatActionButton() {
       return FloatingActionButton(
+          heroTag: "add",
           backgroundColor: kcPrimaryColor,
           onPressed: () {
             viewModel.create();
@@ -39,50 +49,46 @@ class HomeView extends StackedView<HomeViewModel> {
           child: const Icon(Icons.add));
     }
 
-    return ReactiveForm(
-        formGroup: viewModel.form,
-        child: SplitView(
-          content: PageScaffold(
-            floatingActionButton: floatActionButton(),
-            title: 'CARDS',
-            body: ScaffoldListWrapper(
-              isBusy: viewModel.isBusy,
-              emptyIndicatorWidget: const EZEmptyDisplay(
-                icon: Icon(Icons.error_rounded, size: 30),
-                title: "Ooops! looks empty here",
-              ),
-              onRefresh: () async {
-                await viewModel.init();
-              },
-              itemCount: viewModel.digitalCards.length,
-              builder: (context, constraints) {
-                return GridView.builder(
-                  gridDelegate: ListItemHeightDelegate(
-                      crossAxisCount: (constraints.maxWidth <= 500 + 280)
-                          ? 2
-                          : (constraints.maxWidth <= 1024)
-                              ? 3
-                              : 7,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      height: 242),
-                  itemCount: viewModel.digitalCards.length,
-                  padding: const EdgeInsets.all(15),
-                  addAutomaticKeepAlives: false,
-                  addRepaintBoundaries: false,
-                  itemBuilder: (context, index) {
-                    return DigitalCardListItem(
-                      onTap: () {
-                        viewModel.show(viewModel.digitalCards[index]);
-                      },
-                      card: viewModel.digitalCards[index],
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ));
+    return PageScaffold(
+      floatingActionButton: floatActionButton(),
+      title: 'CARDS',
+      body: ScaffoldListWrapper(
+        isBusy: false,
+        emptyIndicatorWidget: const EZEmptyDisplay(
+          icon: Icon(Icons.error_rounded, size: 30),
+          title: "Ooops! looks empty here",
+        ),
+        onRefresh: () async {
+          await viewModel.init();
+        },
+        itemCount: viewModel.digitalCards.length,
+        builder: (context, constraints) {
+          return GridView.builder(
+            gridDelegate: ListItemHeightDelegate(
+                crossAxisCount: (constraints.maxWidth <= 500 + 280)
+                    ? 2
+                    : (constraints.maxWidth <= 1024)
+                        ? 3
+                        : 7,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                height: 242),
+            itemCount: viewModel.digitalCards.length,
+            padding: const EdgeInsets.all(15),
+            addAutomaticKeepAlives: false,
+            addRepaintBoundaries: false,
+            itemBuilder: (context, index) {
+              return DigitalCardListItem(
+                onTap: () {
+                  viewModel.show(viewModel.digitalCards[index]);
+                },
+                card: viewModel.digitalCards[index],
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 
   @override

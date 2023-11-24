@@ -77,7 +77,8 @@ class CardEditorViewModel extends ReactiveViewModel {
   Future<void> showFormErrorsDialog(String message) async {
     await _dialogService.showCustomDialog(
         variant: DialogType.info,
-        description: message,
+        title: "Basic Card Info",
+        description: "You have missing fields.",
         barrierDismissible: true);
   }
 

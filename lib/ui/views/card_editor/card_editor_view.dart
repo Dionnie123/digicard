@@ -36,6 +36,19 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
     CardEditorViewModel viewModel,
     Widget? child,
   ) {
+    Widget cardPreview() {
+      return ReactiveDigitalCardDTOFormConsumer(builder: (context, form, _) {
+        return Scaffold(
+            body: SingleChildScrollView(
+                child: CardDisplay(
+          form.model,
+          allowAddToContacts: false,
+          allowDownloadQRCode: false,
+          allowDownloadVCF: false,
+        )));
+      });
+    }
+
     return DigitalCardDTOFormBuilder(
         model: card,
         builder: (context, form, _) {
@@ -83,19 +96,7 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                       width: 2,
                                       thickness: 2,
                                     ),
-                                    Expanded(
-                                      child: ReactiveDigitalCardDTOFormConsumer(
-                                          builder: (context, form, _) {
-                                        return Scaffold(
-                                            body: SingleChildScrollView(
-                                                child: CardDisplay(
-                                          form.model,
-                                          allowAddToContacts: false,
-                                          allowDownloadQRCode: false,
-                                          allowDownloadVCF: false,
-                                        )));
-                                      }),
-                                    ),
+                                    Expanded(child: cardPreview()),
                                   ],
                                 );
                         }),

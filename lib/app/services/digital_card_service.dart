@@ -94,7 +94,6 @@ class DigitalCardService with ListenableServiceMixin {
   }
 
   Future getAll() async {
-    _digitalCards.value = [];
     try {
       final data = await _supabase
           .from('cards')

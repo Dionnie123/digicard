@@ -33,7 +33,7 @@ class StartupViewModel extends BaseViewModel {
 
       if (_userService.userId != null) {
         await _navigationService.clearStackAndShow(
-          const HomeViewRoute(),
+          const DashboardViewRoute(),
         );
       } else {
         await _navigationService.clearStackAndShow(

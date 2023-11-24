@@ -5,13 +5,18 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'drawer_widget.menu.dart';
 
-class DrawerWidget extends StatelessWidget {
+class DrawerWidget extends StatefulWidget {
   final int selectedIndex;
   const DrawerWidget({super.key, this.selectedIndex = 0});
 
   @override
+  State<DrawerWidget> createState() => _DrawerWidgetState();
+}
+
+class _DrawerWidgetState extends State<DrawerWidget> {
+  final navigationService = locator<RouterService>();
+  @override
   Widget build(BuildContext context) {
-    final navigationService = locator<RouterService>();
     return Drawer(
       child: SafeArea(
         child: SingleChildScrollView(
@@ -41,10 +46,10 @@ class DrawerWidget extends StatelessWidget {
                     'assets/icons/cards.png',
                     width: 24,
                   ),
-                  selected: selectedIndex == 0,
+                  selected: widget.selectedIndex == 0,
                   title: "Cards",
                   onTap: () async {
-                    navigationService.replaceWithHomeView();
+                    navigationService.navigateToHomeView();
                   },
                 ),
                 const SizedBox(height: 8.0),
@@ -53,10 +58,10 @@ class DrawerWidget extends StatelessWidget {
                       'assets/icons/scan.png',
                       width: 24,
                     ),
-                    selected: selectedIndex == 1,
+                    selected: widget.selectedIndex == 1,
                     title: "Scan",
                     onTap: () async {
-                      navigationService.replaceWithScanView();
+                      navigationService.navigateToScanView();
                     }),
                 const SizedBox(height: 8.0),
                 DrawerMenu(
@@ -64,10 +69,10 @@ class DrawerWidget extends StatelessWidget {
                     'assets/icons/contacts.png',
                     width: 24,
                   ),
-                  selected: selectedIndex == 2,
+                  selected: widget.selectedIndex == 2,
                   title: "Contacts",
                   onTap: () async {
-                    navigationService.replaceWithContactsView();
+                    navigationService.navigateToContactsView();
                   },
                 ),
                 const SizedBox(height: 8.0),
@@ -76,10 +81,10 @@ class DrawerWidget extends StatelessWidget {
                     'assets/icons/settings.png',
                     width: 24,
                   ),
-                  selected: selectedIndex == 3,
+                  selected: widget.selectedIndex == 3,
                   title: "Settings",
                   onTap: () async {
-                    navigationService.replaceWithSettingsView();
+                    navigationService.navigateToSettingsView();
                   },
                 ),
               ]),

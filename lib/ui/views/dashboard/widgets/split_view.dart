@@ -6,10 +6,10 @@ import 'page_scaffold.dart';
 
 class SplitView extends StatelessWidget {
   final int selectedIndex;
-  final PageScaffold content;
+  final Widget child;
   const SplitView({
     Key? key,
-    required this.content,
+    required this.child,
     this.selectedIndex = 0,
   }) : super(key: key);
 
@@ -27,13 +27,13 @@ class SplitView extends StatelessWidget {
             ),
           ),
           //   Container(width: 0.5, color: Colors.black),
-          Expanded(child: content),
+          Expanded(child: child),
         ],
       );
     } else {
       // narrow screen: show content, menu inside drawer
       return Scaffold(
-        body: content,
+        body: child,
         drawer: SizedBox(
           width: 280,
           child: DrawerWidget(

@@ -1,4 +1,4 @@
-import 'package:digicard/app/app.locator.dart';
+import 'package:digicard/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:digicard/ui/views/dashboard/widgets/page_scaffold.dart';
 import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class SettingsView extends StackedView<SettingsViewModel> {
   bool get disposeViewModel => false;
 
   @override
-  bool get fireOnViewModelReadyOnce => true;
+  bool get fireOnViewModelReadyOnce => false;
 
   @override
   Widget builder(
@@ -22,60 +22,58 @@ class SettingsView extends StackedView<SettingsViewModel> {
     SettingsViewModel viewModel,
     Widget? child,
   ) {
-    return SplitView(
-        selectedIndex: 3,
-        content: PageScaffold(
-            title: "SETTINGS",
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SettingsItem.header(leading: "Plan"),
-                  const SettingsItem(
-                    leading: "Digicard Free",
-                    subtitle: "Contact us to upgrade your plan.",
-                  ),
-                  const SettingsItem.header(
-                    leading: "Digicard",
-                  ),
-                  const SettingsItem(
-                    leading: "Version",
-                    trailing: "1.0.0",
-                  ),
-                  const Divider(height: 0),
-                  const SettingsItem(
-                    leading: "Developer",
-                    trailing: "Global Webforce",
-                  ),
-                  const SettingsItem.header(
-                    leading: "Digicard",
-                  ),
-                  /*   SettingsItem(
-                    leading: "Theme",
-                    trailing: "Toggle Dark Mode",
-                    onTap: () {
-                      getThemeManager(context).toggleDarkLightTheme();
-                    },
-                  ), */
-                  const SettingsItem.header(leading: "Account"),
-                  SettingsItem(
-                    leading: "Email",
-                    trailing: viewModel.email,
-                  ),
-                  const Divider(height: 0),
-                  SettingsItem(
-                    leading: "Logout",
-                    onTap: () {
-                      viewModel.logout();
-                    },
-                  ),
-                ],
+    return PageScaffold(
+        title: "SETTINGS",
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SettingsItem.header(leading: "Plan"),
+              const SettingsItem(
+                leading: "Digicard Free",
+                subtitle: "Contact us to upgrade your plan.",
               ),
-            )));
+              const SettingsItem.header(
+                leading: "Digicard",
+              ),
+              const SettingsItem(
+                leading: "Version",
+                trailing: "1.0.0",
+              ),
+              const Divider(height: 0),
+              const SettingsItem(
+                leading: "Developer",
+                trailing: "Global Webforce",
+              ),
+              const SettingsItem.header(
+                leading: "Digicard",
+              ),
+              /*   SettingsItem(
+                leading: "Theme",
+                trailing: "Toggle Dark Mode",
+                onTap: () {
+                  getThemeManager(context).toggleDarkLightTheme();
+                },
+              ), */
+              const SettingsItem.header(leading: "Account"),
+              SettingsItem(
+                leading: "Email",
+                trailing: viewModel.email,
+              ),
+              const Divider(height: 0),
+              SettingsItem(
+                leading: "Logout",
+                onTap: () {
+                  viewModel.logout();
+                },
+              ),
+            ],
+          ),
+        ));
   }
 
   @override
   SettingsViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      locator<SettingsViewModel>();
+      SettingsViewModel();
 }

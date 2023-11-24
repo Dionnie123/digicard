@@ -21,6 +21,8 @@ class HomeViewModel extends ReactiveViewModel {
   final _navigationService = locator<RouterService>();
   final _digitalCardService = locator<DigitalCardService>();
 
+  bool refetchData = true;
+
   @override
   List<ListenableServiceMixin> get listenableServices => [
         _digitalCardService,
@@ -52,9 +54,7 @@ class HomeViewModel extends ReactiveViewModel {
     );
   }
 
-  view(DigitalCardDTO card) {}
-
-  show(DigitalCardDTO? card) async {
+  Future show(DigitalCardDTO? card) async {
     await _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.cardManager,
       data: card,
@@ -63,29 +63,18 @@ class HomeViewModel extends ReactiveViewModel {
     );
   }
 
-  create() {
-    _navigationService.navigateToCardEditorView(
+  Future create() async {
+    await _navigationService.navigateToCardEditorView(
       card: DigitalCardDTO.blank(),
       actionType: ActionType.create,
     );
   }
 
-  late FormGroup form;
-
   Future init() async {
-    form = FormGroup(
-      {
-        'name': FormControl<String>(),
-        'customLinks': FormControl<List<Map<String, dynamic>>>(
-            value: <Map<String, dynamic>>[],
-            validators: [const NotEmptyValidator()]),
-      },
-    );
+    print("INIT");
     await runBusyFuture(
       Future.wait([
         _digitalCardService.getAll(),
-        Future.delayed(const Duration(seconds: 1))
-        // _contactsService.getAll(),
       ]),
       throwException: true,
     );
