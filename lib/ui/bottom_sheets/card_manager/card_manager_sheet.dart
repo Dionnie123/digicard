@@ -43,6 +43,7 @@ class CardManagerSheet extends StackedView<CardManagerSheetModel> {
                 Text(
                   viewModel.card.title.toString(),
                   maxLines: 2,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 22,
                   ),

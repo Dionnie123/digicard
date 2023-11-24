@@ -17,7 +17,9 @@ import 'columns_separated.dart';
 
 class ClassicCard extends StatelessWidget {
   final DigitalCardDTO card;
-  const ClassicCard({super.key, required this.card});
+  final bool allowDownloadQRCode;
+  const ClassicCard(
+      {super.key, required this.card, required this.allowDownloadQRCode});
 
   @override
   Widget build(BuildContext context) {
@@ -62,20 +64,38 @@ class ClassicCard extends StatelessWidget {
           : Padding(
               padding: const EdgeInsets.only(left: 15.0),
               child: Stack(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 children: [
                   if (card.logoUrl is String &&
                       card.logoUrl.toString().isNotEmpty)
-                    CircleAvatar(
-                        backgroundColor: colorTheme.darken(),
-                        backgroundImage: NetworkImage(card.logoHttpUrl),
-                        radius: size.maxWidth * 0.11),
+                    Container(
+                      width: size.maxWidth * 0.2,
+                      height: size.maxWidth * 0.2,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: colorTheme.darken()),
+                        color: colorTheme.darken(),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(card.logoHttpUrl)),
+                        //   shape: BoxShape.circle,
+                      ),
+                    ),
                   if (card.logoFile is Uint8List && card.logoFile != null)
-                    CircleAvatar(
-                        backgroundColor: colorTheme.darken(),
-                        backgroundImage: MemoryImage(
-                          card.logoFile ?? Uint8List(0),
+                    Container(
+                      width: size.maxWidth * 0.2,
+                      height: size.maxWidth * 0.2,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: colorTheme.darken()),
+                        color: colorTheme.darken(),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: MemoryImage(
+                            card.logoFile ?? Uint8List(0),
+                          ),
                         ),
-                        radius: size.maxWidth * 0.11),
+                        //     shape: BoxShape.circle,
+                      ),
+                    ),
                 ],
               ),
             );
@@ -148,7 +168,8 @@ class ClassicCard extends StatelessWidget {
     }
 
     Widget qrCodeLogo() {
-      return (card.logoFile is bool && card.logoFile == false)
+      return (card.logoFile is bool && card.logoFile == false) ||
+              allowDownloadQRCode == false
           ? const SizedBox.shrink()
           : Center(
               child: Stack(
@@ -182,46 +203,45 @@ class ClassicCard extends StatelessWidget {
     }
 
     Widget qrCode() {
-      return Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Screenshot(
-              key: UniqueKey(),
-              controller: viewModel.screenshotControllerDownload,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: QrImageView(
-                      data: DigitalCardDTOExtension.convertToContact(card)!
-                          .toVCard(withPhoto: false),
-                      version: QrVersions.auto,
-                      errorCorrectionLevel: QrErrorCorrectLevel.M,
-                      size: 250,
-                      eyeStyle: const QrEyeStyle(
-                        color: Colors.black,
+      return allowDownloadQRCode == false
+          ? const SizedBox.shrink()
+          : ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Screenshot(
+                key: UniqueKey(),
+                controller: viewModel.screenshotControllerDownload,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: QrImageView(
+                        data: DigitalCardDTOExtension.convertToContact(card)!
+                            .toVCard(withPhoto: false),
+                        version: QrVersions.auto,
+                        errorCorrectionLevel: QrErrorCorrectLevel.M,
+                        size: 250,
+                        eyeStyle: const QrEyeStyle(
+                          color: Colors.black,
+                        ),
+                        backgroundColor: Colors.white,
+                        gapless: true,
                       ),
-                      backgroundColor: Colors.white,
-                      gapless: true,
                     ),
-                  ),
-                  Align(alignment: Alignment.center, child: qrCodeLogo()),
-                ],
+                    Align(alignment: Alignment.center, child: qrCodeLogo()),
+                  ],
+                ),
               ),
-            ),
-          ),
-          vSpaceSmall,
-          const Text("Scan or Click to View"),
-        ],
-      );
+            );
     }
 
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-      margin: const EdgeInsets.all(15.0),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(isMobile(context) ? 0 : 24.0)),
+      margin: isMobile(context)
+          ? const EdgeInsets.only(bottom: 15)
+          : const EdgeInsets.all(15.0),
       child: LayoutBuilder(builder: (context, size) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,7 +271,7 @@ class ClassicCard extends StatelessWidget {
             ColumnSeparated(children: [
               headline(),
               customLinks(),
-              qrCode(),
+              if (allowDownloadQRCode) qrCode(),
             ])
           ],
         );

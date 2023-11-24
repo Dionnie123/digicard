@@ -43,13 +43,13 @@ class SettingsView extends StackedView<SettingsViewModel> {
                   const SettingsItem.header(
                     leading: "Digicard",
                   ),
-                  SettingsItem(
+                  /*   SettingsItem(
                     leading: "Theme",
                     trailing: "Toggle Dark Mode",
                     onTap: () {
                       getThemeManager(context).toggleDarkLightTheme();
                     },
-                  ),
+                  ), */
                   const SettingsItem.header(leading: "Account"),
                   SettingsItem(
                     leading: "Email",

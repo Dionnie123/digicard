@@ -85,13 +85,15 @@ class CardEditorView extends StackedView<CardEditorViewModel> {
                                     ),
                                     Expanded(
                                       child: ReactiveDigitalCardDTOFormConsumer(
-                                          key: UniqueKey(),
                                           builder: (context, form, _) {
-                                            return Scaffold(
-                                                body: SingleChildScrollView(
-                                                    child: CardDisplay(
-                                                        form.model)));
-                                          }),
+                                        return Scaffold(
+                                            body: SingleChildScrollView(
+                                                child: CardDisplay(
+                                          form.model,
+                                          allowDownloadQRCode: false,
+                                          allowDownloadVCF: false,
+                                        )));
+                                      }),
                                     ),
                                   ],
                                 );

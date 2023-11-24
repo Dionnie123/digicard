@@ -122,18 +122,16 @@ class CardShareSheet extends StackedView<CardShareSheetModel> {
                   onTap: () async {
                     await viewModel.downloadWithLogo(context);
                   },
-                  icon: const Icon(FontAwesomeIcons.download),
+                  icon: const Icon(FontAwesomeIcons.qrcode),
                   title: "Download QR"),
               vSpaceSmall,
               PanelButton(
                   color: viewModel.card.color,
                   onTap: () async {
-                    kIsWeb
-                        ? await viewModel.downloadVcf()
-                        : await viewModel.saveToDeviceContacts();
+                    await viewModel.downloadVcf();
                   },
-                  icon: const Icon(FontAwesomeIcons.addressBook),
-                  title: "Save Contact"),
+                  icon: const Icon(FontAwesomeIcons.addressCard),
+                  title: "Download VCF"),
               vSpaceSmall,
               PanelButton(
                   color: viewModel.card.color,

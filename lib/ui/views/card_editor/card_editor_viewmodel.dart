@@ -1,3 +1,4 @@
+import 'package:digicard/ui/views/card_viewer/card_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -77,6 +78,10 @@ class CardEditorViewModel extends ReactiveViewModel {
         variant: DialogType.info,
         description: message,
         barrierDismissible: true);
+  }
+
+  view(DigitalCardDTO card) async {
+    await _navigationService.navigateWithTransition(CardView(card: card));
   }
 
   Future<void> save(DigitalCardDTO formValue) async {
