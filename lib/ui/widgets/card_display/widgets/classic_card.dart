@@ -235,6 +235,25 @@ class ClassicCard extends StatelessWidget {
             );
     }
 
+    Widget ad() {
+      return Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+        ),
+        width: double.infinity,
+        padding: const EdgeInsets.all(10),
+        child: const Text(
+          "Create your own digital business card for FREE",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 13,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: RoundedRectangleBorder(
@@ -272,7 +291,8 @@ class ClassicCard extends StatelessWidget {
               headline(),
               customLinks(),
               if (allowDownloadQRCode) qrCode(),
-            ])
+            ]),
+            ad(),
           ],
         );
       }),

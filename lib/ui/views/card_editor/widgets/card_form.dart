@@ -246,9 +246,15 @@ class _CardTabFormState extends State<CardTabForm>
           actions: [
             if (isMobile(context))
               ReactiveDigitalCardDTOFormConsumer(builder: (context, f, w) {
-                return GestureDetector(
-                    onTap: () async => await viewModel.view(f.model),
-                    child: const Icon(Icons.preview_rounded));
+                return TextButton(
+                    onPressed: () async => await viewModel.view(f.model),
+                    child: Text(
+                      "Preview",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
+                      ),
+                    ));
               }),
             hSpaceRegular,
             if (isMobile(context))

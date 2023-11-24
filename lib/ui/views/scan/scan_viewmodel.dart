@@ -4,6 +4,8 @@ import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/helpers/card_url_checker.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
+import 'package:digicard/app/services/digital_card_service.dart';
+import 'package:digicard/ui/views/card_viewer/card_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -17,9 +19,9 @@ import 'scan_qr_code_view.dart';
 class ScanViewModel extends ReactiveViewModel {
   final log = getLogger('ScanViewModel');
 
-  final _navService = locator<RouterService>();
+  final _navigationService = locator<RouterService>();
   final _dialogService = locator<DialogService>();
-
+  final _digitalCardService = locator<DigitalCardService>();
   @override
   Future<void> onFutureError(error, Object? key) async {
     log.e(error);
@@ -57,39 +59,46 @@ class ScanViewModel extends ReactiveViewModel {
           }
         });
       } else {
-        await _navService.navigateWithTransition(const ScanQRCodeView());
+        await _navigationService.navigateWithTransition(const ScanQRCodeView());
       }
     } else {
-      await _navService.navigateWithTransition(const ScanQRCodeView());
+      await _navigationService.navigateWithTransition(const ScanQRCodeView());
     }
   }
 
   onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) async {
-      controller.pauseCamera();
       try {
+        controller.pauseCamera();
         result = scanData;
-        log.d(result?.code);
         if (CardUrl("${result?.code}").isValid()) {
-          /*   _navService
-              .push(CardLoaderRoute(uuid: CardUrl("${result?.code}").uuid))
-              .then((value) {
-            controller.resumeCamera();
-          }); */
-          _navService
-              .navigateToCardViewerView(
-                  card: DigitalCardDTO.blank(),
-                  displayType: DisplayType.private,
-                  uuid: CardUrl("${result?.code}").uuid)
-              .then((value) {
-            controller.resumeCamera();
-          });
-        } else {
-          //controller.resumeCamera();
-        }
+          if (CardUrl("${result?.code}").uuid != null) {
+            DigitalCardDTO? card;
+            await _digitalCardService
+                .findOne(CardUrl("${result?.code}").uuid.toString())
+                .then((value) => card = value);
+            if (card != null) {
+              await _navigationService
+                  .navigateWithTransition(
+                      CardView(card: card ?? DigitalCardDTO.blank()))
+                  .then((value) {
+                controller.resumeCamera();
+              });
+            } else {
+              await _dialogService.showCustomDialog(
+                variant: DialogType.info,
+                title: "Card not found",
+                description: "Card might be deleted by the owner.",
+                barrierDismissible: true,
+              );
+            }
+          }
+        } else {}
       } catch (e) {
         rethrow;
+      } finally {
+        controller.resumeCamera();
       }
 
       notifyListeners();
