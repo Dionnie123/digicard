@@ -98,7 +98,7 @@ class AuthViewModel extends BaseViewModel {
             description: value.toString(),
             dialogPlatform: DialogPlatform.Custom);
       } else {
-        _navService.replaceWithHomeView();
+        _navService.replaceWithDashboardView();
       }
     });
   }

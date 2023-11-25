@@ -98,8 +98,8 @@ class CardDisplay extends StackedView<CardDisplayModel> {
                                     Colors.white),
                                 backgroundColor:
                                     MaterialStatePropertyAll(colorTheme)),
-                            onPressed: () {
-                              viewModel.downloadQRCode(context);
+                            onPressed: () async {
+                              await viewModel.downloadQRCode(context);
                             },
                             child: const Text("Download QR")),
                       )

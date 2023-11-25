@@ -261,49 +261,51 @@ class ClassicCard extends StatelessWidget {
       );
     }
 
-    return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-              MediaQuery.of(context).size.width < 440 ? 0.0 : 24.0)),
-      margin: MediaQuery.of(context).size.width < 440
-          ? const EdgeInsets.only(bottom: 15)
-          : const EdgeInsets.all(15.0),
-      child: LayoutBuilder(builder: (context, size) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            squareImage(),
-            Container(
-              color: colorTheme,
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (fullName() != null) fullName()!,
-                      if (position() != null) position()!,
-                      if (company() != null) company()!,
-                    ],
-                  )),
-                  if (circleImage(size) != null) circleImage(size)!
-                ],
+    return SelectionArea(
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                MediaQuery.of(context).size.width < 440 ? 0.0 : 24.0)),
+        margin: MediaQuery.of(context).size.width < 440
+            ? const EdgeInsets.only(bottom: 15)
+            : const EdgeInsets.all(15.0),
+        child: LayoutBuilder(builder: (context, size) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              squareImage(),
+              Container(
+                color: colorTheme,
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (fullName() != null) fullName()!,
+                        if (position() != null) position()!,
+                        if (company() != null) company()!,
+                      ],
+                    )),
+                    if (circleImage(size) != null) circleImage(size)!
+                  ],
+                ),
               ),
-            ),
-            ColumnSeparated(children: [
-              if (headline() != null) headline()!,
-              if (customLinks() != null) customLinks()!,
-              if (mode == DisplayMode.edit) qrCode(),
-            ]),
-            ad(),
-          ],
-        );
-      }),
+              ColumnSeparated(children: [
+                if (headline() != null) headline()!,
+                if (customLinks() != null) customLinks()!,
+                if (mode == DisplayMode.view) qrCode(),
+              ]),
+              ad(),
+            ],
+          );
+        }),
+      ),
     );
   }
 }

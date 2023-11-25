@@ -54,13 +54,13 @@ class _OnboardingState extends State<Onboarding> {
         color: Colors.orange,
         image: 'assets/images/bg1.jpg',
         personName: "Hitesh Parekh",
-        personTitle: "CEO"),
+        personTitle: "Managing Director"),
     OnboaringItem(
       testimonial:
           "I never knew a digital business card could be so impactful until I discovered this app.",
       color: Colors.red,
       image: 'assets/images/bg2.jpg',
-      personName: "Emily Johnson",
+      personName: "Jane Doe",
       personTitle: "Business Owner",
     ),
     OnboaringItem(
@@ -68,8 +68,8 @@ class _OnboardingState extends State<Onboarding> {
           "This app has completely elevated my networking game. \nIt's like carrying my digital identity in my pocket.",
       color: Colors.green,
       image: 'assets/images/bg3.jpg',
-      personName: "Mark Dionnie",
-      personTitle: "App Developer",
+      personName: "John Doe",
+      personTitle: "Freelance Worker",
     )
   ];
 
