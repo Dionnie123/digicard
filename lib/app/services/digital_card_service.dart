@@ -39,6 +39,10 @@ class DigitalCardService with ListenableServiceMixin {
   final ReactiveValue<List<DigitalCardDTO>> _digitalCards =
       ReactiveValue<List<DigitalCardDTO>>([]);
 
+  void clearData() {
+    _digitalCards.value.clear();
+  }
+
   Future<String?> imageSave(Uint8List? image,
       {required String folderPath}) async {
     try {
@@ -95,6 +99,7 @@ class DigitalCardService with ListenableServiceMixin {
 
   Future getAll() async {
     try {
+      print("GET");
       final data = await _supabase
           .from('cards')
           .select('*')

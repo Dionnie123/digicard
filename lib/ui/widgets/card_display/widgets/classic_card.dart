@@ -60,9 +60,9 @@ class ClassicCard extends StatelessWidget {
       );
     }
 
-    Widget circleImage(BoxConstraints size) {
+    Widget? circleImage(BoxConstraints size) {
       return (card.logoFile == false)
-          ? const SizedBox.shrink()
+          ? null
           : Padding(
               padding: const EdgeInsets.only(left: 15.0),
               child: Stack(
@@ -103,9 +103,9 @@ class ClassicCard extends StatelessWidget {
             );
     }
 
-    Widget fullName() {
+    Widget? fullName() {
       return isNullEmpty(card.fullName())
-          ? const SizedBox.shrink()
+          ? null
           : AutoSizeText(
               card.fullName(),
               maxFontSize: 26,
@@ -118,9 +118,9 @@ class ClassicCard extends StatelessWidget {
             );
     }
 
-    Widget position() {
+    Widget? position() {
       return isNullEmpty(card.position)
-          ? const SizedBox.shrink()
+          ? null
           : AutoSizeText(
               "${card.position}",
               maxFontSize: 18,
@@ -133,9 +133,9 @@ class ClassicCard extends StatelessWidget {
             );
     }
 
-    Widget company() {
+    Widget? company() {
       return isNullEmpty(card.company)
-          ? const SizedBox.shrink()
+          ? null
           : Padding(
               padding:
                   EdgeInsets.only(top: isNullEmpty(card.position) ? 0.0 : 8.0),
@@ -151,9 +151,9 @@ class ClassicCard extends StatelessWidget {
             );
     }
 
-    Widget headline() {
+    Widget? headline() {
       return isNullEmpty(card.headline)
-          ? const SizedBox.shrink()
+          ? null
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
@@ -163,17 +163,17 @@ class ClassicCard extends StatelessWidget {
             );
     }
 
-    Widget customLinks() {
+    Widget? customLinks() {
       return (card.customLinks ?? []).isEmpty
-          ? const SizedBox.shrink()
+          ? null
           : ReactiveLinksBuilder(
               color: colorTheme, links: card.customLinks ?? []);
     }
 
-    Widget qrCodeLogo() {
+    Widget? qrCodeLogo() {
       return (card.logoFile is bool && card.logoFile == false) ||
               allowDownloadQRCode == false
-          ? const SizedBox.shrink()
+          ? null
           : Center(
               child: Stack(
                 alignment: Alignment.center,
@@ -264,8 +264,10 @@ class ClassicCard extends StatelessWidget {
 
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-      margin: isMobile(context)
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              MediaQuery.of(context).size.width < 440 ? 0.0 : 24.0)),
+      margin: MediaQuery.of(context).size.width < 440
           ? const EdgeInsets.only(bottom: 15)
           : const EdgeInsets.all(15.0),
       child: LayoutBuilder(builder: (context, size) {
@@ -285,18 +287,18 @@ class ClassicCard extends StatelessWidget {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      fullName(),
-                      position(),
-                      company(),
+                      if (fullName() != null) fullName()!,
+                      if (position() != null) position()!,
+                      if (company() != null) position()!,
                     ],
                   )),
-                  circleImage(size)
+                  if (circleImage(size) != null) circleImage(size)!
                 ],
               ),
             ),
             ColumnSeparated(children: [
-              headline(),
-              customLinks(),
+              if (headline() != null) headline()!,
+              if (customLinks() != null) customLinks()!,
               if (allowDownloadQRCode) qrCode(),
             ]),
             ad(),

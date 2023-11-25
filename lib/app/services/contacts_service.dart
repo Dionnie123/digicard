@@ -18,6 +18,10 @@ class ContactsService with ListenableServiceMixin {
     ]);
   }
 
+  void clearData() {
+    _contacts.value.clear();
+  }
+
   List<DigitalCardDTO> get contacts {
     return _contacts.value.reversed.toList();
   }

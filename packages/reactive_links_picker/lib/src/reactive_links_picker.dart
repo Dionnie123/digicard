@@ -50,8 +50,8 @@ class _LinksPickerState extends State<LinksPicker> {
   @override
   void dispose() {
     super.dispose();
-    //  customLinks.dispose();
-    //  form.dispose();
+    customLinks.dispose();
+    form.dispose();
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/views/dashboard/widgets/page_scaffold.dart';
-import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
 import 'package:digicard/ui/widgets/digital_card_list_item/digital_card_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/flutter_ez_core.dart';
@@ -14,18 +13,11 @@ class HomeView extends StackedView<HomeViewModel> {
   @override
   Future<void> onViewModelReady(HomeViewModel viewModel) async {
     await viewModel.init();
-
     super.onViewModelReady(viewModel);
   }
 
   @override
-  void onDispose(HomeViewModel viewModel) {
-    viewModel.refetchData = true;
-    super.onDispose(viewModel);
-  }
-
-  @override
-  bool get createNewViewModelOnInsert => true;
+  bool get createNewViewModelOnInsert => false;
 
   @override
   bool get disposeViewModel => false;
@@ -53,7 +45,7 @@ class HomeView extends StackedView<HomeViewModel> {
       floatingActionButton: floatActionButton(),
       title: 'CARDS',
       body: ScaffoldListWrapper(
-        isBusy: false,
+        isBusy: (viewModel.isBusy && viewModel.digitalCards.isEmpty),
         emptyIndicatorWidget: const EZEmptyDisplay(
           icon: Icon(Icons.error_rounded, size: 30),
           title: "Ooops! looks empty here",

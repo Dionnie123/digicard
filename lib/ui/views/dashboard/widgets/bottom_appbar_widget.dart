@@ -18,27 +18,38 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     final viewModel = getParentViewModel<DashboardViewModel>(context);
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.grey[800],
-      currentIndex: viewModel.currentIndex,
-      onTap: (i) => viewModel.setIndex(i),
-      items: const [
-        BottomNavigationBarItem(
-          label: 'Home',
-          icon: Icon(Icons.art_track),
+    return NavigationBar(
+      onDestinationSelected: (i) =>
+          i == viewModel.currentIndex ? null : viewModel.setIndex(i),
+      selectedIndex: viewModel.currentIndex,
+      destinations: <Widget>[
+        NavigationDestination(
+          icon: Image.asset(
+            'assets/icons/cards.png',
+            width: 24,
+          ),
+          label: 'Cards',
         ),
-        BottomNavigationBarItem(
+        NavigationDestination(
+          icon: Image.asset(
+            'assets/icons/scan.png',
+            width: 24,
+          ),
           label: 'Scan',
-          icon: Icon(Icons.art_track),
         ),
-        BottomNavigationBarItem(
+        NavigationDestination(
+          icon: Image.asset(
+            'assets/icons/contacts.png',
+            width: 24,
+          ),
           label: 'Contacts',
-          icon: Icon(Icons.art_track),
         ),
-        BottomNavigationBarItem(
+        NavigationDestination(
+          icon: Image.asset(
+            'assets/icons/settings.png',
+            width: 24,
+          ),
           label: 'Settings',
-          icon: Icon(Icons.art_track),
         ),
       ],
     );

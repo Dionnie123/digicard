@@ -8,6 +8,11 @@ class UserService with ListenableServiceMixin {
   imported to any part of the app just because the user info is needed 
   */
   final ReactiveValue<User?> _user = ReactiveValue<User?>(null);
+  UserService() {
+    listenToReactiveValues([
+      _user,
+    ]);
+  }
   User? get user => _user.value ?? _supabase.auth.currentUser;
 
   String? get userId => _supabase.auth.currentUser?.id;
@@ -18,9 +23,7 @@ class UserService with ListenableServiceMixin {
 
   bool get isPresent => user != null ? true : false;
 
-  UserService() {
-    listenToReactiveValues([
-      _user,
-    ]);
+  void clearData() {
+    _user.value = null;
   }
 }

@@ -7,9 +7,9 @@ import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
+import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
-import 'package:reactive_links_picker/reactive_links_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -20,8 +20,6 @@ class HomeViewModel extends ReactiveViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<RouterService>();
   final _digitalCardService = locator<DigitalCardService>();
-
-  bool refetchData = true;
 
   @override
   List<ListenableServiceMixin> get listenableServices => [
@@ -71,12 +69,16 @@ class HomeViewModel extends ReactiveViewModel {
   }
 
   Future init() async {
-    print("INIT");
     await runBusyFuture(
       Future.wait([
         _digitalCardService.getAll(),
       ]),
       throwException: true,
     );
+/*     EasyThrottle.throttle(
+        'my-debouncer', // <-- An ID for this particular debouncer
+        const Duration(seconds: 4), // <-- The debounce duration
+
+        () async => ); */
   }
 }

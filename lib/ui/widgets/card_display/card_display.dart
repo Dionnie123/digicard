@@ -3,6 +3,8 @@ import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/common/theme.dark.dart';
 import 'package:digicard/ui/common/theme.light.dart';
 import 'package:digicard/ui/widgets/card_display/widgets/classic_card.dart';
+import 'package:digicard/ui/widgets/card_display/widgets/columns_separated.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
@@ -53,64 +55,58 @@ class CardDisplay extends StackedView<CardDisplayModel> {
             ),
       child: Center(
         child: SizedBox(
-          width: isMobile(context) ? double.infinity : 440,
+          width:
+              MediaQuery.of(context).size.width < 440 ? double.infinity : 440,
           child: Column(
             children: [
               ClassicCard(allowDownloadQRCode: allowDownloadQRCode, card: card),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 15),
-                child: Column(
-                  children: [
-                    if (allowAddToContacts)
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: FilledButton(
-                            style: ButtonStyle(
-                                foregroundColor: const MaterialStatePropertyAll(
-                                    Colors.white),
-                                backgroundColor:
-                                    MaterialStatePropertyAll(colorTheme)),
-                            onPressed: () async {
-                              await viewModel.addToContacts();
-                            },
-                            child: const Text("Add to Contacts")),
-                      ),
-                    vSpaceRegular,
-                    if (allowDownloadVCF)
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: FilledButton(
-                            style: ButtonStyle(
-                                foregroundColor: const MaterialStatePropertyAll(
-                                    Colors.white),
-                                backgroundColor:
-                                    MaterialStatePropertyAll(colorTheme)),
-                            onPressed: () async {
-                              await viewModel.downloadVCF();
-                            },
-                            child: const Text("Download VCF")),
-                      ),
-                    vSpaceRegular,
-                    if (allowDownloadQRCode)
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: FilledButton(
-                            style: ButtonStyle(
-                                foregroundColor: const MaterialStatePropertyAll(
-                                    Colors.white),
-                                backgroundColor:
-                                    MaterialStatePropertyAll(colorTheme)),
-                            onPressed: () {
-                              viewModel.downloadQRCode(context);
-                            },
-                            child: const Text("Download QR")),
-                      )
-                  ],
-                ),
-              ),
+              ColumnSeparated(children: [
+                if (allowAddToContacts && !kIsWeb)
+                  SizedBox(
+                    width: double.infinity,
+                    height: 45,
+                    child: FilledButton(
+                        style: ButtonStyle(
+                            foregroundColor:
+                                const MaterialStatePropertyAll(Colors.white),
+                            backgroundColor:
+                                MaterialStatePropertyAll(colorTheme)),
+                        onPressed: () async {
+                          await viewModel.addToContacts();
+                        },
+                        child: const Text("Add to Contacts")),
+                  ),
+                if (allowDownloadVCF)
+                  SizedBox(
+                    width: double.infinity,
+                    height: 45,
+                    child: FilledButton(
+                        style: ButtonStyle(
+                            foregroundColor:
+                                const MaterialStatePropertyAll(Colors.white),
+                            backgroundColor:
+                                MaterialStatePropertyAll(colorTheme)),
+                        onPressed: () async {
+                          await viewModel.downloadVCF();
+                        },
+                        child: const Text("Download VCF")),
+                  ),
+                if (allowDownloadQRCode)
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: FilledButton(
+                        style: ButtonStyle(
+                            foregroundColor:
+                                const MaterialStatePropertyAll(Colors.white),
+                            backgroundColor:
+                                MaterialStatePropertyAll(colorTheme)),
+                        onPressed: () {
+                          viewModel.downloadQRCode(context);
+                        },
+                        child: const Text("Download QR")),
+                  )
+              ])
             ],
           ),
         ),

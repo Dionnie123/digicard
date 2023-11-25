@@ -8,9 +8,6 @@ class ColumnSeparated extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    children.removeWhere((element) {
-      return element is SizedBox;
-    });
     for (var i = 0; i < children.length; i++) {
       if (i == 0) {}
       if (i % 2 != 0) {

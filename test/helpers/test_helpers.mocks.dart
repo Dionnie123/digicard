@@ -748,6 +748,15 @@ class MockDigitalCardService extends _i1.Mock
       ) as int);
 
   @override
+  void clearData() => super.noSuchMethod(
+        Invocation.method(
+          #clearData,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i6.Future<String?> imageSave(
     _i10.Uint8List? image, {
     required String? folderPath,
@@ -915,6 +924,15 @@ class MockContactsService extends _i1.Mock implements _i11.ContactsService {
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
+
+  @override
+  void clearData() => super.noSuchMethod(
+        Invocation.method(
+          #clearData,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   _i6.Future<dynamic> getAll() => (super.noSuchMethod(
@@ -1196,6 +1214,15 @@ class MockUserService extends _i1.Mock implements _i17.UserService {
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
+
+  @override
+  void clearData() => super.noSuchMethod(
+        Invocation.method(
+          #clearData,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   void listenToReactiveValues(List<dynamic>? reactiveValues) =>

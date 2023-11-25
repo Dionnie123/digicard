@@ -27,6 +27,7 @@ class _SorterListState extends State<SorterList> {
         widget.items.removeAt(draggingIndex);
         widget.items.insert(newPositionIndex, draggedItem);
       });
+
       return true;
     }
 
