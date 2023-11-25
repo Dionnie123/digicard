@@ -1,3 +1,4 @@
+import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/common/theme.dark.dart';
@@ -12,14 +13,8 @@ import 'card_display_model.dart';
 
 class CardDisplay extends StackedView<CardDisplayModel> {
   final DigitalCardDTO card;
-  final bool allowAddToContacts;
-  final bool allowDownloadQRCode;
-  final bool allowDownloadVCF;
-  const CardDisplay(this.card,
-      {required this.allowAddToContacts,
-      required this.allowDownloadQRCode,
-      required this.allowDownloadVCF,
-      super.key});
+  final DisplayMode mode;
+  const CardDisplay(this.card, {required this.mode, super.key});
 
   @override
   void onViewModelReady(CardDisplayModel viewModel) {
@@ -59,11 +54,11 @@ class CardDisplay extends StackedView<CardDisplayModel> {
               MediaQuery.of(context).size.width < 440 ? double.infinity : 440,
           child: Column(
             children: [
-              ClassicCard(allowDownloadQRCode: allowDownloadQRCode, card: card),
+              ClassicCard(mode: mode, card: card),
               ColumnSeparated(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                   children: [
-                    if (allowAddToContacts && !kIsWeb)
+                    if (mode == DisplayMode.view && !kIsWeb)
                       SizedBox(
                         width: double.infinity,
                         height: 45,
@@ -78,7 +73,7 @@ class CardDisplay extends StackedView<CardDisplayModel> {
                             },
                             child: const Text("Add to Contacts")),
                       ),
-                    if (allowDownloadVCF)
+                    if (mode == DisplayMode.view)
                       SizedBox(
                         width: double.infinity,
                         height: 45,
@@ -93,7 +88,7 @@ class CardDisplay extends StackedView<CardDisplayModel> {
                             },
                             child: const Text("Download VCF")),
                       ),
-                    if (allowDownloadQRCode)
+                    if (mode == DisplayMode.view)
                       SizedBox(
                         width: double.infinity,
                         height: 45,

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/app/env/env.dart';
 import 'package:digicard/app/extensions/digital_card_extension.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
@@ -18,9 +19,8 @@ import 'columns_separated.dart';
 
 class ClassicCard extends StatelessWidget {
   final DigitalCardDTO card;
-  final bool allowDownloadQRCode;
-  const ClassicCard(
-      {super.key, required this.card, required this.allowDownloadQRCode});
+  final DisplayMode mode;
+  const ClassicCard({super.key, required this.card, required this.mode});
 
   @override
   Widget build(BuildContext context) {
@@ -70,26 +70,26 @@ class ClassicCard extends StatelessWidget {
                   if (card.logoUrl is String &&
                       card.logoUrl.toString().isNotEmpty)
                     Container(
-                      width: size.maxWidth * 0.2,
-                      height: size.maxWidth * 0.2,
+                      width: size.maxWidth * 0.25,
+                      height: size.maxWidth * 0.25,
                       decoration: BoxDecoration(
-                        border: Border.all(color: colorTheme.darken()),
-                        color: colorTheme.darken(),
+                        //  border: Border.all(color: colorTheme.darken()),
+                        //   color: colorTheme.darken(),
                         image: DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                             image: NetworkImage(card.logoHttpUrl)),
                         //   shape: BoxShape.circle,
                       ),
                     ),
                   if (card.logoFile is Uint8List && card.logoFile != null)
                     Container(
-                      width: size.maxWidth * 0.2,
-                      height: size.maxWidth * 0.2,
+                      width: size.maxWidth * 0.25,
+                      height: size.maxWidth * 0.25,
                       decoration: BoxDecoration(
-                        border: Border.all(color: colorTheme.darken()),
-                        color: colorTheme.darken(),
+                        //   border: Border.all(color: colorTheme.darken()),
+                        //    color: colorTheme.darken(),
                         image: DecorationImage(
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                           image: MemoryImage(
                             card.logoFile ?? Uint8List(0),
                           ),
@@ -171,7 +171,7 @@ class ClassicCard extends StatelessWidget {
 
     Widget? qrCodeLogo() {
       return (card.logoFile is bool && card.logoFile == false) ||
-              allowDownloadQRCode == false
+              mode == DisplayMode.edit
           ? null
           : Center(
               child: Stack(
@@ -205,7 +205,7 @@ class ClassicCard extends StatelessWidget {
     }
 
     Widget qrCode() {
-      return allowDownloadQRCode == false
+      return mode == DisplayMode.edit
           ? const SizedBox.shrink()
           : ClipRRect(
               borderRadius: BorderRadius.circular(8),
@@ -298,7 +298,7 @@ class ClassicCard extends StatelessWidget {
             ColumnSeparated(children: [
               if (headline() != null) headline()!,
               if (customLinks() != null) customLinks()!,
-              if (allowDownloadQRCode) qrCode(),
+              if (mode == DisplayMode.edit) qrCode(),
             ]),
             ad(),
           ],

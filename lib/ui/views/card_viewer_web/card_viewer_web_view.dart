@@ -1,6 +1,6 @@
+import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/ui/views/card_viewer_web/card_viewer_web_viewmodel.dart';
 import 'package:digicard/ui/widgets/card_display/card_display.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -33,16 +33,14 @@ class CardViewerWebView extends StackedView<CardViewerWebViewModel> {
       extendBodyBehindAppBar: true,
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator())
-          : viewModel.card == null || uuid == null
+          : viewModel.card == null && uuid == null
               ? const Center(
                   child: Text("Card not Found"),
                 )
               : SingleChildScrollView(
                   child: CardDisplay(
                     viewModel.card ?? DigitalCardDTO.blank(),
-                    allowAddToContacts: !kIsWeb,
-                    allowDownloadQRCode: true,
-                    allowDownloadVCF: true,
+                    mode: DisplayMode.view,
                   ),
                 ),
     );

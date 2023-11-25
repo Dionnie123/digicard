@@ -81,7 +81,7 @@ class FieldItem extends StatelessWidget {
         formControl: formGroup.control('value') as FormControl,
         showErrors: (control) => false,
         decoration: textDecoration.copyWith(
-          prefixIcon: const Padding(
+            /*        prefixIcon: const Padding(
             padding: EdgeInsets.only(left: 12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -93,8 +93,8 @@ class FieldItem extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ),
+          ), */
+            ),
         onChanged: (control) {
           onUpdate(
             index,

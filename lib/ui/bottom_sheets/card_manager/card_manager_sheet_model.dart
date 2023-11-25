@@ -61,7 +61,8 @@ class CardManagerSheetModel extends ReactiveViewModel {
 
   view(DigitalCardDTO card) async {
     _bottomSheetService.completeSheet(SheetResponse());
-    await _navigationService.navigateToCardViewerView(card: card);
+    await _navigationService.navigateToCardViewerView(
+        card: card, mode: DisplayMode.view);
   }
 
   edit(DigitalCardDTO card) async {

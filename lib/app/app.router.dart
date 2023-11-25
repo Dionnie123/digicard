@@ -107,12 +107,12 @@ class StackedRouterWeb extends _i13.RootStackRouter {
       );
     },
     CardViewerViewRoute.name: (routeData) {
-      final args = routeData.argsAs<CardViewerViewArgs>(
-          orElse: () => const CardViewerViewArgs());
+      final args = routeData.argsAs<CardViewerViewArgs>();
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i9.CardViewerView(
           card: args.card,
+          mode: args.mode,
           key: args.key,
         ),
       );
@@ -337,12 +337,14 @@ class CardEditorViewArgs {
 class CardViewerViewRoute extends _i13.PageRouteInfo<CardViewerViewArgs> {
   CardViewerViewRoute({
     _i15.DigitalCardDTO? card,
+    required _i16.DisplayMode mode,
     _i14.Key? key,
   }) : super(
           CardViewerViewRoute.name,
           path: '/card-viewer-view',
           args: CardViewerViewArgs(
             card: card,
+            mode: mode,
             key: key,
           ),
         );
@@ -353,16 +355,19 @@ class CardViewerViewRoute extends _i13.PageRouteInfo<CardViewerViewArgs> {
 class CardViewerViewArgs {
   const CardViewerViewArgs({
     this.card,
+    required this.mode,
     this.key,
   });
 
   final _i15.DigitalCardDTO? card;
 
+  final _i16.DisplayMode mode;
+
   final _i14.Key? key;
 
   @override
   String toString() {
-    return 'CardViewerViewArgs{card: $card, key: $key}';
+    return 'CardViewerViewArgs{card: $card, mode: $mode, key: $key}';
   }
 }
 
@@ -494,12 +499,14 @@ extension RouterStateExtension on _i12.RouterService {
 
   Future<dynamic> navigateToCardViewerView({
     _i15.DigitalCardDTO? card,
+    required _i16.DisplayMode mode,
     _i14.Key? key,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       CardViewerViewRoute(
         card: card,
+        mode: mode,
         key: key,
       ),
       onFailure: onFailure,
@@ -608,12 +615,14 @@ extension RouterStateExtension on _i12.RouterService {
 
   Future<dynamic> replaceWithCardViewerView({
     _i15.DigitalCardDTO? card,
+    required _i16.DisplayMode mode,
     _i14.Key? key,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       CardViewerViewRoute(
         card: card,
+        mode: mode,
         key: key,
       ),
       onFailure: onFailure,

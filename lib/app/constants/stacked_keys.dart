@@ -1,6 +1,6 @@
-enum DisplayType {
-  private,
-  public,
+enum DisplayMode {
+  edit,
+  view,
 }
 
 enum ActionType {

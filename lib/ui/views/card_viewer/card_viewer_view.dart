@@ -1,3 +1,4 @@
+import 'package:digicard/app/constants/stacked_keys.dart';
 import 'package:digicard/ui/widgets/card_display/card_display.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -6,7 +7,9 @@ import 'card_viewer_viewmodel.dart';
 
 class CardViewerView extends StackedView<CardViewerViewModel> {
   final DigitalCardDTO? card;
-  const CardViewerView({this.card, Key? key}) : super(key: key);
+  final DisplayMode mode;
+  const CardViewerView({this.card, required this.mode, Key? key})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -28,9 +31,7 @@ class CardViewerView extends StackedView<CardViewerViewModel> {
           : SingleChildScrollView(
               child: CardDisplay(
                 card ?? DigitalCardDTO.blank(),
-                allowAddToContacts: true,
-                allowDownloadQRCode: true,
-                allowDownloadVCF: true,
+                mode: mode,
               ),
             ),
     );

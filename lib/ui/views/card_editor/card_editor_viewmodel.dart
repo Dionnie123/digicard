@@ -83,7 +83,10 @@ class CardEditorViewModel extends ReactiveViewModel {
   }
 
   view(DigitalCardDTO card) async {
-    await _navigationService.navigateWithTransition(CardViewerView(card: card));
+    await _navigationService.navigateWithTransition(CardViewerView(
+      card: card,
+      mode: DisplayMode.edit,
+    ));
   }
 
   Future<void> save(DigitalCardDTO formValue) async {
