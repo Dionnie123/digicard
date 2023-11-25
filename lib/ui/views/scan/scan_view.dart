@@ -1,6 +1,5 @@
 import 'package:digicard/ui/common/app_colors.dart';
 import 'package:digicard/ui/views/dashboard/widgets/page_scaffold.dart';
-import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/flutter_ez_core.dart';
 import 'package:stacked/stacked.dart';

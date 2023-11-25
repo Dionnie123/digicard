@@ -1,5 +1,4 @@
 import 'package:digicard/app/app.locator.dart';
-import 'package:digicard/ui/views/contacts/contacts_view.dart';
 import 'package:digicard/ui/views/contacts/contacts_viewmodel.dart';
 import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
 import 'package:digicard/ui/views/home/home_view.dart';
@@ -34,11 +33,11 @@ class DashboardView extends StackedView<DashboardViewModel> {
         return const ScanView(
           key: ValueKey('ScanView'),
         );
-      case 2:
+      /*      case 2:
         return const ContactsView(
           key: ValueKey('ContactsView'),
-        );
-      case 3:
+        ); */
+      case 2:
         return const SettingsView(
           key: ValueKey('SettingsView'),
         );

@@ -39,7 +39,7 @@ class ScanQRCodeView extends StackedView<ScanViewModel> {
                     borderRadius: 10,
                     borderLength: 30,
                     borderWidth: 10,
-                    cutOutSize: 200),
+                    cutOutSize: 300),
               ));
         });
   }

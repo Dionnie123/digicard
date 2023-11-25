@@ -2,7 +2,6 @@ import 'package:digicard/ui/views/dashboard/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_appbar_widget.dart';
-import 'page_scaffold.dart';
 
 class SplitView extends StatelessWidget {
   final int selectedIndex;

@@ -1,6 +1,4 @@
-import 'package:digicard/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:digicard/ui/views/dashboard/widgets/page_scaffold.dart';
-import 'package:digicard/ui/views/dashboard/widgets/split_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/widgets/settings_ui.dart';
 import 'package:stacked/stacked.dart';

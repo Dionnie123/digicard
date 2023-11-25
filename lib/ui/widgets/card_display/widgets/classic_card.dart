@@ -8,7 +8,6 @@ import 'package:digicard/ui/widgets/card_display/card_display_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ez_core/extensions/color_extension.dart';
 import 'package:flutter_ez_core/extensions/string_extension.dart';
-import 'package:flutter_ez_core/helpers/ui_helpers.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:reactive_links_picker/reactive_links_picker.dart';
 import 'package:screenshot/screenshot.dart';

@@ -94,7 +94,7 @@ class CardDisplay extends StackedView<CardDisplayModel> {
                 if (allowDownloadQRCode)
                   SizedBox(
                     width: double.infinity,
-                    height: 50,
+                    height: 45,
                     child: FilledButton(
                         style: ButtonStyle(
                             foregroundColor:

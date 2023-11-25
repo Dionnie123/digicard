@@ -7,8 +7,7 @@ import 'package:digicard/app/app.logger.dart';
 import 'package:digicard/app/models/digital_card_dto.dart';
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/services/digital_card_service.dart';
-import 'package:easy_debounce/easy_debounce.dart';
-import 'package:easy_debounce/easy_throttle.dart';
+
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';

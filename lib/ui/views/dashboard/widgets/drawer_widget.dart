@@ -1,6 +1,8 @@
 import 'package:digicard/app/app.locator.dart';
 import 'package:digicard/app/app.router.dart';
+import 'package:digicard/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'drawer_widget.menu.dart';
@@ -14,9 +16,10 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
-  final navigationService = locator<RouterService>();
   @override
   Widget build(BuildContext context) {
+    final viewModel = getParentViewModel<DashboardViewModel>(context);
+    int currentIndex = viewModel.currentIndex;
     return Drawer(
       child: SafeArea(
         child: SingleChildScrollView(
@@ -42,14 +45,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 const SizedBox(height: 15.0),
                 DrawerMenu(
-                  leading: Image.asset(
-                    'assets/icons/cards.png',
-                    width: 24,
-                  ),
-                  selected: widget.selectedIndex == 0,
+                  leading: Image.asset('assets/icons/cards.png', width: 24),
+                  selected: currentIndex == 0,
                   title: "Cards",
                   onTap: () async {
-                    navigationService.navigateToHomeView();
+                    viewModel.setIndex(0);
                   },
                 ),
                 const SizedBox(height: 8.0),
@@ -58,33 +58,33 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       'assets/icons/scan.png',
                       width: 24,
                     ),
-                    selected: widget.selectedIndex == 1,
+                    selected: currentIndex == 1,
                     title: "Scan",
                     onTap: () async {
-                      navigationService.navigateToScanView();
+                      viewModel.setIndex(1);
                     }),
                 const SizedBox(height: 8.0),
-                DrawerMenu(
+                /*    DrawerMenu(
                   leading: Image.asset(
                     'assets/icons/contacts.png',
                     width: 24,
                   ),
-                  selected: widget.selectedIndex == 2,
+                  selected: currentIndex == 2,
                   title: "Contacts",
                   onTap: () async {
-                    navigationService.navigateToContactsView();
+                    viewModel.setIndex(2);
                   },
-                ),
+                ), */
                 const SizedBox(height: 8.0),
                 DrawerMenu(
                   leading: Image.asset(
                     'assets/icons/settings.png',
                     width: 24,
                   ),
-                  selected: widget.selectedIndex == 3,
+                  selected: currentIndex == 2,
                   title: "Settings",
                   onTap: () async {
-                    navigationService.navigateToSettingsView();
+                    viewModel.setIndex(2);
                   },
                 ),
               ]),

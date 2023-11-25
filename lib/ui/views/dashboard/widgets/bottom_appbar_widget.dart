@@ -1,9 +1,6 @@
-import 'package:digicard/app/app.locator.dart';
-import 'package:digicard/app/app.router.dart';
 import 'package:digicard/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class BottomAppBarWidget extends StatefulWidget {
   final int? selectedIndex;
@@ -37,13 +34,13 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
           ),
           label: 'Scan',
         ),
-        NavigationDestination(
+        /*     NavigationDestination(
           icon: Image.asset(
             'assets/icons/contacts.png',
             width: 24,
           ),
           label: 'Contacts',
-        ),
+        ), */
         NavigationDestination(
           icon: Image.asset(
             'assets/icons/settings.png',

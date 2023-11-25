@@ -20,20 +20,12 @@ class _ImageSourceDialogState extends State<ImageSourceDialog> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> buttons = [
-      ElevatedButton(
-          style: ButtonStyle(
-              foregroundColor: const MaterialStatePropertyAll(Colors.white),
-              backgroundColor:
-                  MaterialStatePropertyAll(Theme.of(context).primaryColor)),
+      FilledButton(
           onPressed: () async {
             Navigator.of(context).pop(ImageSource.gallery);
           },
           child: const Text("Upload Image")),
-      ElevatedButton(
-          style: ButtonStyle(
-              foregroundColor: const MaterialStatePropertyAll(Colors.white),
-              backgroundColor:
-                  MaterialStatePropertyAll(Theme.of(context).primaryColor)),
+      FilledButton(
           onPressed: () async {
             Navigator.of(context).pop(ImageSource.camera);
           },
