@@ -288,7 +288,7 @@ class ClassicCard extends StatelessWidget {
                     children: [
                       if (fullName() != null) fullName()!,
                       if (position() != null) position()!,
-                      if (company() != null) position()!,
+                      if (company() != null) company()!,
                     ],
                   )),
                   if (circleImage(size) != null) circleImage(size)!

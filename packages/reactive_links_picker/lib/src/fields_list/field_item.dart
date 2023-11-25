@@ -70,8 +70,6 @@ class FieldItem extends StatelessWidget {
         children: [
           dragHandle,
           const SizedBox(width: 12),
-          Transform.scale(scale: 0.8, child: const Icon(Icons.info_rounded)),
-          const SizedBox(width: 7),
           Text("${customLink['label']}")
         ],
       );
