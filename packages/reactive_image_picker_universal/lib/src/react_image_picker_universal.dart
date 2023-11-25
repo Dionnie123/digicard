@@ -125,7 +125,9 @@ class _ImageSourcePickerState extends State<ImageSourcePicker> {
                     child: Icon(Icons.upload_rounded),
                   ),
                 ),
-                if (widget.imageUrl != null && widget.value != false)
+                if (widget.imageUrl != null &&
+                    !widget.imageUrl.toString().endsWith("/null") &&
+                    widget.value != false)
                   Container(
                     color: Colors.grey,
                     child: Image.network(

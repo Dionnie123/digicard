@@ -29,7 +29,7 @@ class _ImageSourceDialogState extends State<ImageSourceDialog> {
           onPressed: () async {
             Navigator.of(context).pop(ImageSource.camera);
           },
-          child: const Text("Take an Image")),
+          child: const Text("Open Camera")),
       if (widget.showRemoveImage)
         OutlinedButton(
             onPressed: () {
